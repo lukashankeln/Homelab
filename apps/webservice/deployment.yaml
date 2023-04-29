@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webservice
+  labels:
+    app: webservice
+    type: webservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webservice
+      type: webservice
+  template:
+    metadata:
+      labels:
+        app: webservice
+        type: webservice
+    spec:
+      containers:
+      - name: webservice
+        image: 192.168.178.43:31000/webservice:1.2.2
+        imagePullPolicy: "IfNotPresent"
+        ports:
+          - containerPort: 5090
