@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: seq-application
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/lukashankeln/Homelab.git
+    targetRevision: HEAD
+    path: apps/seq
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: seq
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true

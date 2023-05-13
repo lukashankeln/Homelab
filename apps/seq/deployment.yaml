@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seq
+  labels:
+    app: seq
+    type: logging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: seq
+      type: logging
+  template:
+    metadata:
+      labels:
+        app: seq
+        type: logging
+    spec:
+      containers:
+      - name: seq
+        image: datalust/seq:2023.1
+        imagePullPolicy: "IfNotPresent"
+        ports:
+          - containerPort: 80
+          - containerPort: 5341
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: seq
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 32100
+  selector:
+    app: seq
+    type: logging
