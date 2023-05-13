@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: seq
+  name: seq-service-nodeport
 spec:
   type: NodePort
   ports:
@@ -42,3 +42,19 @@ spec:
   selector:
     app: seq
     type: logging
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: seq-service
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 5341 # Backend Port
+      port: 5341       # Port  Service is exposing
+  selector: 
+    app: seq
+    type: logging
+
