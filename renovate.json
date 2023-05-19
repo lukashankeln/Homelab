@@ -4,6 +4,10 @@
     "config:base"
   ],
   "kubernetes": {
-    "fileMatch": ["\\.yaml$"]
+    "fileMatch": [
+      "apps/metallb/.+\\.yaml$",
+      "apps/postgres/.+\\.yaml$",
+      "apps/seq/.+\\.yaml$"
+    ]
   }
 }
