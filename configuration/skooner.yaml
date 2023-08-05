@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: skooner-sa
+  namespace: kube-system
+
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -23,4 +25,5 @@ metadata:
   name: skooner-secret
   annotations:
     kubernetes.io/service-account.name: skooner-sa
+  namespace: kube-system
 type: kubernetes.io/service-account-token
