@@ -26,6 +26,7 @@ spec:
           timeoutSeconds: 30
       nodeSelector:
         'kubernetes.io/os': linux
+      serviceAccountName: skooner-sa
 
 ---
 kind: Service
