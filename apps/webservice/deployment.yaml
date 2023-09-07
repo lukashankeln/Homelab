@@ -20,6 +20,11 @@ spec:
       containers:
       - name: webservice
         image: 192.168.178.43:31000/webservice:1.4.4
+        env:
+          - name: DOTNET_gcServe
+          value: 1
+          - name: DOTNET_GCHeapCount
+          value: c
         imagePullPolicy: "IfNotPresent"
         ports:
           - containerPort: 5090
