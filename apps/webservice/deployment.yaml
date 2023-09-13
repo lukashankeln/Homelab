@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: webservice
-        image: 192.168.178.43:31000/webservice:1.5.3
+        image: 192.168.178.43:31000/webservice:1.5.4
         env:
         - name: DOTNET_gcServer
           value: "1"
