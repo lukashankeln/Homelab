@@ -24,24 +24,8 @@ spec:
         
         ui:
           service:
-            port: 5190
+            nodePort: 5190
           title: "Private Registry"
         
         registry:
           enabled: true
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: docker-registry-ui
-  labels:
-    app: docker-registry-ui
-spec:
-  type: NodePort
-  ports:
-   - port: 5190
-     nodePort: 32500
-  selector:
-   name: docker-registry-ui
