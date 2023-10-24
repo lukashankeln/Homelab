@@ -1,15 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: docker-ui-application
+  name: docker-ui
   namespace: argocd
 spec:
   project: default
-  revisionHistoryLimit: 1
-  source:
-    repoURL: https://github.com/lukashankeln/Homelab.git
-    targetRevision: HEAD
-    path: apps/docker-ui
   destination:
     server: https://kubernetes.default.svc
     namespace: docker-ui
@@ -20,3 +15,29 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: true
+  source:
+    repoURL: https://helm.joxit.dev
+    targetRevision: 1.1.3
+    chart: docker-registry-ui
+    helm:
+      values: |
+        
+        ui:
+          dockerRegistryUrl: http://192.168.178.43:32550
+          deleteImages: true
+          showContentDigest: true
+          service:
+            nodePort: 32500
+            type: NodePort
+          title: "Private Registry"
+        
+        registry:
+          enabled: true
+          extraEnv:
+            - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin
+              value: '[http://192.168.178.43:32500]'
+            - name: REGISTRY_STORAGE_DELETE_ENABLED
+              value: 'true'
+          service:
+            nodePort: 32550
+            type: NodePort
