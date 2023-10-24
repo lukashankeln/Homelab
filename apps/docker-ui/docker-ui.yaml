@@ -33,6 +33,7 @@ spec:
           enabled: true
           extraEnv:
             REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin: '[http://192.168.178.43:32500]'
+            REGISTRY_STORAGE_DELETE_ENABLED: 'true'
           service:
             nodePort: 32550
             type: NodePort
