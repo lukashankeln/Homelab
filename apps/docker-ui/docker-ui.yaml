@@ -23,7 +23,8 @@ spec:
       values: |
         
         ui:
-          dockerRegistryUrl: http://192.168.178.43:32550
+          dockerRegistryUrl: localhost:32550
+          pullUrl: http://192.168.178.43:32550
           service:
             nodePort: 32500
             type: NodePort
