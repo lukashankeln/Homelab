@@ -25,9 +25,11 @@ spec:
         ui:
           service:
             nodePort: 32500
+            type: NodePort
           title: "Private Registry"
         
         registry:
           enabled: true
           service:
             nodePort: 32550
+            type: NodePort
