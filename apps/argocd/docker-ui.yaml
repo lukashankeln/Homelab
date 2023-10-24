@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: docker-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/lukashankeln/Homelab.git
+    targetRevision: HEAD
+    path: apps/docker-ui
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: docker-ui
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
