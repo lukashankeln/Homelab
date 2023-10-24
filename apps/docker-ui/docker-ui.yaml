@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: docker-ui
-  namespace: docker-ui
+  namespace: argocd
 spec:
   project: default
   destination:
