@@ -27,6 +27,13 @@ spec:
         env:
         - name: ACCEPT_EULA
           value: "Y"
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "250m"
+          limits:
+            memory: "400Mi"
+            cpu: "500m"
 
 
 ---
