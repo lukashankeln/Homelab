@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: skooner
+  namespace: argocd
+spec:
+  project: default
+  revisionHistoryLimit: 1
+  source:
+    repoURL: https://github.com/lukashankeln/Homelab.git
+    targetRevision: HEAD
+    path: apps/skooner
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: skooner
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
