@@ -34,3 +34,10 @@ spec:
             port: 5090
           initialDelaySeconds: 10
           periodSeconds: 30
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "250m"
+          limits:
+            memory: "400Mi"
+            cpu: "250m"
