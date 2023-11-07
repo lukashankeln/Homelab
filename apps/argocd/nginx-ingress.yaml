@@ -7,7 +7,7 @@ spec:
   project: default
   destination:
     server: https://kubernetes.default.svc
-    namespace: docker-ui
+    namespace: ingress-nginx
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
