@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/lukashankeln/Homelab.git
     targetRevision: HEAD
-    path: apps/postgres
+    path: kubernetes/postgres
   destination:
     server: https://kubernetes.default.svc
     namespace: postgres

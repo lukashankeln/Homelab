@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb-application
+  name: skooner
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
   source:
     repoURL: https://github.com/lukashankeln/Homelab.git
     targetRevision: HEAD
-    path: apps/metallb
+    path: kubernetes/skooner
   destination:
     server: https://kubernetes.default.svc
-    namespace: metallb-system
+    namespace: skooner
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

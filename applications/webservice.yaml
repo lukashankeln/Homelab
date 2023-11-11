@@ -1,18 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: skooner
+  name: webservice-application
   namespace: argocd
+  finalizers:
+  - resources-finalizers.argocd.argoproj.io
 spec:
   project: default
   revisionHistoryLimit: 1
   source:
     repoURL: https://github.com/lukashankeln/Homelab.git
     targetRevision: HEAD
-    path: apps/skooner
+    path: kubernetes/webservice
   destination:
     server: https://kubernetes.default.svc
-    namespace: skooner
+    namespace: webservice
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

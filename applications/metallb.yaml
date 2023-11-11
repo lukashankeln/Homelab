@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: seq-application
+  name: metallb-application
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
   source:
     repoURL: https://github.com/lukashankeln/Homelab.git
     targetRevision: HEAD
-    path: apps/seq
+    path: kubernetes/metallb
   destination:
     server: https://kubernetes.default.svc
-    namespace: seq
+    namespace: metallb-system
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

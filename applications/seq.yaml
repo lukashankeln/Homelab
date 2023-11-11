@@ -1,20 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: webservice-application
+  name: seq-application
   namespace: argocd
-  finalizers:
-  - resources-finalizers.argocd.argoproj.io
 spec:
   project: default
   revisionHistoryLimit: 1
   source:
     repoURL: https://github.com/lukashankeln/Homelab.git
     targetRevision: HEAD
-    path: apps/webservice
+    path: kubernetes/seq
   destination:
     server: https://kubernetes.default.svc
-    namespace: webservice
+    namespace: seq
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

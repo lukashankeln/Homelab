@@ -5,15 +5,15 @@
   ],
   "kubernetes": {
     "fileMatch": [
-      "apps/metallb/.+\\.yaml$",
-      "apps/postgres/.+\\.yaml$",
-      "apps/seq/.+\\.yaml$",
-      "apps/skooner/.+\\.yaml$"
+      "kubernetes/metallb/.+\\.yaml$",
+      "kubernetes/postgres/.+\\.yaml$",
+      "kubernetes/seq/.+\\.yaml$",
+      "kubernetes/skooner/.+\\.yaml$"
     ]
   },
   "argocd": {
     "fileMatch": [
-      "apps/argocd/.+\\.yaml$"
+      "applications/.+\\.yaml$"
     ]
   }
 }
