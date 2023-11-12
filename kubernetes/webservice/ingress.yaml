@@ -15,7 +15,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: cluster-ingress
+  name: webservice-ingress
 spec:
   ingressClassName: nginx
   rules:
@@ -29,15 +29,5 @@ spec:
             name: webservice-clusterip
             port:
               number: 5090
-  - host: "seq.luha-dev.server"
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: seq-service
-            port:
-              number: 5341
 
 

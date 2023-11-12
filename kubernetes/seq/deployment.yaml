@@ -65,3 +65,24 @@ spec:
     app: seq
     type: logging
 
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: seq-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "seq.luha-dev.server"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: seq-service
+            port:
+              number: 5341
+
+
