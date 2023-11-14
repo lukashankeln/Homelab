@@ -22,7 +22,6 @@ spec:
     repoURL: https://github.com/lukashankeln/Homelab.git
     targetRevision: feat/create-helm-chart-webapplication
     path: helm/webapplication
-    chart: webapplication
     helm:
       values: |
 
