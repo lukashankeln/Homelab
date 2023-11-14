@@ -1,0 +1,15 @@
+{{- if .Values.nodePort.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.application.name }}-nodeport
+  labels:
+    app: {{ .Values.application.name }}
+spec:
+  type: NodePort
+  ports:
+   - port: {{ .Values.application.port }}
+     nodePort: {{ .Values.nodePort.port }}
+  selector:
+   app: {{ .Values.application.name }}
+{{- end }}

@@ -8,10 +8,6 @@ metadata:
 spec:
   project: default
   revisionHistoryLimit: 1
-  source:
-    repoURL: https://github.com/lukashankeln/Homelab.git
-    targetRevision: HEAD
-    path: kubernetes/webservice
   destination:
     server: https://kubernetes.default.svc
     namespace: webservice
@@ -22,3 +18,26 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: true
+  source:
+    repoURL: https://github.com/lukashankeln/Homelab.git
+    targetRevision: main
+    path: helm/webapplication
+    helm:
+      values: |
+
+        image:
+          repository: "webservice"
+          tag: "1.8.5"
+        application:
+          name: "webservice"
+          port: 5090
+          health:
+            enabled: true
+        nodePort:
+          enabled: true
+          port: 32000
+        clusterip:
+          enabled: true
+        ingress:
+          enabled: true
+          host: "luha.server"
