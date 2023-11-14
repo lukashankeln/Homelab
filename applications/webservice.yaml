@@ -20,7 +20,7 @@ spec:
       selfHeal: true
   source:
     repoURL: https://github.com/lukashankeln/Homelab.git
-    targetRevision: feat/create-helm-chart-webapplication
+    targetRevision: main
     path: helm/webapplication
     helm:
       values: |
