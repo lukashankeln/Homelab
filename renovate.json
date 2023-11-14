@@ -15,5 +15,10 @@
     "fileMatch": [
       "applications/.+\\.yaml$"
     ]
+  },
+  "helmv3": {
+    "fileMatch": [
+      "applications/.+\\.yaml$"
+    ]
   }
 }
