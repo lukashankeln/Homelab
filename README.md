@@ -57,3 +57,4 @@ data:
   POSTGRES_USER: <user>
   POSTGRES_PASSWORD: <password>
 ```
+
