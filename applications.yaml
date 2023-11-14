@@ -26,7 +26,7 @@ spec:
   revisionHistoryLimit: 1
   source:
     repoURL: https://github.com/lukashankeln/Homelab.git
-    targetRevision: HEAD
+    targetRevision: feat/create-helm-chart-webapplication
     path: applications
   destination:
     server: https://kubernetes.default.svc

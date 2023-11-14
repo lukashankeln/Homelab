@@ -20,7 +20,7 @@ spec:
       selfHeal: true
   source:
     repoURL: file://../helm/webapplication
-    targetRevision: HEAD
+    targetRevision: feat/create-helm-chart-webapplication
     chart: webapplication
     helm:
       values: |
