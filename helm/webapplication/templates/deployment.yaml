@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.application.name }}
+  labels:
+    app: {{ .Values.application.name }}
+    type: {{ .Values.application.type }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.application.name }}
+      type: {{ .Values.application.type }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application.name }}
+        type: {{ .Values.application.type }}
+    spec:
+      containers:
+      - name: {{ .Values.application.name }}
+        image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: DOTNET_gcServer
+          value: "1"
+        - name: DOTNET_GCHeapCount
+          value: "c"
+        ports:
+          - containerPort: {{ .Values.application.port }}
+        {{- if .Values.application.health.enabled }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.application.health.path }}
+            port: {{ .Values.application.port }}
+          initialDelaySeconds: {{ .Values.application.health.initialDelaySeconds }}
+          periodSeconds: {{ .Values.application.health.periodSeconds }}
+        {{- end }}
+        resources:
+          requests:
+            memory: {{ .Values.application.resources.requests.memory }}
+            cpu: {{ .Values.application.resources.requests.cpu }}
+          limits:
+            memory: {{ .Values.application.resources.limits.memory }}
+            cpu: {{ .Values.application.resources.limits.cpu }}

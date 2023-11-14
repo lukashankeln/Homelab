@@ -1,0 +1,13 @@
+{{- if .Values.clusterip.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.application.name }}-clusterip
+spec:
+  selector:
+    app: {{ .Values.application.name }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.application.port }}
+      targetPort: {{ .Values.application.port }}
+{{- end }}
