@@ -27,7 +27,7 @@ spec:
 
         image:
           repository: "webservice"
-          tag: "2.0.1"
+          tag: "2.1.0"
         application:
           name: "webservice"
           port: 5090
