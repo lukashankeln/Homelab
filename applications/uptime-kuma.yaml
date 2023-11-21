@@ -33,7 +33,7 @@ spec:
           tag: 1.23.4
         ingress:
           enabled: true
-          ingressClassName: nginx
+          className: nginx
           hosts:
             - host: status.luha.server
               paths:
