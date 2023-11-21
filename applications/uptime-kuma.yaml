@@ -51,17 +51,6 @@ spec:
         volume:
           enabled: true
           size: 1Gi
-        podSecurityContext:
-          fsGroup: 1000
-          runAsUser: 1000
-          runAsGroup: 1000
-        securityContext:
-          capabilities:
-            drop:
-            - ALL
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
         serviceAccount:
           create: true
           name: "uptime-kuma"
