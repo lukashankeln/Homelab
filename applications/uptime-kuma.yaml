@@ -43,11 +43,6 @@ spec:
           # a default port must be set. required by container
           - name: "UPTIME_KUMA_PORT"
             value: "3001"
-          - name: "PUID"
-            value: "1000"
-          - name: "PGID"
-            value: "1000"
-        useDeploy: false
         volume:
           enabled: true
           size: 1Gi
