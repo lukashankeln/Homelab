@@ -35,7 +35,7 @@ spec:
           enabled: true
           className: nginx
           hosts:
-            - host: status.luha.dev
+            - host: status.luha.server
               paths:
                 - path: /
                   pathType: ImplementationSpecific

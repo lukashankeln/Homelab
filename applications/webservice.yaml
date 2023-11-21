@@ -40,4 +40,4 @@ spec:
           enabled: true
         ingress:
           enabled: true
-          host: "luha.dev"
+          host: "luha.server"
