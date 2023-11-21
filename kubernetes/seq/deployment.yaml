@@ -76,7 +76,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "seq.server"
+  - host: "seq.luha.dev"
     http:
       paths:
       - path: /
