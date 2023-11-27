@@ -27,8 +27,7 @@ spec:
     chart: uptime-kuma
     helm:
       releaseName: uptime-kuma
-      values: |
-
+      valuesObject:
         image:
           tag: 1.23.4
         ingress:

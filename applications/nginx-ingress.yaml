@@ -20,7 +20,6 @@ spec:
     targetRevision: 4.8.3
     chart: ingress-nginx
     helm:
-      values: |
-        
+      valuesObject:
         controller:
           name: "controller"

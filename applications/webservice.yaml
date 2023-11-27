@@ -23,8 +23,7 @@ spec:
     targetRevision: main
     path: helm/webapplication
     helm:
-      values: |
-
+      valuesObject:
         image:
           repository: "webservice"
           tag: "2.2.6"
