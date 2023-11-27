@@ -7,6 +7,12 @@ All applications described in this repository are managed via ArgoCD.
 From here the applications in [this](/applications/) Folder are created,
 which contain the applications to be hosted.
 
+## ArgoCD - Installation
+```
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+```
+
 
 ## Applications
 
