@@ -42,6 +42,8 @@ spec:
           # a default port must be set. required by container
           - name: "UPTIME_KUMA_PORT"
             value: "3001"
+          - name: "UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN"
+            value: "1"
         volume:
           enabled: true
           size: 1Gi
