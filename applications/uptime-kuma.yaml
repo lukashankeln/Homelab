@@ -34,7 +34,7 @@ spec:
           enabled: true
           className: nginx
           hosts:
-            - host: status.luha.server
+            - host: status.hankeln.work
               paths:
                 - path: /
                   pathType: ImplementationSpecific
