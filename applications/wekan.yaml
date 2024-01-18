@@ -21,7 +21,7 @@ spec:
   source:
     repoURL: https://wekan.github.io/charts
     targetRevision: 2.17.0
-    chart: wekan
+    chart: wekan/wekan
     helm:
       valuesObject:
         endpoint: board.hankeln.work
