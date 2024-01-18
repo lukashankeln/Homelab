@@ -38,7 +38,7 @@ spec:
         - name: DOCKER_TLS_VERIFY
           value: "1"
         - name: GITEA_INSTANCE_URL
-          value: https://git.hankeln.work:3100
+          value: http://git.hankeln.work:3000
         - name: GITEA_RUNNER_REGISTRATION_TOKEN
           valueFrom:
             secretKeyRef:
