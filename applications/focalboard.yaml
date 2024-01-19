@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: wekan-board
+  name: focalboard
   namespace: argocd
   finalizers:
   - resources-finalizers.argocd.argoproj.io
@@ -10,7 +10,7 @@ spec:
   revisionHistoryLimit: 1
   destination:
     server: https://kubernetes.default.svc
-    namespace: wekan-board
+    namespace: focalboard
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
@@ -19,14 +19,14 @@ spec:
       allowEmpty: true
       selfHeal: true
   source:
-    repoURL: https://wekan.github.io/charts
-    targetRevision: 7.27.0
-    chart: wekan
+    repoURL: https://helm.mattermost.com
+    targetRevision: 0.5.0
+    chart: mattermost/focalboard
     helm:
       valuesObject:
-        endpoint: board.hankeln.work
-        root_url: https://board.hankeln.work
         ingress:
-          hosts: [board.hankeln.work]
-        autoscaling:
-          enabled: false
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: nginx
+          hosts:
+            - host: board.hankeln.work
