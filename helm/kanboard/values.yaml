@@ -1,7 +1,7 @@
 image:
   registry: "docker.io"
   repository: "kanboard/kanboard"
-  tag: "v1.2.3"
+  tag: "v1.2.34"
   pullPolicy: "IfNotPresent"
 
 application:
