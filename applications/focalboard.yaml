@@ -21,7 +21,7 @@ spec:
   source:
     repoURL: https://helm.mattermost.com
     targetRevision: 0.5.0
-    chart: mattermost/focalboard
+    chart: focalboard
     helm:
       valuesObject:
         ingress:
