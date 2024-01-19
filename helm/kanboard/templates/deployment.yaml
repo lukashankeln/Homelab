@@ -27,8 +27,16 @@ spec:
         ports:
           - containerPort: {{ .Values.application.port }}
         volumeMounts:
-        - mountPath: /var/www/app/
-          name: app-volume
+        - mountPath: /var/www/app/data
+          name: data-volume
+        - mountPath: /var/www/app/plugins
+          name: plugins-volume
+        - mountPath: /etc/nginx/ssl
+          name: ssl-volume
       volumes:
-      - name: app-volume
+      - name: data-volume
+        emptyDir: {}
+      - name: plugins-volume
+        emptyDir: {}
+      - name: ssl-volume
         emptyDir: {}
