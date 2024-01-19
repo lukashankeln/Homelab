@@ -26,3 +26,9 @@ spec:
           value: "stdout"
         ports:
           - containerPort: {{ .Values.application.port }}
+        volumeMounts:
+        - mountPath: /var/www/app/
+          name: app-volume
+      volumes:
+      - name: app-volume
+        emptyDir: {}
