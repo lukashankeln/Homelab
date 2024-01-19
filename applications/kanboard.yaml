@@ -28,9 +28,6 @@ spec:
           port: 80
         clusterip:
           enabled: true
-        nodePort:
-          enabled: true
-          port: 32007
         ingress:
           enabled: true
           host: board.hankeln.work
