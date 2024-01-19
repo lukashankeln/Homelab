@@ -1,0 +1,22 @@
+image:
+  registry: "docker.io"
+  repository: "kanboard/kanboard"
+  tag: "v1.2.3"
+  pullPolicy: "IfNotPresent"
+
+application:
+  port: 80
+
+
+nodePort:
+  enabled: false
+  port: ~
+
+clusterip:
+  enabled: false
+  port: 8080
+
+ingress:
+  enabled: false
+  ingressClassName: "nginx"
+  host: ~

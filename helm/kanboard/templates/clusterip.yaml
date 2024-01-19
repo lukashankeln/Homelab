@@ -1,0 +1,16 @@
+{{- $name := include "kanboard.name" . -}}
+
+{{- if .Values.clusterip.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}-clusterip
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: {{ $name }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.application.port }}
+      targetPort: {{ .Values.clusterip.port }}
+{{- end }}
