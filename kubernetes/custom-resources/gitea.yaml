@@ -15,7 +15,7 @@ spec:
     - hard
     - nfsvers=4.1
   nfs:
-    path: /Kubernetes/gitea
+    path: /volume1/Kubernetes/gitea
     server: nas.hankeln.work
 
 ---

@@ -23,7 +23,6 @@ spec:
     targetRevision: 10.0.2
     chart: gitea
     helm:
-      releaseName: uptime-kuma
       valuesObject:
         ingress:
           enabled: true
