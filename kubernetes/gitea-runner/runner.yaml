@@ -34,7 +34,7 @@ spec:
         - name: DOCKER_HOST
           value: tcp://localhost:2376
         - name: DOCKER_TLS_VERIFY
-          value: "1"
+          value: "0"
         - name: GITEA_INSTANCE_URL
           value: https://git.hankeln.work
         - name: GITEA_RUNNER_REGISTRATION_TOKEN
@@ -44,6 +44,9 @@ spec:
               key: token
       - name: daemon
         image: docker:23.0.6-dind
+        env:
+        - name: DOCKER_TLS_CERTDIR
+          value: ""
         securityContext:
           privileged: true
 
