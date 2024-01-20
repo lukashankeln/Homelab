@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  revisionHistoryLimit: 1
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitea
+  source:
+    repoURL: https://dl.gitea.io/charts
+    targetRevision: 10.0.2
+    chart: gitea
+    helm:
+      releaseName: uptime-kuma
+      valuesObject:
+        ingress:
+          enabled: true
+          className: nginx
+          hosts:
+            - host: git.hankeln.work
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+          tls:
+            - secretName: gitea-tls
+              hosts:
+                - git.hankeln.work
+        persistence:
+          create: false
+          claimName: "gitea-volume-claim"
+          volumeName: "gitea-volume"
+        redis-cluster:
+          enabled: false
+        postgresql-ha:
+          enabled: false
