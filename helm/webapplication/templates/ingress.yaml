@@ -18,4 +18,8 @@ spec:
             name: {{ .Values.application.name }}-clusterip
             port:
               number: {{ .Values.application.port }}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: {{ .Values.application.name }}-tls
 {{- end }}

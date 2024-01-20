@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+  source:
+    repoURL: https://charts.jetstack.io
+    targetRevision: v1.13.3
+    chart: cert-manager
+    helm:
+      valuesObject:
+        installCRDs: true
+        dns01RecursiveNameservers: "jaime.ns.cloudflare.com,zelda.ns.cloudflare.com"
+        dns01RecursiveNameserversOnly: true
