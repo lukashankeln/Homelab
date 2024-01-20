@@ -16,6 +16,11 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 ## Applications
 
+### [Cert-Manager](/applications/cert-manager.yaml)
+
+##### Prerequisites
+```kubectl create secret generic cloudflare-api-key-secret -n cert-manager --from-literal=api-key="<your_cloudflare_secret>"```
+
 ### [Docker UI](/applications/docker-ui.yaml)
 A Docker Registry with included UI used for management.
 

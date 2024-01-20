@@ -22,5 +22,5 @@ spec:
     helm:
       valuesObject:
         installCRDs: true
-        dns01RecursiveNameservers: "jaime.ns.cloudflare.com,zelda.ns.cloudflare.com"
+        dns01RecursiveNameservers: "jaime.ns.cloudflare.com:53,zelda.ns.cloudflare.com:53"
         dns01RecursiveNameserversOnly: true
