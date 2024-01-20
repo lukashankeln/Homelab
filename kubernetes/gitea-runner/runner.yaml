@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  token: "c3JwYzFoT2diSVZjVFp4Zmd5WlZ3dDVvMDB0RHBOdkc0ZUxZTzNPcw=="
+  token: "VFZhWWVDVzViV28wdEdFc3VCMnhxSFlIOWgwNzVWQ0dJNDIxb0c5Tw=="
 kind: Secret
 metadata:
   name: runner-secret
@@ -38,7 +38,7 @@ spec:
         - name: DOCKER_TLS_VERIFY
           value: "1"
         - name: GITEA_INSTANCE_URL
-          value: http://git.hankeln.work:3000
+          value: https://git.hankeln.work
         - name: GITEA_RUNNER_REGISTRATION_TOKEN
           valueFrom:
             secretKeyRef:
