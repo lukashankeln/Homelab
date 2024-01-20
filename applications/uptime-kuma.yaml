@@ -38,6 +38,10 @@ spec:
               paths:
                 - path: /
                   pathType: ImplementationSpecific
+          tls:
+            - secretName: uptime-kuma-tls
+              hosts:
+                - status.hankeln.work
         podEnv:
           # a default port must be set. required by container
           - name: "UPTIME_KUMA_PORT"
