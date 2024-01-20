@@ -34,7 +34,7 @@ spec:
         - name: DOCKER_HOST
           value: tcp://localhost:2376
         - name: DOCKER_TLS_VERIFY
-          value: "0"
+          value: "1"
         - name: GITEA_INSTANCE_URL
           value: https://git.hankeln.work
         - name: GITEA_RUNNER_REGISTRATION_TOKEN
