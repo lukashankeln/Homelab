@@ -26,6 +26,8 @@ spec:
       valuesObject:
         ingress:
           enabled: true
+          annotations:
+            nginx.ingress.kubernetes.io/proxy-body-size: 64m
           className: nginx
           hosts:
             - host: git.hankeln.work
