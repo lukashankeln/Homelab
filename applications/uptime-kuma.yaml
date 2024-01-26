@@ -23,7 +23,7 @@ spec:
     # Artifacthub: https://artifacthub.io/packages/helm/uptime-kuma/uptime-kuma
     # Values: https://github.com/dirsigler/uptime-kuma-helm/blob/main/charts/uptime-kuma/values.yaml
     repoURL: https://dirsigler.github.io/uptime-kuma-helm
-    targetRevision: 2.17.0
+    targetRevision: 2.18.0
     chart: uptime-kuma
     helm:
       releaseName: uptime-kuma
