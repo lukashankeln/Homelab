@@ -3,6 +3,7 @@
   "extends": [
     "config:base"
   ],
+  "reviewers": ["lukashankeln"],
   "kubernetes": {
     "fileMatch": [
       "kubernetes/metallb/.+\\.yaml$",
