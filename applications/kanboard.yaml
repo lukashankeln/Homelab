@@ -19,9 +19,9 @@ spec:
       allowEmpty: true
       selfHeal: true
   source:
-    repoURL: https://github.com/lukashankeln/Homelab.git
-    targetRevision: main
-    path: helm/kanboard
+    repoURL: https://kube-the-home.github.io/kanboard-helm/
+    targetRevision: 0.1.0
+    chart: kanboard
     helm:
       valuesObject:
         application:
