@@ -19,9 +19,9 @@ spec:
       allowEmpty: true
       selfHeal: true
   source:
-    repoURL: https://github.com/lukashankeln/Homelab.git
-    targetRevision: main
-    path: helm/webapplication
+    repoURL: https://kube-the-home.github.io/generic-helm/
+    targetRevision: 0.1.1
+    chart: generic
     helm:
       valuesObject:
         image:
@@ -60,4 +60,8 @@ spec:
           container:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
 
