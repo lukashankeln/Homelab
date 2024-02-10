@@ -21,8 +21,8 @@ spec:
             name: {{ $name }}-clusterip
             port:
               number: {{ .Values.clusterip.port }}
+  {{- if .Values.ingress.tls }}
   tls:
-  - hosts:
-    - {{ .Values.ingress.host }}
-    secretName: {{ $name }}-tls
+  {{- toYaml .Values.ingress.tls | nindent 2 }}
+  {{ end }}
 {{- end }}

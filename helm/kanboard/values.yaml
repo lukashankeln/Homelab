@@ -6,6 +6,7 @@ image:
 
 application:
   port: 80
+  persistence: false
 
 
 nodePort:
@@ -20,3 +21,10 @@ ingress:
   enabled: false
   ingressClassName: "nginx"
   host: ~
+  tls: ~
+
+securityContext:
+  pod: ~
+  container: ~
+
+resources: ~

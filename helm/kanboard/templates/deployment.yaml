@@ -12,6 +12,10 @@ spec:
   selector:
     matchLabels:
       app: {{ $name }}
+  {{- if .Values.securityContext.pod }}
+  securityContext:
+  {{- toYaml .Values.securityContext.pod | nindent 4 }}
+  {{ end }}
   template:
     metadata:
       labels:
@@ -21,6 +25,14 @@ spec:
       - name: {{ $name }}
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- if .Values.securityContext.container }}
+        securityContext:
+        {{- toYaml .Values.securityContext.container | nindent 10 }}
+        {{- end }}
+        {{- if .Values.resources }}
+        resources:
+        {{- toYaml .Values.resources | nindent 10 }}
+        {{- end }}
         env:
         - name: LOG_DRIVER
           value: "stdout"
@@ -35,8 +47,23 @@ spec:
           name: ssl-volume
       volumes:
       - name: data-volume
+        {{- if .Values.application.persistence }}
+        persistentVolumeClaim:
+            claimName: {{ $name }}-data-claim
+        {{- else}}
         emptyDir: {}
+        {{- end }}
       - name: plugins-volume
+        {{- if .Values.application.persistence }}
+        persistentVolumeClaim:
+            claimName: {{ $name }}-plugins-claim
+        {{- else}}
         emptyDir: {}
+        {{- end }}
       - name: ssl-volume
+        {{- if .Values.application.persistence }}
+        persistentVolumeClaim:
+            claimName: {{ $name }}-ssl-claim
+        {{- else}}
         emptyDir: {}
+        {{- end }}
