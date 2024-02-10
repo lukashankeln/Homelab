@@ -1,34 +1,41 @@
 image:
-  registry: "192.168.178.43:32550"
-  repository: ""
-  tag: ""
+  registry: ~
+  repository: ~
+  tag: ~
   pullPolicy: "IfNotPresent"
 
 application:
-  name: ""
-  type: "webapplication"
   port: ~
   health:
     enabled: false
     path: "/api/_health"
     initialDelaySeconds: 30
     periodSeconds: 30
-  resources:
-    requests:
-      memory: "200Mi"
-      cpu: "250m"
-    limits:
-      memory: "400Mi"
-      cpu: "500m"
+  labels: {}
+
+
+
+securityContext:
+  pod: {}
+  container: {}
+
+resources: {}
 
 nodePort:
   enabled: false
   port: ~
+  labels: {}
 
 clusterip:
   enabled: false
+  port: 8080
+  labels: {}
 
 ingress:
   enabled: false
   ingressClassName: "nginx"
   host: ~
+  tls: []
+  labels: {}
+
+env: {}

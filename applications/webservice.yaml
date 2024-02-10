@@ -25,18 +25,39 @@ spec:
     helm:
       valuesObject:
         image:
+          registry: "192.168.178.43:32550"
           repository: "webservice"
           tag: "2.3.1"
         application:
-          name: "webservice"
           port: 5090
+          labels: 
+            type: webservice
           health:
             enabled: true
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "250m"
+          limits:
+            memory: "400Mi"
+            cpu: "500m"
         nodePort:
           enabled: true
           port: 32000
-        clusterip:
-          enabled: true
         ingress:
           enabled: true
           host: web.hankeln.work
+          tls:
+            - hosts:
+                - web.hankeln.work
+              secretName: webservice-tls
+        env:
+          - name: DOTNET_gcServer
+            value: "1"
+          - name: DOTNET_GCHeapCount
+            value: "c"
+        securityContext:
+          container:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+

@@ -1,13 +1,19 @@
-{{- if .Values.clusterip.enabled }}
+{{- $name := include "app.name" . -}}
+
+{{- if or .Values.clusterip.enabled .Values.ingress.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.application.name }}-clusterip
+  name: {{ $name }}-clusterip
+  {{- if .Values.clusterip.labels }}
+  labels:
+    {{- toYaml .Values.clusterip.labels | nindent 4 }}
+  {{- end }}
 spec:
   selector:
-    app: {{ .Values.application.name }}
+    app: {{ $name }}
   ports:
     - protocol: TCP
-      port: {{ .Values.application.port }}
+      port: {{ .Values.clusterip.port }}
       targetPort: {{ .Values.application.port }}
 {{- end }}

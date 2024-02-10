@@ -1,25 +1,31 @@
+{{- $name := include "app.name" . -}}
+
 {{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.application.name }}-ingress
+  name: {{ $name }}-ingress
+  {{- if .Values.ingress.labels }}
+  labels:
+    {{- toYaml .Values.ingress.labels | nindent 4 }}
+  {{- end }}
   annotations:
     kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
-  - host: {{ .Values.ingress.host }}
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ .Values.application.name }}-clusterip
-            port:
-              number: {{ .Values.application.port }}
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $name }}-clusterip
+                port:
+                  number: {{ .Values.clusterip.port }}
+  {{- if .Values.ingress.tls }}
   tls:
-  - hosts:
-    - {{ .Values.ingress.host }}
-    secretName: {{ .Values.application.name }}-tls
+  {{- toYaml .Values.ingress.tls | nindent 4 }}
+  {{ end }}
 {{- end }}
