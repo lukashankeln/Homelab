@@ -20,7 +20,7 @@ spec:
       selfHeal: true
   source:
     repoURL: https://kube-the-home.github.io/kanboard-helm/
-    targetRevision: 0.1.0
+    targetRevision: 0.1.1
     chart: kanboard
     helm:
       valuesObject:
