@@ -20,14 +20,10 @@ spec:
       selfHeal: true
   source:
     repoURL: https://kube-the-home.github.io/kanboard-helm/
-    targetRevision: 0.1.1
+    targetRevision: 0.1.2
     chart: kanboard
     helm:
       valuesObject:
-        application:
-          port: 80
-        clusterip:
-          enabled: true
         ingress:
           enabled: true
           host: board.hankeln.work
