@@ -20,10 +20,16 @@ spec:
       selfHeal: true
   source:
     repoURL: https://kube-the-home.github.io/kanboard-helm/
-    targetRevision: 0.1.2
+    targetRevision: 0.2.0
     chart: kanboard
     helm:
       valuesObject:
+        application:
+          persistence:
+            enabled: true
+            persistentVolumeClaim:
+              storageClass: nfs
+
         ingress:
           enabled: true
           host: board.hankeln.work
