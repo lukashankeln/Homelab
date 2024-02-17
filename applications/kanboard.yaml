@@ -4,7 +4,7 @@ metadata:
   name: kanboard
   namespace: argocd
   finalizers:
-  - resources-finalizers.argocd.argoproj.io
+    - resources-finalizers.argocd.argoproj.io
 spec:
   project: default
   revisionHistoryLimit: 1
@@ -20,7 +20,7 @@ spec:
       selfHeal: true
   source:
     repoURL: https://kube-the-home.github.io/kanboard-helm/
-    targetRevision: 0.2.0
+    targetRevision: 0.2.1
     chart: kanboard
     helm:
       valuesObject:
@@ -35,7 +35,7 @@ spec:
           host: board.hankeln.work
           tls:
             - hosts:
-              - board.hankeln.work
+                - board.hankeln.work
               secretName: kanboard-tls
         resources:
           requests:
