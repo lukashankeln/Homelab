@@ -33,7 +33,7 @@ spec:
               secretName: skooner-tls
         resources:
           requests:
-            memory: "50Mi"
+            memory: "60Mi"
             cpu: "50m"
           limits:
             memory: "100Mi"
