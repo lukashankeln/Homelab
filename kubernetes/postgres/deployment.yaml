@@ -31,11 +31,11 @@ spec:
             name: postgredb
         resources:
           requests:
-            memory: "200Mi"
-            cpu: "250m"
+            memory: "100Mi"
+            cpu: "100m"
           limits:
-            memory: "400Mi"
-            cpu: "500m"
+            memory: "200Mi"
+            cpu: "200m"
       volumes:
         - name: postgredb
           persistentVolumeClaim:

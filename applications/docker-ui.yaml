@@ -29,7 +29,14 @@ spec:
             nodePort: 32500
             type: NodePort
           title: "Private Registry"
-        
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "50m"
+            limits:
+              memory: "100Mi"
+              cpu: "100m"
+
         registry:
           enabled: true
           extraEnv:
@@ -40,3 +47,10 @@ spec:
           service:
             nodePort: 32550
             type: NodePort
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "50m"
+            limits:
+              memory: "100Mi"
+              cpu: "100m"

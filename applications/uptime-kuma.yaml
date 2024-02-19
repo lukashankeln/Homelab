@@ -56,3 +56,10 @@ spec:
           name: "uptime-kuma"
         serviceMonitor:
           enabled: true
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "50m"
+          limits:
+            memory: "300Mi"
+            cpu: "100m"

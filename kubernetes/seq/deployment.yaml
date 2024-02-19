@@ -29,11 +29,11 @@ spec:
           value: "Y"
         resources:
           requests:
-            memory: "200Mi"
-            cpu: "250m"
+            memory: "100Mi"
+            cpu: "50m"
           limits:
-            memory: "400Mi"
-            cpu: "500m"
+            memory: "200Mi"
+            cpu: "100m"
 
 
 ---
@@ -61,7 +61,7 @@ spec:
   ports:
     - targetPort: 5341 # Backend Port
       port: 5341       # Port  Service is exposing
-  selector: 
+  selector:
     app: seq
     type: logging
 
