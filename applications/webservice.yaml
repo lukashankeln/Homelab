@@ -27,7 +27,7 @@ spec:
         image:
           registry: "192.168.178.43:32550"
           repository: "webservice"
-          tag: "2.3.1"
+          tag: "2.3.2"
         application:
           port: 5090
           labels:
