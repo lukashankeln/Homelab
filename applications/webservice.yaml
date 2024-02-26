@@ -36,10 +36,10 @@ spec:
             enabled: true
         resources:
           requests:
-            memory: "160Mi"
+            memory: "250Mi"
             cpu: "50m"
           limits:
-            memory: "245Mi"
+            memory: "350Mi"
             cpu: "100m"
         nodePort:
           enabled: true
