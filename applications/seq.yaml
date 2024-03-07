@@ -29,10 +29,10 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
           tls:
-          - hosts:
-            - seq.hankeln.work
-            - in.seq.hankeln.work
-            secretName: seq-tls
+            - hosts:
+                - seq.hankeln.work
+                - in.seq.hankeln.work
+              secretName: seq-tls
 
         ui:
           ingress:
