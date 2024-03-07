@@ -21,35 +21,36 @@ spec:
     targetRevision: 2024.1.1
     chart: seq
     helm:
-      baseURI: https://seq.hankeln.work/
+      valuesObject:
+        baseURI: https://seq.hankeln.work/
 
-      ingress:
-        className: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-        tls:
-        - hosts:
-          - seq.hankeln.work
-          - in.seq.hankeln.work
-          secretName: seq-tls
-
-      ui:
         ingress:
-          enabled: true
-          path: /
-          hosts:
-            - seq.hankeln.work
+          className: nginx
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-
-      ingestion:
-        ingress:
-          enabled: true
-          path: /
-          hosts:
+          tls:
+          - hosts:
+            - seq.hankeln.work
             - in.seq.hankeln.work
-          annotations:
-            nginx.ingress.kubernetes.io/backend-protocol: "TCP"
-            nginx.ingress.kubernetes.io/proxy-buffering: "on"
-            nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
-            nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
+            secretName: seq-tls
+
+        ui:
+          ingress:
+            enabled: true
+            path: /
+            hosts:
+              - seq.hankeln.work
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+
+        ingestion:
+          ingress:
+            enabled: true
+            path: /
+            hosts:
+              - in.seq.hankeln.work
+            annotations:
+              nginx.ingress.kubernetes.io/backend-protocol: "TCP"
+              nginx.ingress.kubernetes.io/proxy-buffering: "on"
+              nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+              nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
