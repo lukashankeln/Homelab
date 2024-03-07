@@ -1,0 +1,30 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: seq-certificate
+  namespace: seq
+spec:
+  secretName: seq-tls
+  issuerRef:
+    name: letsencrypt-dns01-issuer
+    kind: ClusterIssuer
+  commonName: seq.hankeln.work
+  dnsNames:
+  - seq.hankeln.work
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: seq-ingest-certificate
+  namespace: seq
+spec:
+  secretName: seq-ingest-tls
+  issuerRef:
+    name: letsencrypt-dns01-issuer
+    kind: ClusterIssuer
+  commonName: ingestion.seq.hankeln.work
+  dnsNames:
+  - ingestion.seq.hankeln.work
+

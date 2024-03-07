@@ -6,10 +6,6 @@ metadata:
 spec:
   project: default
   revisionHistoryLimit: 1
-  source:
-    repoURL: https://github.com/lukashankeln/Homelab.git
-    targetRevision: HEAD
-    path: kubernetes/seq
   destination:
     server: https://kubernetes.default.svc
     namespace: seq
@@ -20,3 +16,32 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: true
+  source:
+    repoURL: https://helm.datalust.co
+    targetRevision: 2024.1.1
+    chart: seq
+    helm:
+      ingress:
+        annotations:
+          kubernetes.io/ingress.class: nginx
+        tls:
+          - secretName: seq-tls
+            hosts:
+              - seq.hankeln.work
+          - secretName: seq-ingest-tls
+            hosts:
+              - ingestion.seq.hankeln.work
+
+      ui:
+        ingress:
+          enabled: true
+          path: /
+          hosts:
+            - seq.hankeln.work
+
+      ingestion:
+        ingress:
+          enabled: true
+          path: /
+          hosts:
+            - ingestion.seq.hankeln.work
