@@ -37,10 +37,10 @@ spec:
         resources:
           requests:
             memory: "250Mi"
-            cpu: "50m"
+            cpu: "100m"
           limits:
             memory: "350Mi"
-            cpu: "100m"
+            cpu: "200m"
         nodePort:
           enabled: true
           port: 32000
