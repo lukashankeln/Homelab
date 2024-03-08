@@ -54,7 +54,6 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: act-runner
     spec:
