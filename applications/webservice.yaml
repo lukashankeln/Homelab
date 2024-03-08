@@ -25,9 +25,9 @@ spec:
     helm:
       valuesObject:
         image:
-          registry: "192.168.178.43:32550"
+          registry: "docker-registry.hankeln.work"
           repository: "webservice"
-          tag: "2.3.3"
+          tag: "2.4.0"
         application:
           port: 5090
           labels:
