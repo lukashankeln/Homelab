@@ -22,7 +22,7 @@ spec:
     helm:
       valuesObject:
         ui:
-          dockerRegistryUrl: http://192.168.178.43:32550
+          dockerRegistryUrl: https://docker-registry.hankeln.work
           deleteImages: true
           showContentDigest: true
           ingress:
