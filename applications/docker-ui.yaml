@@ -25,9 +25,17 @@ spec:
           dockerRegistryUrl: http://192.168.178.43:32550
           deleteImages: true
           showContentDigest: true
+          ingress:
+            enabled: true
+            host: docker.hankeln.work
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            tls:
+              - hosts:
+                  - docker.hankeln.work
+                secretName: docker-ui-tls
           service:
-            nodePort: 32500
-            type: NodePort
+            port: 8080
           title: "Private Registry"
           resources:
             requests:
@@ -41,12 +49,20 @@ spec:
           enabled: true
           extraEnv:
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin
-              value: '[http://192.168.178.43:32500]'
+              value: '[https://docker.hankeln.work]'
             - name: REGISTRY_STORAGE_DELETE_ENABLED
               value: 'true'
+          ingress:
+            enabled: true
+            host: docker-registry.hankeln.work
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            tls:
+              - hosts:
+                  - docker-registry.hankeln.work
+                secretName: docker-registry-tls
           service:
-            nodePort: 32550
-            type: NodePort
+            port: 8080
           resources:
             requests:
               memory: "50Mi"
