@@ -54,6 +54,7 @@ spec:
               value: 'true'
           ingress:
             enabled: true
+            path: /
             host: docker-registry.hankeln.work
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
