@@ -32,6 +32,8 @@ spec:
 
         ingress:
           enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
           host: board.hankeln.work
           tls:
             - hosts:

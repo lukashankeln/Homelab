@@ -26,6 +26,8 @@ spec:
       valuesObject:
         ingress:
           enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
           host: skooner.hankeln.work
           tls:
             - hosts:
