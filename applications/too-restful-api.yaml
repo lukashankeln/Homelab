@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: too-restful-api
+  namespace: argocd
+  finalizers:
+    - resources-finalizers.argocd.argoproj.io
+spec:
+  project: default
+  revisionHistoryLimit: 1
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: too-restful-api
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+  source:
+    repoURL: https://kube-the-home.github.io/too-restful-api/
+    targetRevision: 0.1.1
+    chart: too-restful-api
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+          host: json.hankeln.work
+          tls:
+            - hosts:
+                - json.hankeln.work
+              secretName: too-restful-api-tls
+        resources:
+          requests:
+            memory: "125Mi"
+            cpu: "10m"
+          limits:
+            memory: "50Mi"
+            cpu: "20m"
