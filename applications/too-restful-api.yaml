@@ -35,7 +35,7 @@ spec:
               secretName: too-restful-api-tls
         resources:
           requests:
-            memory: "125Mi"
+            memory: "25Mi"
             cpu: "10m"
           limits:
             memory: "50Mi"
