@@ -17,7 +17,7 @@ spec:
       selfHeal: true
   source:
     repoURL: https://charts.jetstack.io
-    targetRevision: v1.14.4
+    targetRevision: v1.14.5
     chart: cert-manager
     helm:
       valuesObject:
