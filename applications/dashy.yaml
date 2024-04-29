@@ -1,0 +1,99 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dashy
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dashy
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+  source:
+    repoURL: https://vyrtualsynthese.github.io/selfhosted-helmcharts/
+    targetRevision: 0.1.8
+    chart: selfhosted-helmcharts/dashy
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          className: "nginx"
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            kubernetes.io/ingress.class: nginx
+            # kubernetes.io/tls-acme: "true"
+          hosts:
+            - host: hankeln.work
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+          tls:
+            - hosts:
+                - hankeln.work
+              secretName: dashy-tls
+        static:
+          # Customize config.yaml https://github.com/Lissy93/dashy/blob/master/docs/configuring.md for more information.
+          configMapContent:
+            conf: |-
+
+              # Page meta info, like heading, footer text and nav links
+              pageInfo:
+                title: Dashy
+                description: Welcome to your new dashboard!
+                navLinks:
+                  - title: GitHub
+                    path: https://github.com/Lissy93/dashy
+                  - title: Documentation
+                    path: https://dashy.to/docs
+
+              # Optional app settings and configuration
+              appConfig:
+                theme: colorful
+
+              # Main content - An array of sections, each containing an array of items
+              sections:
+                - name: Development
+                  icon: fas fa-rocket
+                  items:
+                    - title: Gitea
+                      description: Development a project management links for Dashy
+                      icon: https://git.hankeln.work/assets/img/logo.png
+                      url: https://git.hankeln.work/
+                      target: newtab
+                    - title: Uptime Kuma
+                      description: Source Code, Issues and Pull Requests
+                      url: https://status.hankeln.work/
+                      icon: https://status.hankeln.work/icon-192x192.png
+                    - title: Seq
+                      description: Source Code, Issues and Pull Requests
+                      url: https://seq.hankeln.work/
+                      icon: favicon
+                    - title: Skooner
+                      description: Source Code, Issues and Pull Requests
+                      url: https://skooner.hankeln.work/
+                      icon: favicon
+                - name: Home Automation
+                  icon: fas fa-rocket
+                  items:
+                    - title: Homeassistant
+                      description: Home Automation Engine
+                      icon: https://hassio.hankeln.work/static/icons/favicon-192x192.png
+                      url: https://hassio.hankeln.work/
+                      target: newtab
+                - name: Productivity
+                  icon: fas fa-rocket
+                  items:
+                    - title: Kanboard
+                      description: Home Automation Engine
+                      icon: https://hassio.hankeln.work/static/icons/favicon-192x192.png
+                      url: https://board.hankeln.work/
+                      target: newtab
+
+
+
