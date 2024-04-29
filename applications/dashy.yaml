@@ -44,13 +44,13 @@ spec:
 
               # Page meta info, like heading, footer text and nav links
               pageInfo:
-                title: Dashy
-                description: Welcome to your new dashboard!
+                title: Hankeln.Work
+                description: Dashboard for Hankeln.Work Subdomains and other...
                 navLinks:
                   - title: GitHub
-                    path: https://github.com/Lissy93/dashy
+                    path: https://github.com/lukashankeln/Homelab
                   - title: Documentation
-                    path: https://dashy.to/docs
+                    path: https://kube-the-home.github.io/kube-the-home/
 
               # Optional app settings and configuration
               appConfig:
@@ -73,11 +73,11 @@ spec:
                     - title: Seq
                       description: Source Code, Issues and Pull Requests
                       url: https://seq.hankeln.work/
-                      icon: favicon
+                      icon: https://seq.hankeln.work/favicon.png
                     - title: Skooner
                       description: Source Code, Issues and Pull Requests
                       url: https://skooner.hankeln.work/
-                      icon: favicon
+                      icon: https://skooner.hankeln.work/logo.png
                 - name: Home Automation
                   icon: fas fa-rocket
                   items:
@@ -91,9 +91,19 @@ spec:
                   items:
                     - title: Kanboard
                       description: Home Automation Engine
-                      icon: https://hassio.hankeln.work/static/icons/favicon-192x192.png
+                      icon: https://board.hankeln.work/assets/img/favicon.png
                       url: https://board.hankeln.work/
                       target: newtab
-
-
-
+                    - title: WebService
+                      description: Home Automation Engine
+                      icon: https://web.hankeln.work/icon-512.png
+                      url: https://web.hankeln.work/
+                      target: newtab
+                - name: Kube the Home
+                  icon: fas fa-rocket
+                  items:
+                    - title: Repositories
+                      description: Home Automation Engine
+                      icon: https://github.githubassets.com/favicons/favicon-dark.png
+                      url: https://github.com/orgs/kube-the-home/repositories
+                      target: newtab
