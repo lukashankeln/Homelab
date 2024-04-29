@@ -40,3 +40,5 @@ spec:
           limits:
             memory: "50Mi"
             cpu: "20m"
+        additionalItems:
+          - dev-api-configmap
