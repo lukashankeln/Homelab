@@ -18,7 +18,7 @@ spec:
   source:
     repoURL: https://vyrtualsynthese.github.io/selfhosted-helmcharts/
     targetRevision: 0.1.8
-    chart: selfhosted-helmcharts/dashy
+    chart: dashy
     helm:
       valuesObject:
         ingress:
