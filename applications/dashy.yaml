@@ -21,9 +21,6 @@ spec:
     chart: dashy
     helm:
       valuesObject:
-        image:
-          repository: lissy93/dashy
-          tag: 3.0.1
         ingress:
           enabled: true
           className: "nginx"
