@@ -62,20 +62,20 @@ spec:
                   icon: fas fa-rocket
                   items:
                     - title: Gitea
-                      description: Development a project management links for Dashy
+                      description: Source Code, Issues and Pull Requests
                       icon: https://git.hankeln.work/assets/img/logo.png
                       url: https://git.hankeln.work/
                       target: newtab
                     - title: Uptime Kuma
-                      description: Source Code, Issues and Pull Requests
+                      description: Uptime monitor and Status-Page
                       url: https://status.hankeln.work/
                       icon: https://status.hankeln.work/icon-192x192.png
                     - title: Seq
-                      description: Source Code, Issues and Pull Requests
+                      description: Logging and Telemetry
                       url: https://seq.hankeln.work/
                       icon: https://seq.hankeln.work/favicon.png
                     - title: Skooner
-                      description: Source Code, Issues and Pull Requests
+                      description: Kubernetes monitoring Dashboard
                       url: https://skooner.hankeln.work/
                       icon: https://skooner.hankeln.work/logo.png
                 - name: Home Automation
@@ -90,12 +90,12 @@ spec:
                   icon: fas fa-rocket
                   items:
                     - title: Kanboard
-                      description: Home Automation Engine
+                      description: Task and Issue tracking
                       icon: https://board.hankeln.work/assets/img/favicon.png
                       url: https://board.hankeln.work/
                       target: newtab
                     - title: WebService
-                      description: Home Automation Engine
+                      description: Wiki, Todos, Link-Collection, RSS
                       icon: https://web.hankeln.work/icon-512.png
                       url: https://web.hankeln.work/
                       target: newtab
@@ -103,7 +103,7 @@ spec:
                   icon: fas fa-rocket
                   items:
                     - title: Repositories
-                      description: Home Automation Engine
+                      description: Source Code, Issues and Pull Requests
                       icon: https://github.githubassets.com/favicons/favicon-dark.png
                       url: https://github.com/orgs/kube-the-home/repositories
                       target: newtab
