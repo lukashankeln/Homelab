@@ -32,6 +32,8 @@ spec:
           tag: 1.23.4
         ingress:
           enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
           className: nginx
           hosts:
             - host: status.hankeln.work
