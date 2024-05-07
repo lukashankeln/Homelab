@@ -64,6 +64,9 @@ spec:
       - name: runner-data
         persistentVolumeClaim:
           claimName: gitea-runner-volume-claim
+      - name: runner-cache
+        persistentVolumeClaim:
+          claimName: gitea-runner-cache-pv-claim
       containers:
       - name: runner
         image: gitea/act_runner:nightly
@@ -87,6 +90,8 @@ spec:
           mountPath: /certs
         - name: runner-data
           mountPath: /data
+        - name: runner-cache
+          mountPath: /root/.cache
         resources:
           requests:
             memory: "100Mi"
