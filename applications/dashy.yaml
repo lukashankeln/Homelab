@@ -78,6 +78,10 @@ spec:
                       description: Kubernetes monitoring Dashboard
                       url: https://skooner.hankeln.work/
                       icon: https://skooner.hankeln.work/logo.png
+                    - title: Docker Registry
+                      description: Self-hosted Docker Registry
+                      url: https://docker.hankeln.work/
+                      icon: https://hub.docker.com/favicon.ico
                 - name: Home Automation
                   icon: fas fa-rocket
                   items:
