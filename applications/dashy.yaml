@@ -90,6 +90,11 @@ spec:
                       icon: https://hassio.hankeln.work/static/icons/favicon-192x192.png
                       url: https://hassio.hankeln.work/
                       target: newtab
+                    - title: NAS
+                      description: File Management
+                      icon: http://192.168.178.69:8000/portal/resources/images/favicon.ico
+                      url: http://192.168.178.69:8000/portal/
+                      target: newtab
                 - name: Productivity
                   icon: fas fa-rocket
                   items:
