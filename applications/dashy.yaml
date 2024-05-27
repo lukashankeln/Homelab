@@ -107,6 +107,10 @@ spec:
                       description: Wiki, Todos, Link-Collection, RSS
                       icon: https://web.hankeln.work/icon-512.png
                       url: https://web.hankeln.work/
+                    - title: Memory
+                      description: Memory Cards and knowledge database
+                      icon: https://memory.hankeln.work/favicon.png
+                      url: https://memory.hankeln.work/
                       target: newtab
                 - name: Kube the Home
                   icon: fas fa-rocket
