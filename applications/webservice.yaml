@@ -27,7 +27,7 @@ spec:
         image:
           registry: "docker-registry.hankeln.work"
           repository: "webservice"
-          tag: "1.5.1"
+          tag: "1.5.2"
         application:
           port: 5090
           labels:
