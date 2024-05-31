@@ -74,6 +74,10 @@ spec:
                       description: Logging and Telemetry
                       url: https://seq.hankeln.work/
                       icon: https://seq.hankeln.work/favicon.png
+                    - title: Aspire Dashboard
+                      description: Logging and Telemetry
+                      url: https://aspire.hankeln.work
+                      icon: https://aspire.hankeln.work/favicon.ico
                     - title: Skooner
                       description: Kubernetes monitoring Dashboard
                       url: https://skooner.hankeln.work/
