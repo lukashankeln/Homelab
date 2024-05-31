@@ -27,12 +27,12 @@ spec:
         ui:
           ingress:
             enabled: true
-            host: aspire.example.com
+            host: aspire.hankeln.work
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
             tls:
               - hosts:
-                  - aspire.example.com
+                  - aspire.hankeln.work
                 secretName: aspire-tls
 
         otlp:
