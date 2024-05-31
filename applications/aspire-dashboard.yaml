@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aspire-dashboard-application
+  namespace: argocd
+  finalizers:
+  - resources-finalizers.argocd.argoproj.io
+spec:
+  project: default
+  revisionHistoryLimit: 1
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: aspire-dashboard
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+  source:
+    repoURL: https://kube-the-home.github.io/aspire-dashboard-helm/
+    targetRevision: 0.1.1
+    chart: aspire-dashboard
+    helm:
+      valuesObject:
+        ui:
+          ingress:
+            enabled: true
+            host: aspire.example.com
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            tls:
+              - hosts:
+                  - aspire.example.com
+                secretName: aspire-tls
+
+        otlp:
+          clusterip:
+            enabled: true
