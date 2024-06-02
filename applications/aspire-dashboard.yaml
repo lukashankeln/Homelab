@@ -36,5 +36,19 @@ spec:
                 secretName: aspire-tls
 
         otlp:
-          clusterip:
+          ingress:
             enabled: true
+            host: in-aspire.hankeln.work
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            tls:
+              - hosts:
+                  - in-aspire.hankeln.work
+                secretName: in-aspire-tls
+        env:
+          - name: DASHBOARD__OTLP__AUTHMODE
+            value: "ApiKey"
+          - name: DASHBOARD__OTLP__PRIMARYAPIKEY
+            value: "aspire"
+          - name: DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS 
+            value: "true"

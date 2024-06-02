@@ -27,7 +27,7 @@ spec:
         image:
           registry: "docker-registry.hankeln.work"
           repository: "webservice"
-          tag: "1.5.6"
+          tag: "1.6.0"
         application:
           port: 5090
           labels:
@@ -54,10 +54,27 @@ spec:
                 - web.hankeln.work
               secretName: webservice-tls
         env:
+          # DOTNET
           - name: DOTNET_gcServer
             value: "1"
           - name: DOTNET_GCHeapCount
             value: "c"
+          # LOGGING
+          - name: Logging__LogLevel__Default
+            value: "Information"
+          - name: Logging__LogLevel__Microsoft.AspNetCore
+            value: "Warning"
+          # OTEL
+          - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES
+            value: "true"
+          - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES
+            value: "true"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: "http://aspire-dashboard-application-otlp-clusterip.aspire-dashboard.svc.cluster.local:8080"
+          - name: OTEL_SERVICE_NAME
+            value: "prod:WebService.Server"
+          - name: OTEL_EXPORTER_OTLP_HEADERS
+            value: "x-otlp-api-key=aspire"
         securityContext:
           container:
             allowPrivilegeEscalation: false
