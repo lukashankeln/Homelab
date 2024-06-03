@@ -70,10 +70,6 @@ spec:
                       description: Uptime monitor and Status-Page
                       url: https://status.hankeln.work/
                       icon: https://status.hankeln.work/icon-192x192.png
-                    - title: Seq
-                      description: Logging and Telemetry
-                      url: https://seq.hankeln.work/
-                      icon: https://seq.hankeln.work/favicon.png
                     - title: Aspire Dashboard
                       description: Logging and Telemetry
                       url: https://aspire.hankeln.work
