@@ -50,11 +50,9 @@ spec:
           enabled: true
           extraEnv:
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin
-              value: '[https://docker.hankeln.work]'
-            - name: REGISTRY_STORAGE_DELETE_ENABLED
-              value: 'true'
+              value: "['https://docker.hankeln.work']"
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods
-              value: '[HEAD,GET,OPTIONS,DELETE]'
+              value: "[HEAD,GET,OPTIONS,DELETE]"
           ingress:
             enabled: true
             path: /
