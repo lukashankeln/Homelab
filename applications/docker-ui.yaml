@@ -50,7 +50,7 @@ spec:
           enabled: true
           extraEnv:
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin
-              value: "['https://docker.hankeln.work']"
+              value: "['*']"
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods
               value: "[HEAD,GET,OPTIONS,DELETE]"
           ingress:
