@@ -50,9 +50,9 @@ spec:
           enabled: true
           extraEnv:
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin
-              value: "['*']"
+              value: '[*]'
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods
-              value: "[HEAD,GET,OPTIONS,DELETE]"
+              value: '[HEAD,GET,OPTIONS,DELETE]'
           ingress:
             enabled: true
             path: /
