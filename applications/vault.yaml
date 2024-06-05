@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+  destination:
+    name: in-cluster
+    namespace: vault
+  source:
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.28.1
+    # Repository: https://github.com/hashicorp/vault
+    # ArtifactHub: https://artifacthub.io/packages/helm/hashicorp/vault
+    # Values: https://github.com/hashicorp/vault-helm/blob/main/values.yaml
+    chart: vault
+    helm:
+      releaseName: vault
+      valuesObject:
+        server:
+          statefulSet:
+            securityContext:
+              pod:
+                runAsUser: 100
+                runAsGroup: 1000
+                seccompProfile:
+                  type: RuntimeDefault
+              container:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                capabilities:
+                  drop:
+                    - ALL
+          volumes:
+            - name: tmp
+              emptyDir: {}
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp
+          updateStrategyType: RollingUpdate
+          logFormat: json
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            ingressClassName: nginx
+            pathType: Prefix
+            activeService: true
+            hosts:
+              - host: vault.hankeln.work
+                paths: ["/"]
+            tls:
+              - hosts:
+                  - vault.hankeln.work
+                secretName: vault-cert
+          resources:
+            requests:
+              cpu: 35m
+              memory: 100M
+            limits:
+              memory: 500M
+              cpu: 200m
+          ha:
+            enabled: false
+        ui:
+          enabled: true

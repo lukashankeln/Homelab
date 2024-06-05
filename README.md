@@ -84,13 +84,11 @@ PostgreSQL is a powerful, open source object-relational database.
 
 For reference see [here](https://www.postgresql.org/).
 
-##### Prerequisites
+
+## Secret Management
+
+To enable the external secrets operator the vault token needs to be created as a secret:
+
 ```bash
-kubectl create secret generic postgres-user-pass -n postgres --from-literal=POSTGRES_USER=<user> --from-literal=POSTGRES_PASSWORD=<password>
+kubectl create secret generic vault-token -n external-secrets-operator --from-literal=token=<token>
 ```
-
-
-## Todos
-
-##### Secret Management
-To improve on secrets management within the cluster I plan on implementing the External Secrets Operator and an accompanying secret store like Hashicorp Vault.
