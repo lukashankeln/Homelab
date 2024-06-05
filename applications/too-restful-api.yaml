@@ -17,7 +17,6 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: true
   source:
     repoURL: https://kube-the-home.github.io/too-restful-api/
     targetRevision: 0.2.0

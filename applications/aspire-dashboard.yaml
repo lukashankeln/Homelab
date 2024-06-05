@@ -17,7 +17,6 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: true
   source:
     repoURL: https://kube-the-home.github.io/aspire-dashboard-helm/
     targetRevision: 0.2.0
@@ -50,5 +49,5 @@ spec:
             value: "ApiKey"
           - name: DASHBOARD__OTLP__PRIMARYAPIKEY
             value: "aspire"
-          - name: DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS 
+          - name: DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS
             value: "true"

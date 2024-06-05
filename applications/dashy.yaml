@@ -14,7 +14,6 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: true
   source:
     repoURL: https://vyrtualsynthese.github.io/selfhosted-helmcharts/
     targetRevision: 0.1.8
@@ -65,6 +64,10 @@ spec:
                       description: Source Code, Issues and Pull Requests
                       icon: https://git.hankeln.work/assets/img/logo.png
                       url: https://git.hankeln.work/
+                    - title: ArgoCD
+                      description: GitOps Platform
+                      icon: https://argocd.hankeln.work/assets/images/logo.png
+                      url: https://argocd.hankeln.work/
                       target: newtab
                     - title: Uptime Kuma
                       description: Uptime monitor and Status-Page
