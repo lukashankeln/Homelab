@@ -53,6 +53,8 @@ spec:
               value: '["*"]'
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods
               value: '[HEAD,GET,OPTIONS,DELETE]'
+            - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers
+              value: '[Authorization, Accept]'
           ingress:
             enabled: true
             path: /
