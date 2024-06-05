@@ -1,0 +1,83 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault-prod
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  revisionHistoryLimit: 1
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
+  source:
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.28.0
+    chart: vault
+    helm:
+      releaseName: vault
+      valuesObecjt:
+
+        global:
+          enabled: true
+          tlsDisable: false
+        injector:
+          enabled: false
+        csi:
+          enabled: false
+        server:
+          statefulSet:
+          volumes:
+            - name: tmp
+              emptyDir: {}
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp
+          updateStrategyType: RollingUpdate
+          logFormat: json
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+              nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+            ingressClassName: nginx
+            pathType: Prefix
+            activeService: true
+            hosts:
+              - host: vault.hankeln.work
+                paths: ["/"]
+            tls:
+              - hosts:
+                - vault.hankeln.work
+                secretName: vault-cert
+          networkPolicy:
+            enabled: true
+          resources:
+            requests:
+              cpu: 35m
+              memory: 100M
+            limits:
+              memory: 500M
+              cpu: 200m
+          readinessProbe:
+            enabled: true
+            path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
+          livenessProbe:
+            enabled: true
+            path: /v1/sys/health?standbyok=true
+            initialDelaySeconds: 60
+
+          extraVolumes:
+            - type: secret
+              name: vault-client-crt
+            - type: secret
+              name: vault-ca-crt
+        ui:
+          enabled: true
