@@ -8,8 +8,7 @@
     "fileMatch": [
       "kubernetes/metallb/.+\\.yaml$",
       "kubernetes/postgres/.+\\.yaml$",
-      "kubernetes/seq/.+\\.yaml$",
-      "kubernetes/skooner/.+\\.yaml$"
+      "kubernetes/gitea-runner/.+\\.yaml$"
     ]
   },
   "argocd": {
