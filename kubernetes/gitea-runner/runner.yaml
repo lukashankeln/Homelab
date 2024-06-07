@@ -100,7 +100,7 @@ spec:
             memory: "500Mi"
             cpu: "500m"
       - name: daemon
-        image: docker:23.0.6-dind
+        image: docker:26.1.4-dind
         env:
         - name: DOCKER_TLS_CERTDIR
           value: /certs
