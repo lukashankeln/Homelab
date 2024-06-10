@@ -1,24 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
-  ],
-  "reviewers": ["lukashankeln"],
-  "kubernetes": {
-    "fileMatch": [
-      "kubernetes/metallb/.+\\.yaml$",
-      "kubernetes/postgres/.+\\.yaml$",
-      "kubernetes/gitea-runner/.+\\.yaml$"
-    ]
-  },
-  "argocd": {
-    "fileMatch": [
-      "applications/.+\\.yaml$"
-    ]
-  },
-  "helmv3": {
-    "fileMatch": [
-      "applications/.+\\.yaml$"
-    ]
-  }
+    "local>bot/renovate"
+  ]
 }
