@@ -24,9 +24,9 @@ spec:
     helm:
       valuesObject:
         image:
-          registry: "docker-registry.hankeln.work"
-          repository: "webservice"
-          tag: "1.6.7"
+          registry: docker-registry.hankeln.work
+          repository: webservice
+          tag: 1.6.7 # datasource=docker depName=docker-registry.hankeln.work/webservice versioning=docker
         application:
           port: 5090
           labels:
