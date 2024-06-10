@@ -3,6 +3,10 @@ This repository contains the applications in my private homeserver infrastructur
 
 All applications described in this repository are managed via ArgoCD.
 
+> [!IMPORTANT]  
+> This Repository is developed in my privatly hosted Gitea Instance. 
+> The version on Github is just a push mirror, all changes made there will be lost on the next sync.
+
 [This](applications.yaml) application is used as the entry application.
 From here the applications in [this](/applications/) Folder are created,
 which contain the applications to be hosted.
