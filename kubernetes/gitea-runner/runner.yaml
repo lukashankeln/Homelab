@@ -69,7 +69,7 @@ spec:
           claimName: gitea-runner-cache-pv-claim
       containers:
       - name: runner
-        image: gitea/act_runner:nightly
+        image: gitea/act_runner:0.2.10
         command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
         env:
         - name: DOCKER_HOST
