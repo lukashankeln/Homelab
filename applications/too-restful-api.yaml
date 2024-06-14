@@ -19,7 +19,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/too-restful-api/
-    targetRevision: 0.2.0
+    targetRevision: 0.2.1
     chart: too-restful-api
     helm:
       valuesObject:
