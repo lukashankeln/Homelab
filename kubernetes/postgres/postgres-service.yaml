@@ -6,13 +6,12 @@ spec:
   type: ClusterIP
   ports:
     - targetPort: 5432 # Backend Port
-      port: 5432       # Port  Service is exposing
-  selector: 
+      port: 5432 # Port  Service is exposing
+  selector:
     app: postgres
     type: database
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -22,6 +21,6 @@ metadata:
 spec:
   type: NodePort
   ports:
-   - port: 5432
+    - port: 5432
   selector:
-   app: postgres
+    app: postgres

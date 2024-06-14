@@ -4,7 +4,7 @@ metadata:
   name: webservice-application
   namespace: argocd
   finalizers:
-  - resources-finalizers.argocd.argoproj.io
+    - resources-finalizers.argocd.argoproj.io
 spec:
   project: default
   revisionHistoryLimit: 1
@@ -82,4 +82,3 @@ spec:
             capabilities:
               drop:
                 - ALL
-

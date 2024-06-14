@@ -2,9 +2,9 @@ apiVersion: v2
 name: argo-cd
 version: 1.0.0
 dependencies:
-- # Repository: https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
-  # Changelog: https://artifacthub.io/packages/helm/argo/argo-cd?modal=changelog
-  # Values: https://raw.githubusercontent.com/argoproj/argo-helm/main/charts/argo-cd/values.yaml
-  name: argo-cd
-  version: 7.1.5 # argo-cd
-  repository: https://argoproj.github.io/argo-helm
+  - # Repository: https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
+    # Changelog: https://artifacthub.io/packages/helm/argo/argo-cd?modal=changelog
+    # Values: https://raw.githubusercontent.com/argoproj/argo-helm/main/charts/argo-cd/values.yaml
+    name: argo-cd
+    version: 7.1.5 # argo-cd
+    repository: https://argoproj.github.io/argo-helm

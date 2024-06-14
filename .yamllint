@@ -1,0 +1,11 @@
+---
+extends: default
+
+rules:
+  line-length: disable
+  document-start: disable
+  comments:
+    min-spaces-from-content: 1
+
+ignore: |
+  .cache/

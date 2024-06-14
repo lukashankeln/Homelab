@@ -18,24 +18,24 @@ spec:
         type: database
     spec:
       containers:
-      - name: postgres
-        image: postgres:16.3
-        imagePullPolicy: "IfNotPresent"
-        ports:
-          - containerPort: 5432
-        envFrom:
-          - configMapRef:
-              name: postgres-config
-        volumeMounts:
-          - mountPath: /var/lib/postgresql/data
-            name: postgredb
-        resources:
-          requests:
-            memory: "100Mi"
-            cpu: "100m"
-          limits:
-            memory: "200Mi"
-            cpu: "200m"
+        - name: postgres
+          image: postgres:16.3
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "100m"
+            limits:
+              memory: "200Mi"
+              cpu: "200m"
       volumes:
         - name: postgredb
           persistentVolumeClaim:

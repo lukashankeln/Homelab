@@ -18,7 +18,6 @@ spec:
     server: nas.hankeln.work
 
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -59,60 +58,65 @@ spec:
     spec:
       restartPolicy: Always
       volumes:
-      - name: docker-certs
-        emptyDir: {}
-      - name: runner-data
-        persistentVolumeClaim:
-          claimName: gitea-runner-volume-claim
-      - name: runner-cache
-        persistentVolumeClaim:
-          claimName: gitea-runner-cache-pv-claim
-      containers:
-      - name: runner
-        image: gitea/act_runner:0.2.10
-        command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
-        env:
-        - name: DOCKER_HOST
-          value: tcp://localhost:2376
-        - name: DOCKER_CERT_PATH
-          value: /certs/client
-        - name: DOCKER_TLS_VERIFY
-          value: "1"
-        - name: GITEA_INSTANCE_URL
-          value: https://git.hankeln.work
-        - name: GITEA_RUNNER_REGISTRATION_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: runner-secret
-              key: token
-        volumeMounts:
         - name: docker-certs
-          mountPath: /certs
+          emptyDir: {}
         - name: runner-data
-          mountPath: /data
+          persistentVolumeClaim:
+            claimName: gitea-runner-volume-claim
         - name: runner-cache
-          mountPath: /root/.cache
-        resources:
-          requests:
-            memory: "200Mi"
-            cpu: "100m"
-          limits:
-            memory: "500Mi"
-            cpu: "500m"
-      - name: daemon
-        image: docker:26.1.4-dind
-        env:
-        - name: DOCKER_TLS_CERTDIR
-          value: /certs
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - name: docker-certs
-          mountPath: /certs
-        resources:
-          requests:
-            memory: "500Mi"
-            cpu: "200m"
-          limits:
-            memory: "2Gi"
-            cpu: "750m"
+          persistentVolumeClaim:
+            claimName: gitea-runner-cache-pv-claim
+      containers:
+        - name: runner
+          image: gitea/act_runner:0.2.10
+          command:
+            [
+              "sh",
+              "-c",
+              "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh",
+            ]
+          env:
+            - name: DOCKER_HOST
+              value: tcp://localhost:2376
+            - name: DOCKER_CERT_PATH
+              value: /certs/client
+            - name: DOCKER_TLS_VERIFY
+              value: "1"
+            - name: GITEA_INSTANCE_URL
+              value: https://git.hankeln.work
+            - name: GITEA_RUNNER_REGISTRATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: runner-secret
+                  key: token
+          volumeMounts:
+            - name: docker-certs
+              mountPath: /certs
+            - name: runner-data
+              mountPath: /data
+            - name: runner-cache
+              mountPath: /root/.cache
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "100m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+        - name: daemon
+          image: docker:26.1.4-dind
+          env:
+            - name: DOCKER_TLS_CERTDIR
+              value: /certs
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: docker-certs
+              mountPath: /certs
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "200m"
+            limits:
+              memory: "2Gi"
+              cpu: "750m"
