@@ -28,7 +28,7 @@ spec:
       releaseName: uptime-kuma
       valuesObject:
         image:
-          tag: 1.23.4
+          tag: 1.23.4 # datasource=docker depName=uptime-kuma versioning=docker
         ingress:
           enabled: true
           annotations:
