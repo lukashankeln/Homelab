@@ -19,5 +19,12 @@
     "fileMatch": [
       "applications/.+\\.yaml$"
     ]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["docker-registry.hankeln.work/webservice"],
+      "automerge": true
+    }
+
+  ]
 }
