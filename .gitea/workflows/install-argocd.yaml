@@ -1,0 +1,35 @@
+name: ArgoCD-Setup
+on:
+  push:
+    branches: ["main"]
+    paths: ["argocd/**"]
+
+env:
+  KUBECONFIG_VALUE: ${{ secrets.KUBECONFIG_VALUE }}
+  KUBECONFIG: /tmp/kube_config.yaml
+
+jobs:
+  argocd-setup:
+    name: ArgoCD-Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Build Kube Config
+        run: |
+          echo "${KUBECONFIG_VALUE}" | base64 -d > "${KUBECONFIG}"
+          chmod go-r "${KUBECONFIG}"
+
+      - name: Helm Dependency Update
+        run: |
+          cd argocd
+          helm dependency update
+
+      - name: Helm Upgrade
+        run: |
+          cd argocd
+          helm upgrade --values ./values.yaml --namespace argocd argocd .
