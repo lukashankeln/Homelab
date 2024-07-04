@@ -1,16 +1,12 @@
-name: ArgoCD-Setup
+name: ArgoCD-Template
 on:
-  push:
+  pull_request:
     branches: ["main"]
     paths: ["argocd/**"]
 
-env:
-  KUBECONFIG_VALUE: ${{ secrets.KUBECONFIG_VALUE }}
-  KUBECONFIG: /tmp/kube_config.yaml
-
 jobs:
-  argocd-setup:
-    name: ArgoCD-Setup
+  argocd-template:
+    name: ArgoCD-Template
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,19 +15,15 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
-      - name: Build Kube Config
-        run: |
-          echo "${KUBECONFIG_VALUE}" | base64 -d > "${KUBECONFIG}"
-          chmod go-r "${KUBECONFIG}"
-
       - name: Helm Dependency Build
         run: |
           cd argocd
           export HELM_REPOSITORY_CONFIG="${PWD}/repositories.yaml"
           helm dependency build
 
-      - name: Helm Upgrade
+      - name: Helm Template
         run: |
+          set -eu
           cd argocd
           export HELM_REPOSITORY_CONFIG="${PWD}/repositories.yaml"
-          helm upgrade --values ./values.yaml --namespace argocd argocd .
+          helm template --values ./values.yaml . > out.yaml
