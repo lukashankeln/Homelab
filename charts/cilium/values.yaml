@@ -1,0 +1,33 @@
+cilium:
+  hubble:
+    tls:
+      enabled: false
+    metrics:
+      enabled:
+        - dns
+        - drop
+        - tcp
+        - flow
+    relay:
+      enabled: true
+      replicas: 1
+    ui:
+      enabled: true
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+        className: nginx
+        enabled: true
+        hosts:
+          - hubble.hankeln.work
+        tls:
+          - hosts:
+              - hubble.hankeln.work
+            secretName: hubble-tls
+  ipv4NativeRoutingCIDR: 10.42.0.0/16
+  ipam:
+    operator:
+      clusterPoolIPv4PodCIDRList:
+        - 10.42.0.0/16
+  operator:
+    replicas: 1

@@ -1,0 +1,6 @@
+dependencies:
+- name: cilium
+  repository: https://helm.cilium.io/
+  version: 1.16.0-rc.1
+digest: sha256:e08dfe1c5b8705f02d1ec2e8cafa8a6892257c53574b230150599f873f9d4621
+generated: "2024-07-04T09:54:11.260721+02:00"

@@ -2,7 +2,7 @@ name: ArgoCD-Setup
 on:
   push:
     branches: ["main"]
-    paths: ["argocd/**"]
+    paths: ["charts/argocd/**"]
 
 env:
   KUBECONFIG_VALUE: ${{ secrets.KUBECONFIG_VALUE }}
@@ -26,12 +26,12 @@ jobs:
 
       - name: Helm Dependency Build
         run: |
-          cd argocd
+          cd charts/argocd
           export HELM_REPOSITORY_CONFIG="${PWD}/repositories.yaml"
           helm dependency build
 
       - name: Helm Upgrade
         run: |
-          cd argocd
+          cd charts/argocd
           export HELM_REPOSITORY_CONFIG="${PWD}/repositories.yaml"
           helm upgrade --values ./values.yaml --namespace argocd argocd .

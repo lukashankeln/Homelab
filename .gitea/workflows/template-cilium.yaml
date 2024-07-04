@@ -1,12 +1,12 @@
-name: ArgoCD-Template
+name: Cilium-Template
 on:
   pull_request:
     branches: ["main"]
-    paths: ["charts/argocd/**"]
+    paths: ["charts/cilium/**"]
 
 jobs:
-  argocd-template:
-    name: ArgoCD-Template
+  cilium-template:
+    name: Cilium-Template
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,13 +17,13 @@ jobs:
 
       - name: Helm Dependency Build
         run: |
-          cd charts/argocd
+          cd charts/cilium
           export HELM_REPOSITORY_CONFIG="${PWD}/repositories.yaml"
           helm dependency build
 
       - name: Helm Template
         run: |
           set -eu
-          cd charts/argocd
+          cd charts/cilium
           export HELM_REPOSITORY_CONFIG="${PWD}/repositories.yaml"
           helm template --values ./values.yaml . > out.yaml
