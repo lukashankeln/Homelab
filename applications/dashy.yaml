@@ -85,6 +85,10 @@ spec:
                       description: Self-hosted Docker Registry
                       url: https://docker.hankeln.work/
                       icon: https://hub.docker.com/favicon.ico
+                    - title: Hubble
+                      description: Network Observability
+                      url: https://hubble.hankeln.work/
+                      icon: https://cdn.jsdelivr.net/gh/cilium/hubble@main/Documentation/images/hubble_logo-dark.png
                 - name: Home Automation
                   icon: fas fa-rocket
                   items:
