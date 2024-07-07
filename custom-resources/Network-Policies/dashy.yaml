@@ -11,7 +11,7 @@ spec:
             io.kubernetes.pod.namespace: ingress-nginx
       toPorts:
         - ports:
-            - port: "80"
+            - port: "8080"
   egress:
     - toPorts:
         - ports:
