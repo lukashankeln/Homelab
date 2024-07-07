@@ -21,9 +21,9 @@ I am planning on adding a second Node powered by a Raspberry Pi 4 into the clust
 ArgoCD is installed via the Helm Chart in `charts/argocd`.
 Updates to ArgoCD are automatically installed using Gitea Actions.
 
-[This](applications.yaml) application is used as the entry application.
-From here the applications in [this](/applications/) Folder are created,
-which contain the applications to be hosted.
+- Applications that are deployed using ArgoCD Applications can be found in `./applications` those are beeing deployed using the `applications.yaml`
+- Applications that are deployed using plain kubernetes manifest files can be found in `./kubernetes` those are beeing deployed by the `deployments.yaml` leveraging a git directories generator
+- Custom Resources and other plain manifests can be found in `./custom-resources` and are beeing deployed from the `custom-resources.yaml` also leveraging a git directories generator
 
 ## Cilium - Installation
 I am running Cilium as a CNI Provider. Cilium is installed via the Helm Chart in `charts/cilium`.
