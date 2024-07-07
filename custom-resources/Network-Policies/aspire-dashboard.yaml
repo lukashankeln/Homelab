@@ -1,7 +1,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: aspire-dashboard-ingress
+  name: aspire-dashboard-policy
   namespace: aspire-dashboard
 spec:
   endpointSelector: {}
@@ -24,3 +24,11 @@ spec:
       toPorts:
         - ports:
             - port: "18888"
+  egress:
+    - toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+          rules:
+            dns:
+              - matchPattern: "*"

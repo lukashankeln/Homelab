@@ -1,7 +1,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: postgres-ingress
+  name: postgres-policy
   namespace: postgres
 spec:
   endpointSelector: {}
@@ -12,3 +12,11 @@ spec:
       toPorts:
         - ports:
             - port: "5432"
+  egress:
+    - toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+          rules:
+            dns:
+              - matchPattern: "*"
