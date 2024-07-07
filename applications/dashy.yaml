@@ -36,6 +36,30 @@ spec:
             - hosts:
                 - hankeln.work
               secretName: dashy-tls
+        service:
+          Port: 80
+        env:
+          PORT: "80"
+
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: false
+          # runAsUser: 1000
+
+        volumes:
+          - name: tmp
+            emptyDir: {}
+          - name: cache
+            emptyDir: {}
+
+        volumeMounts:
+          - name: tmp
+            mountPath: /tmp
+          - name: cache
+            mountPath: /home/node/.cache
         static:
           # Customize config.yaml https://github.com/Lissy93/dashy/blob/master/docs/configuring.md for more information.
           configMapContent:
