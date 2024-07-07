@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: custom-resource-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/lukashankeln/Homelab.git
+        revision: HEAD
+        directories:
+          - path: custom-resources/*
+  template:
+    metadata:
+      name: 'crds-{{.path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/lukashankeln/Homelab.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'custom-resources'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
