@@ -80,18 +80,13 @@ PostgreSQL is a powerful, open source object-relational database.
 
 For reference see [here](https://www.postgresql.org/).
 
-## SetUp
-TODO: Move this to a secret
-
-```yml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-config
-  namespace: postgres
-  labels:
-    app: postgres
-data:
-  POSTGRES_USER: <user>
-  POSTGRES_PASSWORD: <password>
+##### Prerequisites
+```bash
+kubectl create secret generic postgres-user-pass -n postgres --from-literal=POSTGRES_USER=<user> --from-literal=POSTGRES_PASSWORD=<password>
 ```
+
+
+## Todos
+
+##### Secret Management
+To improve on secrets management within the cluster I plan on implementing the External Secrets Operator and an accompanying secret store like Hashicorp Vault.
