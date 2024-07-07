@@ -1,0 +1,26 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: aspire-dashboard-ingress
+  namespace: aspire-dashboard
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: webservice
+      toPorts:
+        - ports:
+            - port: "18889"
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: memory
+      toPorts:
+        - ports:
+            - port: "18889"
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: ingress-nginx
+      toPorts:
+        - ports:
+            - port: "18888"
