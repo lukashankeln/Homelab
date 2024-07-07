@@ -1,9 +1,0 @@
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: gitea-runner-ingress
-  namespace: gitea-runner
-spec:
-  endpointSelector: {}
-  ingress:
-    - {}

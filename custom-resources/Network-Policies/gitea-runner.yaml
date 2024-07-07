@@ -1,0 +1,19 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: gitea-runner-policy
+  namespace: gitea-runner
+spec:
+  endpointSelector: {}
+  ingress:
+    - {}
+  egress:
+    - toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+          rules:
+            dns:
+              - matchPattern: "*"
+    - toEntities:
+        - world
