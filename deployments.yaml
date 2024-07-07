@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: custom-resource-apps
+  name: deployment-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -11,10 +11,10 @@ spec:
         repoURL: https://github.com/lukashankeln/Homelab.git
         revision: HEAD
         directories:
-          - path: custom-resources/*
+          - path: kubernetes/*
   template:
     metadata:
-      name: "crds-{{.path.basename | lower}}"
+      name: "deploy-{{.path.basename | lower}}"
     spec:
       project: default
       source:
@@ -23,7 +23,7 @@ spec:
         path: "{{.path.path}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: "custom-resources"
+        namespace: "{{.path.basename | lower}}"
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
