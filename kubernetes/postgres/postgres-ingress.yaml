@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: postgres-ingress
+  namespace: postgres
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+    kubernetes.io/ingress.class: nginx
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - postgres.hankeln.work
+      secretName: postgres-tls
+  rules:
+    - host: postgres.hankeln.work
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: postgres-service
+                port:
+                  number: 5432
