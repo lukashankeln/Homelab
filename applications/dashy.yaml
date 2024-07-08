@@ -16,7 +16,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://vyrtualsynthese.github.io/selfhosted-helmcharts/
-    targetRevision: 0.1.9
+    targetRevision: 1.0.0
     chart: dashy
     helm:
       valuesObject:
