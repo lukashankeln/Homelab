@@ -56,6 +56,8 @@ spec:
             value: "1"
           - name: DOTNET_GCHeapCount
             value: "c"
+          - name: ASPNETCORE_HTTP_PORTS
+            value: "8080"
           - name: GlobalWorkflowSettings__Directory
             value: "/tmp"
         securityContext:
