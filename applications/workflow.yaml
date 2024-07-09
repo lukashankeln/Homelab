@@ -27,6 +27,7 @@ spec:
           registry: docker-registry.hankeln.work
           repository: workflow/restapi
           tag: latest # datasource=docker depName=docker-registry.hankeln.work/workflow/restapi versioning=docker
+          pullPolicy: Always
         application:
           port: 8080
           labels:
