@@ -26,7 +26,7 @@ spec:
         image:
           registry: docker-registry.hankeln.work
           repository: webservice
-          tag: 1.8.1 # datasource=docker depName=docker-registry.hankeln.work/webservice versioning=docker
+          tag: 1.8.2 # datasource=docker depName=docker-registry.hankeln.work/webservice versioning=docker
         application:
           port: 5090
           labels:
