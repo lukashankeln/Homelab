@@ -32,7 +32,7 @@ spec:
           labels:
             type: workflow
           health:
-            enabled: true
+            enabled: false
         resources:
           requests:
             memory: "100Mi"
@@ -55,6 +55,8 @@ spec:
             value: "1"
           - name: DOTNET_GCHeapCount
             value: "c"
+          - name: GlobalWorkflowSettings__Directory
+            value: "/tmp"
         securityContext:
           container:
             allowPrivilegeEscalation: false
@@ -63,3 +65,9 @@ spec:
             capabilities:
               drop:
                 - ALL
+        volumeMounts:
+          - mountPath: /tmp
+            name: tmp
+        volumes:
+          - name: tmp
+            emptyDir: {}
