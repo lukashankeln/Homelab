@@ -55,6 +55,8 @@ spec:
             value: "1"
           - name: DOTNET_GCHeapCount
             value: "c"
+          - name: ASPNETCORE_HTTP_PORTS
+            value: "5090"
           # LOGGING
           - name: Logging__LogLevel__Default
             value: "Information"
