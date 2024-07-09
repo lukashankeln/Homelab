@@ -19,7 +19,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 0.1.4
+    targetRevision: 0.1.5
     chart: generic
     helm:
       valuesObject:
