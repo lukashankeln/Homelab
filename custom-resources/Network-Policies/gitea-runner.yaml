@@ -18,7 +18,8 @@ spec:
     - toEntities:
         - world
     - toCIDRSet:
-        - cidr: 192.168.178.43/32
+        - cidr: 192.168.178.43/24
       toPorts:
         - ports:
             - port: "6443"
+            - port: "443"
