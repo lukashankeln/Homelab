@@ -16,4 +16,5 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: gitea-runner
   egress:
-    - {}
+    - toFQDNs:
+        - matchName: github.com
