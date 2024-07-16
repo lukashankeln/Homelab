@@ -16,5 +16,12 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: gitea-runner
   egress:
+    - toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+          rules:
+            dns:
+              - matchPattern: "*"
     - toFQDNs:
         - matchName: github.com
