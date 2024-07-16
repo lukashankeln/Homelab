@@ -4,10 +4,10 @@ cilium:
       enabled: false
     metrics:
       enabled:
-        - dns
-        - drop
+        - dns:query
+        - drop:labelsContext=source_namespace,destination_namespace
         - tcp
-        - flow
+        - flow:labelsContext=source_namespace,destination_namespace
     relay:
       enabled: true
       replicas: 1
