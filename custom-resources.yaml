@@ -19,7 +19,7 @@ spec:
     metadata:
       name: "crds-{{.path.basename | lower}}"
     spec:
-      project: default
+      project: hankeln
       source:
         repoURL: https://github.com/lukashankeln/Homelab.git
         targetRevision: HEAD
