@@ -21,9 +21,13 @@ I am planning on adding a second Node powered by a Raspberry Pi 4 into the clust
 ArgoCD is installed via the Helm Chart in `charts/argocd`.
 Updates to ArgoCD are automatically installed using Gitea Actions.
 
-- Applications that are deployed using ArgoCD Applications can be found in `./applications` those are beeing deployed using the `applications.yaml`
-- Applications that are deployed using plain kubernetes manifest files can be found in `./kubernetes` those are beeing deployed by the `deployments.yaml` leveraging a git directories generator
-- Custom Resources and other plain manifests can be found in `./custom-resources` and are beeing deployed from the `custom-resources.yaml` also leveraging a git directories generator
+This also deploys the two main Applications `charts/argocd/templates/applications.yaml` and `charts/argocd/templates/applicationsets.yaml`
+from which all other Applications and ApplicationSets are beeing deployed.
+
+- Applications that are deployed using ArgoCD Applications can be found in `./applications` those are beeing deployed using the `charts/argocd/templates/applications.yaml`
+- Applications that are deployed using plain kubernetes manifest files can be found in `./kubernetes` those are beeing deployed by the `applicationsets/deployments.yaml` leveraging a git directories generator
+- Custom Resources and other plain manifests can be found in `./custom-resources` and are beeing deployed from the `applicationsets/custom-resources.yaml` also leveraging a git directories generator
+- The ApplicationSets in `./applicationsets` are beeing deployed using the `charts/argocd/templates/applicationsets.yaml`
 
 ## Cilium - Installation
 I am running Cilium as a CNI Provider. Cilium is installed via the Helm Chart in `charts/cilium`.
