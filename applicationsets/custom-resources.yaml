@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: custom-resource-apps
+  name: custom-resources
   namespace: argocd
 spec:
   syncPolicy:

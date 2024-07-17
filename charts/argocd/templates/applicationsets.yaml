@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: applicationsets
+  namespace: argocd
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  source:
+    repoURL: https://github.com/lukashankeln/Homelab.git
+    targetRevision: main
+    path: applicationsets
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
