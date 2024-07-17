@@ -4,6 +4,9 @@ metadata:
   name: custom-resource-apps
   namespace: argocd
 spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
