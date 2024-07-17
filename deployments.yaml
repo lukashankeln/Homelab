@@ -27,6 +27,8 @@ spec:
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
+          # https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#respect-ignore-difference-configs
+          - RespectIgnoreDifferences=true
         automated:
           prune: true
           allowEmpty: true
