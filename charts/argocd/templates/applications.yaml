@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: main-applications
+  name: applications
   namespace: argocd
 spec:
-  project: default
+  project: hankeln
   revisionHistoryLimit: 1
   source:
     repoURL: https://github.com/lukashankeln/Homelab.git
