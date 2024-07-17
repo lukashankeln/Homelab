@@ -4,9 +4,9 @@ metadata:
   name: dashy
   namespace: argocd
 spec:
-  project: default
+  project: hankeln
   destination:
-    server: https://kubernetes.default.svc
+    name: in-cluster
     namespace: dashy
   syncPolicy:
     syncOptions:

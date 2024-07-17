@@ -6,10 +6,10 @@ metadata:
   finalizers:
     - resources-finalizers.argocd.argoproj.io
 spec:
-  project: default
+  project: hankeln
   revisionHistoryLimit: 1
   destination:
-    server: https://kubernetes.default.svc
+    name: in-cluster
     namespace: webservice
   syncPolicy:
     syncOptions:

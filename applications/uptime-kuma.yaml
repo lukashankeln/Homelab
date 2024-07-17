@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: hankeln
   revisionHistoryLimit: 1
   syncPolicy:
     syncOptions:
@@ -15,7 +15,7 @@ spec:
       prune: true
       allowEmpty: true
   destination:
-    server: https://kubernetes.default.svc
+    name: in-cluster
     namespace: uptime-kuma
   source:
     # Repository: https://github.com/louislam/uptime-kuma
