@@ -6,6 +6,6 @@ rules:
   document-start: disable
   comments:
     min-spaces-from-content: 1
-
-ignore: |
-  .cache/
+  braces:
+    max-spaces-inside: 1
+    max-spaces-inside-empty: 0

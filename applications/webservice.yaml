@@ -19,7 +19,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 0.1.6
+    targetRevision: 1.0.0
     chart: generic
     helm:
       valuesObject:
@@ -29,8 +29,6 @@ spec:
           tag: 1.8.5 # datasource=docker depName=docker-registry.hankeln.work/webservice versioning=docker
         application:
           port: 5090
-          labels:
-            type: webservice
           health:
             enabled: true
         resources:
@@ -81,3 +79,5 @@ spec:
             capabilities:
               drop:
                 - ALL
+            seccompProfile:
+              type: RuntimeDefault

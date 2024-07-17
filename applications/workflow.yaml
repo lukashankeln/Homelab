@@ -19,7 +19,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 0.1.6
+    targetRevision: 1.0.0
     chart: generic
     helm:
       valuesObject:
@@ -30,8 +30,6 @@ spec:
           pullPolicy: Always
         application:
           port: 8080
-          labels:
-            type: workflow
           health:
             enabled: false
         resources:
@@ -68,6 +66,8 @@ spec:
             capabilities:
               drop:
                 - ALL
+            seccompProfile:
+              type: RuntimeDefault
         volumeMounts:
           - mountPath: /tmp
             name: tmp
