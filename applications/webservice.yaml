@@ -57,7 +57,7 @@ spec:
             value: "5090"
           # LOGGING
           - name: Logging__LogLevel__Default
-            value: "Information"
+            value: "Debug"
           - name: Logging__LogLevel__Microsoft.AspNetCore
             value: "Warning"
           # OTEL
