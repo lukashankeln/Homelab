@@ -53,5 +53,3 @@ spec:
             value: "ApiKey"
           - name: DASHBOARD__OTLP__PRIMARYAPIKEY
             value: "aspire"
-          - name: DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS
-            value: "true"
