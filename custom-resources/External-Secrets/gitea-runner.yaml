@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: runner-secret
+  namespace: gitea-runner
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /Gitea-Runner
+        property: Token
+      secretKey: token
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: runner-secret

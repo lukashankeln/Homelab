@@ -29,15 +29,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
-
----
-apiVersion: v1
-data:
-  token: "VFZhWWVDVzViV28wdEdFc3VCMnhxSFlIOWgwNzVWQ0dJNDIxb0c5Tw=="
-kind: Secret
-metadata:
-  name: runner-secret
-type: Opaque
 ---
 apiVersion: apps/v1
 kind: Deployment
