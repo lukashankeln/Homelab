@@ -71,6 +71,21 @@ spec:
             value: "prod:WebService.Server"
           - name: OTEL_EXPORTER_OTLP_HEADERS
             value: "x-otlp-api-key=aspire"
+          # Postgres
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-user-pass
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-user-pass
+                key: POSTGRES_PASSWORD
+          - name: POSTGRES_DATABASE
+            value: "WebService"
+          - name: POSTGRES_HOST
+            value: "postgres-service.postgres.svc.cluster.local:5432"
         securityContext:
           container:
             allowPrivilegeEscalation: false
