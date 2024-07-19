@@ -27,6 +27,8 @@ spec:
     helm:
       releaseName: vault
       valuesObject:
+        injector:
+          enabled: false
         server:
           statefulSet:
             securityContext:
