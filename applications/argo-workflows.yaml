@@ -1,0 +1,85 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflows
+  namespace: argocd
+  finalizers:
+    - resources-finalizers.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: argo-workflows
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    # Repository: https://github.com/argoproj/argo-helm/tree/main/charts/argo-workflows
+    # Artifacthub: https://artifacthub.io/packages/helm/argo/argo-workflows
+    # Values: https://github.com/argoproj/argo-helm/blob/main/charts/argo-workflows/values.yaml
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 0.41.11
+    chart: argo-workflows
+    helm:
+      valuesObject:
+        workflow:
+          serviceAccount:
+            create: true
+        crds:
+          keep: false
+        controller:
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          volumes:
+            - name: tmp
+              emptyDir: {}
+          resources:
+            requests:
+              cpu: 12m
+              memory: 70M
+          podSecurityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+        executor:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+        server:
+          extraArgs:
+            - --auth-mode=server
+          resources:
+            requests:
+              cpu: 12m
+              memory: 50M
+          podSecurityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            hosts:
+              - argo-workflows.hankeln.work
+            tls:
+              - secretName: argo-workflows-cert
+                hosts:
+                  - argo-workflows.hankeln.work

@@ -127,6 +127,11 @@ spec:
                       icon: http://192.168.178.69:8000/portal/resources/images/favicon.ico
                       url: http://192.168.178.69:8000/portal/
                       target: newtab
+                    - title: Argo Workflows
+                      description: Workflow Automation
+                      icon: https://argo-workflows.hankeln.work/assets/images/logo.png
+                      url: https://argo-workflows.hankeln.work
+                      target: newtab
                 - name: Productivity
                   icon: fas fa-rocket
                   items:
