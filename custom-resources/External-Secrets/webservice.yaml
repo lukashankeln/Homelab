@@ -1,0 +1,23 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: postgres-user-pass
+  namespace: webservice
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /Postgres
+        property: User
+      secretKey: POSTGRES_USER
+    - remoteRef:
+        key: /Postgres
+        property: Password
+      secretKey: POSTGRES_PASSWORD
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: postgres-user-pass
