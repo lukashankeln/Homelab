@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: cloudflare-api-key-secret
+  namespace: cert-manager
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /CertManager
+        property: API-KEY
+      secretKey: api-key
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: cloudflare-api-key-secret

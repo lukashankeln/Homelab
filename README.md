@@ -43,9 +43,7 @@ That makes it a perfect tool for this situation as it has really low resource co
 to other Open Telementry Dashboard alternatives.
 
 ### [Cert-Manager](/applications/cert-manager.yaml)
-
-##### Prerequisites
-```kubectl create secret generic cloudflare-api-key-secret -n cert-manager --from-literal=api-key="<your_cloudflare_secret>"```
+Automatic certificate generation per ingress.
 
 ### [Dashy](/applications/dashy.yaml)
 Dashy is a Dashboard software that I use to group all the applications that are running

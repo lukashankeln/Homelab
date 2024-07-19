@@ -110,6 +110,10 @@ spec:
                       description: Network Observability
                       url: https://hubble.hankeln.work/
                       icon: https://cdn.jsdelivr.net/gh/cilium/hubble@main/Documentation/images/hubble_logo-dark.png
+                    - title: Vault
+                      description: Secrets Management
+                      url: https://vault.hankeln.work/
+                      icon: https://vault.hankeln.work/ui/favicon-c02e22ca67f83a0fb6f2fd265074910a.png
                 - name: Home Automation
                   icon: fas fa-rocket
                   items:
