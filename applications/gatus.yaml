@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gatus
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+  destination:
+    name: in-cluster
+    namespace: gatus
+  source:
+    repoURL: https://twin.github.io/helm-charts
+    targetRevision: 0.1.4
+    chart: gatus
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            kubernetes.io/ingress.class: nginx
+          hosts:
+            - status.hankeln.work
+          tls:
+            - secretName: gatus-tls
+              hosts:
+                - status.hankeln.work
+        config:
+          endpoints:
+            - name: Hassio
+              url: https://hassio.hankeln.work
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
+            - name: WebService
+              url: https://web.hankeln.work/api/_health
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
+            - name: Google Ping
+              url: icmp://google.com
+              interval: 60s
+              conditions:
+                - "[CONNECTED] == true"
+            - name: External DNS
+              url: "8.8.8.8"
+              dns:
+                query-name: "hankeln.work"
+                query-type: "A"
+              conditions:
+                - "[CONNECTED] == true"
+                - "[DNS_RCODE] == NOERROR"
+            - name: Internal DNS
+              url: "192.168.178.62"
+              dns:
+                query-name: "hankeln.work"
+                query-type: "A"
+              conditions:
+                - "[CONNECTED] == true"
+                - "[DNS_RCODE] == NOERROR"

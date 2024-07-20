@@ -90,10 +90,10 @@ spec:
                       icon: https://argocd.hankeln.work/assets/images/logo.png
                       url: https://argocd.hankeln.work/
                       target: newtab
-                    - title: Uptime Kuma
+                    - title: Gatus
                       description: Uptime monitor and Status-Page
                       url: https://status.hankeln.work/
-                      icon: https://status.hankeln.work/icon-192x192.png
+                      icon: https://status.hankeln.work/favicon.ico
                     - title: Aspire Dashboard
                       description: Logging and Telemetry
                       url: https://aspire.hankeln.work
