@@ -19,7 +19,7 @@ spec:
     namespace: gitea
   source:
     repoURL: https://dl.gitea.io/charts
-    targetRevision: 10.3.0
+    targetRevision: 10.4.0
     chart: gitea
     helm:
       valuesObject:
