@@ -67,3 +67,11 @@ spec:
               conditions:
                 - "[CONNECTED] == true"
                 - "[DNS_RCODE] == NOERROR"
+          alerting:
+            ntfy:
+              topic: "alerts"
+              priority: 2
+              url: https://ntfy.hankeln.work
+              default-alert:
+                failure-threshold: 3
+                send-on-resolved: true

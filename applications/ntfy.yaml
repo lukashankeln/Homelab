@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ntfy
+  namespace: argocd
+spec:
+  project: hankeln
+  destination:
+    name: in-cluster
+    namespace: ntfy
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    repoURL: https://charts.sarabsingh.com
+    targetRevision: 0.1.7
+    chart: ntfy
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          className: nginx
+          annotations:
+            kubernetes.io/ingress.class: nginx
+            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+          hosts:
+            - host: ntfy.hankeln.work
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+          tls:
+            - secretName: ntfy-tls
+              hosts:
+                - ntfy.hankeln.work
+        config:
+          enabled: true
+          data:
+            base-url: "https://ntfy.hankeln.work"
+            upstream-base-url: "https://ntfy.sh"
+            auth-default-access: "read-write"
+            behind-proxy: true
