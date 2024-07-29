@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: postgres-user-pass
+  name: postgres-connection
   namespace: webservice
 spec:
   refreshInterval: 10s
@@ -10,14 +10,10 @@ spec:
     kind: ClusterSecretStore
   data:
     - remoteRef:
-        key: /Postgres
-        property: User
-      secretKey: POSTGRES_USER
-    - remoteRef:
-        key: /Postgres
-        property: Password
-      secretKey: POSTGRES_PASSWORD
+        key: /WebService
+        property: PostgresConnectionString
+      secretKey: PostgresConnectionString
   target:
     creationPolicy: Owner
     deletionPolicy: Merge
-    name: postgres-user-pass
+    name: postgres-connection
