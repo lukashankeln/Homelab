@@ -19,14 +19,14 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 1.0.2
+    targetRevision: 1.1.0
     chart: generic
     helm:
       valuesObject:
         image:
           registry: docker-registry.hankeln.work
           repository: webservice/server
-          tag: 3.0.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
+          tag: 3.0.1 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
         application:
           port: 5090
           health:
@@ -87,3 +87,12 @@ spec:
                 - ALL
             seccompProfile:
               type: RuntimeDefault
+        initContainers:
+          - name: migrations
+            image: docker-registry.hankeln.work/webservice/migrations:3.0.1 # renovate
+            env:
+              - name: ConnectionStrings__WebService
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-connection
+                    key: PostgresConnectionString
