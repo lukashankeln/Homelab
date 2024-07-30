@@ -26,7 +26,7 @@ spec:
         image:
           registry: docker-registry.hankeln.work
           repository: webservice/server
-          tag: 3.0.1 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
+          tag: 3.0.2 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
         application:
           port: 5090
           health:
@@ -89,7 +89,7 @@ spec:
               type: RuntimeDefault
         initContainers:
           - name: migrations
-            image: docker-registry.hankeln.work/webservice/migrations:3.0.1 # renovate
+            image: docker-registry.hankeln.work/webservice/migrations:3.0.2 # renovate
             env:
               - name: ConnectionStrings__WebService
                 valueFrom:
