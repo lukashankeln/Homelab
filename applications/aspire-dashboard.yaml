@@ -19,14 +19,14 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/aspire-dashboard-helm/
-    targetRevision: 0.2.0
+    targetRevision: 0.3.0
     chart: aspire-dashboard
     helm:
       valuesObject:
         image:
           registry: mcr.microsoft.com/dotnet
           repository: aspire-dashboard
-          tag: 8.0.2 # datasource=docker depName=mcr.microsoft.com/dotnet/aspire-dashboard versioning=docker
+          tag: 8.1.0 # datasource=docker depName=mcr.microsoft.com/dotnet/aspire-dashboard versioning=docker
         ui:
           ingress:
             enabled: true
@@ -48,8 +48,6 @@ spec:
               - hosts:
                   - in-aspire.hankeln.work
                 secretName: in-aspire-tls
-        env:
-          - name: DASHBOARD__OTLP__AUTHMODE
-            value: "ApiKey"
-          - name: DASHBOARD__OTLP__PRIMARYAPIKEY
-            value: "aspire"
+
+        opentelemetry-collector:
+          enabled: true
