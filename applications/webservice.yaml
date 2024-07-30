@@ -91,6 +91,18 @@ spec:
           - name: migrations
             image: docker-registry.hankeln.work/webservice/migrations:3.0.2 # renovate
             env:
+              # OTEL
+              - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES
+                value: "true"
+              - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES
+                value: "true"
+              - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                value: "http://aspire-dashboard-otlp-clusterip.aspire-dashboard.svc.cluster.local:8080"
+              - name: OTEL_SERVICE_NAME
+                value: "prod:WebService.Migrations"
+              - name: OTEL_EXPORTER_OTLP_HEADERS
+                value: "x-otlp-api-key=aspire"
+              # postgres
               - name: ConnectionStrings__WebService
                 valueFrom:
                   secretKeyRef:
