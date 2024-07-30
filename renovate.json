@@ -22,7 +22,7 @@
   },
   "packageRules": [
     {
-      "matchPackagePatterns": ["docker-registry.hankeln.work/webservice"],
+      "matchPackagePatterns": ["docker-registry.hankeln.work/*"],
       "automerge": true
     }
 
