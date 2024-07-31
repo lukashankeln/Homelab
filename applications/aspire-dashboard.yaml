@@ -57,3 +57,4 @@ spec:
                 exclude:
                 - /var/log/pods/aspire-dashboard_*_*/*/*.log
                 - /var/log/pods/webservice_*_*/*/*.log
+                - /var/log/pods/memory_*_*/*/*.log
