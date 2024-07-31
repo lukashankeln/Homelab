@@ -51,6 +51,9 @@ spec:
 
         opentelemetry-collector:
           enabled: true
-          presets:
-            logsCollection:
-              includeCollectorLogs: false
+          config:
+            receivers:
+              filelog:
+                exclude:
+                - /var/log/pods/aspire-dashboard_*_*/*/*.log
+                - /var/log/pods/webservice_*_*/*/*.log
