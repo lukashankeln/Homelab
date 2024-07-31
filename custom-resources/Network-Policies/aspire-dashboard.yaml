@@ -20,6 +20,12 @@ spec:
             - port: "18889"
     - fromEndpoints:
         - matchLabels:
+            app.kubernetes.io/name: opentelemetry-collector
+      toPorts:
+        - ports:
+            - port: '18889'
+    - fromEndpoints:
+        - matchLabels:
             io.kubernetes.pod.namespace: ingress-nginx
       toPorts:
         - ports:
@@ -32,3 +38,9 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
+    - toEndpoints:
+        - matchLabels:
+            app: aspire-dashboard
+      toPorts:
+        - ports:
+            - port: '18889'
