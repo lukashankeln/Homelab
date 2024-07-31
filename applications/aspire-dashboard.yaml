@@ -51,3 +51,6 @@ spec:
 
         opentelemetry-collector:
           enabled: true
+          presets:
+            logsCollection:
+              includeCollectorLogs: false
