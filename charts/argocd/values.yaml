@@ -49,3 +49,6 @@ argo-cd:
       requests:
         cpu: 15m
         memory: 70M
+  configs:
+    cm:
+      exec.enabled: "true"
