@@ -1,0 +1,65 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: renovate-base
+  namespace: argo-workflows
+spec:
+  entrypoint: renovate
+  templates:
+    - name: renovate
+      inputs:
+        parameters:
+          - name: target
+            value: "--autodiscover=true"
+          - name: logLevel
+            value: info
+            enum:
+              - info
+              - debug
+          - name: logFormat
+            value: text
+            enum:
+              - text
+              - json
+      container:
+        image: renovate/renovate:37.440.7-slim # renovate
+        command: [renovate]
+        args: ["{{inputs.parameters.target}}"]
+        env:
+          - name: RENOVATE_ENDPOINT
+            value: "https://git.hankeln.work"
+          - name: RENOVATE_PLATFORM
+            value: "gitea"
+          - name: RENOVATE_ALLOW_PLUGINS
+            value: "true"
+
+          - name: LOG_FORMAT
+            value: "{{inputs.parameters.logFormat}}"
+          - name: LOG_LEVEL
+            value: "{{inputs.parameters.logLevel}}"
+
+          - name: RENOVATE_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: renovate-secrets
+                key: RENOVATE_TOKEN
+          - name: RENOVATE_ONBOARDING_CONFIG
+            valueFrom:
+              secretKeyRef:
+                name: renovate-secrets
+                key: RENOVATE_ONBOARDING_CONFIG
+          - name: RENOVATE_HOST_RULES
+            valueFrom:
+              secretKeyRef:
+                name: renovate-secrets
+                key: RENOVATE_HOST_RULES
+          - name: GITHUB_COM_USER
+            valueFrom:
+              secretKeyRef:
+                name: renovate-secrets
+                key: GITHUB_COM_USER
+          - name: GITHUB_COM_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: renovate-secrets
+                key: GITHUB_COM_TOKEN

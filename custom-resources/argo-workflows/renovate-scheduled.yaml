@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: renovate-scheduled
+  namespace: argo-workflows
+spec:
+  schedule: "0 */8 * * *"
+  concurrencyPolicy: "Replace"
+  workflowSpec:
+    entrypoint: template
+    serviceAccountName: argo-workflow-executor
+    templates:
+      - name: template
+        steps:
+          - - name: renovate
+              templateRef:
+                name: renovate-base
+                template: renovate
+              arguments:
+                parameters:
+                  - name: logLevel
+                    value: "debug"
+                  - name: logFormat
+                    value: "json"

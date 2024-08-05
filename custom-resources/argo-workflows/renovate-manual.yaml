@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: renovate-manual
+  namespace: argo-workflows
+spec:
+  entrypoint: template
+  serviceAccountName: argo-workflow-executor
+  arguments:
+    parameters:
+      - name: target
+        value: "--autodiscover=true"
+      - name: logLevel
+        value: info
+        enum:
+          - info
+          - debug
+      - name: logFormat
+        value: text
+        enum:
+          - text
+          - json
+  templates:
+    - name: template
+      steps:
+        - - name: renovate
+            templateRef:
+              name: renovate-base
+              template: renovate
+            arguments:
+              parameters:
+                - name: target
+                  value: "{{workflow.parameters.target}}"
+                - name: logLevel
+                  value: "{{workflow.parameters.logLevel}}"
+                - name: logFormat
+                  value: "{{workflow.parameters.logFormat}}"

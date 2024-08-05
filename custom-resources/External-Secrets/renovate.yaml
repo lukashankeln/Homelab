@@ -1,0 +1,35 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: renovate-secrets
+  namespace: argo-workflows
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /renovate
+        property: RENOVATE_TOKEN
+      secretKey: RENOVATE_TOKEN
+    - remoteRef:
+        key: /renovate
+        property: RENOVATE_ONBOARDING_CONFIG
+      secretKey: RENOVATE_ONBOARDING_CONFIG
+    - remoteRef:
+        key: /renovate
+        property: RENOVATE_HOST_RULES
+      secretKey: RENOVATE_HOST_RULES
+    - remoteRef:
+        key: /renovate
+        property: GITHUB_COM_USER
+      secretKey: GITHUB_COM_USER
+    - remoteRef:
+        key: /renovate
+        property: GITHUB_COM_TOKEN
+      secretKey: GITHUB_COM_TOKEN
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: renovate-secrets
