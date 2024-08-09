@@ -27,6 +27,12 @@
     },
     {
       "matchPackagePatterns": [
+          "renovate/renovate"
+      ],
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": [
           "docker-registry.hankeln.work/webservice/*"
       ],
       "groupName": "WebService",
