@@ -22,3 +22,5 @@ spec:
       valuesObject:
         controller:
           name: "controller"
+          extraArgs:
+            v: 5
