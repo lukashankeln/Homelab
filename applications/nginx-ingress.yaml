@@ -21,6 +21,8 @@ spec:
     helm:
       valuesObject:
         controller:
-          name: "controller"
+          name: controller
           extraArgs:
-            v: 5
+            v: 1
+          config:
+            error-log-level: warn
