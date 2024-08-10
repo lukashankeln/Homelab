@@ -26,3 +26,4 @@ spec:
             v: 1
           config:
             error-log-level: warn
+            access-log-off: true
