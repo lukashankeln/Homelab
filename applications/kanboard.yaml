@@ -24,7 +24,7 @@ spec:
     helm:
       valuesObject:
         image:
-          tag: "v1.2.38" # datasource=docker depName=docker.io/kanboard/kanboard versioning=semver
+          tag: "v1.2.41" # datasource=docker depName=docker.io/kanboard/kanboard versioning=semver
         application:
           persistence:
             enabled: true
