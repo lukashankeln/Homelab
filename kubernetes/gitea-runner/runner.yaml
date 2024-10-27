@@ -59,7 +59,7 @@ spec:
             claimName: gitea-runner-cache-pv-claim
       containers:
         - name: runner
-          image: gitea/act_runner:0.2.10
+          image: gitea/act_runner:0.2.11
           command:
             [
               "sh",
