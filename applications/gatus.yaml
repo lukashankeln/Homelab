@@ -19,7 +19,7 @@ spec:
     namespace: gatus
   source:
     repoURL: https://twin.github.io/helm-charts
-    targetRevision: 0.1.4
+    targetRevision: 1.1.0
     chart: gatus
     helm:
       valuesObject:
