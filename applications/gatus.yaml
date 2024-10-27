@@ -41,6 +41,11 @@ spec:
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
+            - name: Gitea
+              url: https://git.hankeln.work/api/healthz
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
             - name: External DNS
               url: "8.8.8.8"
               dns:
