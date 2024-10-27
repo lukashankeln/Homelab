@@ -36,31 +36,13 @@ spec:
                 - status.hankeln.work
         config:
           endpoints:
-            - name: Hassio
-              url: https://hassio.hankeln.work
-              interval: 60s
-              conditions:
-                - "[STATUS] == 200"
             - name: WebService
               url: https://web.hankeln.work/api/_health
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
-            - name: Google Ping
-              url: icmp://google.com
-              interval: 60s
-              conditions:
-                - "[CONNECTED] == true"
             - name: External DNS
               url: "8.8.8.8"
-              dns:
-                query-name: "hankeln.work"
-                query-type: "A"
-              conditions:
-                - "[CONNECTED] == true"
-                - "[DNS_RCODE] == NOERROR"
-            - name: Internal DNS
-              url: "192.168.178.62"
               dns:
                 query-name: "hankeln.work"
                 query-type: "A"
