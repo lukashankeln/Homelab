@@ -6,7 +6,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 192.168.178.128/25
+    - 192.168.2.252/30
 
 ---
 # Advertise
