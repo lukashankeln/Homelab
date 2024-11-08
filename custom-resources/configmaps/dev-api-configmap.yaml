@@ -8,3 +8,8 @@ data:
     [{
         "alive" : "true"
     }]
+
+  dotnet-version.json: |
+    [{
+        "version" : "net8.0"
+    }]
