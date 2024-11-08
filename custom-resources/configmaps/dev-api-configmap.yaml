@@ -10,6 +10,10 @@ data:
     }]
 
   dotnet-version.json: |
-    [{
-        "version" : "net8.0"
-    }]
+    { 
+      "releases": [
+        {
+          "version" : "net8.0"
+        }
+      ]
+    }
