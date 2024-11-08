@@ -19,7 +19,7 @@ spec:
     namespace: vault
   source:
     repoURL: https://helm.releases.hashicorp.com
-    targetRevision: 0.28.1
+    targetRevision: 0.29.0
     # Repository: https://github.com/hashicorp/vault
     # ArtifactHub: https://artifacthub.io/packages/helm/hashicorp/vault
     # Values: https://github.com/hashicorp/vault-helm/blob/main/values.yaml
