@@ -14,7 +14,10 @@ spec:
             - port: "3000"
     - fromEndpoints:
         - matchLabels:
-            io.kubernetes.pod.namespace: gitea-runner
+            io.kubernetes.pod.namespace: gitea
+      toPorts:
+        - ports:
+            - port: "3000"
   egress:
     - toPorts:
         - ports:
@@ -25,3 +28,9 @@ spec:
               - matchPattern: "*"
     - toFQDNs:
         - matchName: github.com
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: gitea
+      toPorts:
+        - ports:
+            - port: "3000"
