@@ -22,22 +22,23 @@
   },
   "packageRules": [
     {
-      "matchPackagePatterns": ["docker-registry.hankeln.work/*"],
-      "automerge": true
+      "automerge": true,
+      "matchPackageNames": [
+        "/docker-registry.hankeln.work/*/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-          "renovate/renovate"
-      ],
-      "automerge": true
+      "automerge": true,
+      "matchPackageNames": [
+        "/renovate/renovate/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-          "docker-registry.hankeln.work/webservice/*"
-      ],
       "groupName": "WebService",
-      "groupSlug": "all webservice images"
+      "groupSlug": "all webservice images",
+      "matchPackageNames": [
+        "/docker-registry.hankeln.work/webservice/*/"
+      ]
     }
-
   ]
 }
