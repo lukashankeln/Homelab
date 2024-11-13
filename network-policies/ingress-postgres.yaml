@@ -1,0 +1,15 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-postgres
+spec:
+  endpointSelector:
+    matchLabels:
+      network-policy/ingress-postgres: "true"
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            network-policy/egress-postgres: "true"
+      toPorts:
+        - ports:
+            - port: "5432"

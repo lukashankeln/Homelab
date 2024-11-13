@@ -12,6 +12,7 @@ spec:
         elements:
           - namespace: webservice
           - namespace: workflow
+          - namespace: postgres
   template:
     metadata:
       name: "network-policies-{{ namespace }}"

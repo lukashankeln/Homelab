@@ -16,6 +16,9 @@ spec:
       labels:
         app: postgres
         type: database
+        network-policy/egress-dns: "true"
+        network-policy/egress-world: "true"
+        network-policy/ingress-postgres: "true"
     spec:
       containers:
         - name: postgres
