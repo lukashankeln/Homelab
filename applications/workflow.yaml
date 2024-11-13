@@ -19,7 +19,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 1.1.0
+    targetRevision: 2.0.0
     chart: generic
     helm:
       valuesObject:
@@ -30,8 +30,17 @@ spec:
           pullPolicy: Always
         application:
           port: 8080
-          health:
-            enabled: false
+          additionalLabels:
+            network-policy/egress-dns: "true"
+            network-policy/egress-world: "true"
+            network-policy/ingess-nginx-port-8080: "true"
+          probe:
+            startup:
+              enabled: false
+            readiness:
+              enabled: false
+            liveness:
+              enabled: false
         resources:
           requests:
             memory: "100Mi"
