@@ -11,6 +11,7 @@ spec:
     - list:
         elements:
           - namespace: webservice
+          - namespace: workflow
   template:
     metadata:
       name: "network-policies-{{ namespace }}"
