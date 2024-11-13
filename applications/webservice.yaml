@@ -34,7 +34,7 @@ spec:
             network-policy/egress-world: "true"
             network-policy/egress-otel: "true"
             network-policy/egress-postgres: "true"
-            network-policy/ingress-nginx: "true"
+            network-policy/ingess-nginx-port-5090: "true"
         resources:
           requests:
             memory: "250Mi"
