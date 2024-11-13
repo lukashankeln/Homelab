@@ -26,8 +26,9 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
-    - toFQDNs:
-        - matchName: github.com
+    - toEntities:
+        - world
+        - kube-apiserver
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: gitea
