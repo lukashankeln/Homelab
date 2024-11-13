@@ -1,0 +1,15 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: egress-otel
+spec:
+  endpointSelector:
+    matchLabels:
+      network-policy/egress-otel: "true"
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: aspire-dashboard
+      toPorts:
+        - ports:
+            - port: "18889"

@@ -19,7 +19,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 1.1.0
+    targetRevision: 2.0.0
     chart: generic
     helm:
       valuesObject:
@@ -29,8 +29,12 @@ spec:
           tag: 3.3.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
         application:
           port: 5090
-          health:
-            enabled: true
+          additionalLabels:
+            network-policy/egress-dns: "true"
+            network-policy/egress-world: "true"
+            network-policy/egress-otel: "true"
+            network-policy/egress-postgres: "true"
+            network-policy/ingress-nginx: "true"
         resources:
           requests:
             memory: "250Mi"
