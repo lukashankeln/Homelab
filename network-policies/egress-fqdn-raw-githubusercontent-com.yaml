@@ -1,0 +1,11 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: egress-fqdn-raw-githubusercontent-com
+spec:
+  endpointSelector:
+    matchLabels:
+      network-policy/egress-fqdn: "raw.githubusercontent.com"
+  egress:
+    - toFQDNs:
+        - matchName: raw.githubusercontent.com

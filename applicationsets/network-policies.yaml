@@ -13,6 +13,7 @@ spec:
           - namespace: webservice
           - namespace: workflow
           - namespace: postgres
+          - namespace: dashy
   template:
     metadata:
       name: "network-policies-{{ namespace }}"
