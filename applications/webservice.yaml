@@ -26,7 +26,7 @@ spec:
         image:
           registry: docker-registry.hankeln.work
           repository: webservice/server
-          tag: 3.3.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
+          tag: 3.4.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
         application:
           port: 5090
           additionalLabels:
@@ -93,7 +93,7 @@ spec:
               type: RuntimeDefault
         initContainers:
           - name: migrations
-            image: docker-registry.hankeln.work/webservice/migrations:3.3.0 # renovate
+            image: docker-registry.hankeln.work/webservice/migrations:3.4.0 # renovate
             env:
               # OTEL
               - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES
