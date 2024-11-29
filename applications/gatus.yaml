@@ -74,8 +74,8 @@ spec:
             ntfy:
               topic: "alerts"
               priority: 2
-              token: faketoken
               url: https://ntfy.hankeln.work
               default-alert:
+                enabled: true
                 failure-threshold: 1
                 send-on-resolved: true
