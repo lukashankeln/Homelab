@@ -45,11 +45,19 @@ spec:
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
+              alerts:
+                - type: ntfy
+                  description: "webservice is down"
+                  send-on-resolved: true
             - name: Gitea
               url: https://git.hankeln.work/api/healthz
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
+              alerts:
+                - type: ntfy
+                  description: "gitea is down"
+                  send-on-resolved: true
             - name: External DNS
               url: "8.8.8.8"
               dns:
@@ -58,6 +66,10 @@ spec:
               conditions:
                 - "[CONNECTED] == true"
                 - "[DNS_RCODE] == NOERROR"
+              alerts:
+                - type: ntfy
+                  description: "external is down"
+                  send-on-resolved: true
           alerting:
             ntfy:
               topic: "alerts"
@@ -65,5 +77,5 @@ spec:
               token: faketoken
               url: https://ntfy.hankeln.work
               default-alert:
-                failure-threshold: 3
+                failure-threshold: 1
                 send-on-resolved: true
