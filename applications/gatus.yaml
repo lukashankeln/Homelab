@@ -23,7 +23,7 @@ spec:
     chart: gatus
     helm:
       valuesObject:
-        extraLabels:
+        podLabels:
           network-policy/ingess-nginx-port-8080: "true"
           network-policy/egress-dns: "true"
           network-policy/egress-world: "true"
