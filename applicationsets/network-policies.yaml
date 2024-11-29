@@ -14,6 +14,7 @@ spec:
           - namespace: workflow
           - namespace: postgres
           - namespace: dashy
+          - namespace: gatus
   template:
     metadata:
       name: "network-policies-{{ namespace }}"
