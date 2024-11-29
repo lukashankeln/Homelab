@@ -75,6 +75,7 @@ spec:
               topic: "alerts"
               priority: 2
               url: https://ntfy.hankeln.work
+              click: https://status.hankeln.work/
               default-alert:
                 enabled: true
                 failure-threshold: 1
