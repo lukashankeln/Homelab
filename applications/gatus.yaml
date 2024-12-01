@@ -69,7 +69,7 @@ spec:
               alerts:
                 - type: ntfy
                   description: "external is down"
-                  send-on-resolved: true
+                  send-on-resolved: false
           alerting:
             ntfy:
               topic: "alerts"
