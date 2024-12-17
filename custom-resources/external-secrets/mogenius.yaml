@@ -11,8 +11,8 @@ spec:
   data:
     - remoteRef:
         key: /mogenius
-        property: API-KEY
-      secretKey: API-KEY
+        property: API_KEY
+      secretKey: API_KEY
   target:
     creationPolicy: Owner
     deletionPolicy: Merge
