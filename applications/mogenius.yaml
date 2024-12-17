@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mogenius-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizers.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: mogenius
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    repoURL: https://helm.mogenius.com/public
+    targetRevision: v2.5.2
+    chart: mogenius-k8s-manager
+    helm:
+      valuesObject:
+        global:
+          cluster_name: homelab
