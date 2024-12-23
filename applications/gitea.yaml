@@ -57,3 +57,11 @@ spec:
           enabled: true
           provisioning:
             enabled: true
+          statefulset:
+            resources:
+              requests:
+                memory: "200Mi"
+                cpu: "50m"
+              limits:
+                memory: "1Gi"
+                cpu: "1000m"
