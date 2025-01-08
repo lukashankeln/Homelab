@@ -26,7 +26,7 @@ spec:
             - port: "18889"
     - fromEndpoints:
         - matchLabels:
-            app.kubernetes.io/name: homelab-operator
+            app.kubernetes.io/namespace: homelab-operator
       toPorts:
         - ports:
             - port: "18889"
