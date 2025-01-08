@@ -26,6 +26,12 @@ spec:
             - port: "18889"
     - fromEndpoints:
         - matchLabels:
+            app.kubernetes.io/name: homelab-operator
+      toPorts:
+        - ports:
+            - port: "18889"
+    - fromEndpoints:
+        - matchLabels:
             io.kubernetes.pod.namespace: ingress-nginx
       toPorts:
         - ports:
