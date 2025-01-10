@@ -57,6 +57,7 @@ spec:
           enabled: true
           provisioning:
             enabled: true
+            ttlSecondsAfterFinished: null
           statefulset:
             resources:
               requests:
