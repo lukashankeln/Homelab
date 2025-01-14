@@ -58,3 +58,4 @@ spec:
                   - /var/log/pods/aspire-dashboard_*_*/*/*.log
                   - /var/log/pods/webservice_*_*/*/*.log
                   - /var/log/pods/memory_*_*/*/*.log
+                  - /var/log/pods/homelab-operator_*_*/*/*.log
