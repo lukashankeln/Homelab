@@ -1,0 +1,11 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: deny-all
+  namespace: postgres
+spec:
+  endpointSelector: {}
+  ingress:
+    - {}
+  egress:
+    - {}
