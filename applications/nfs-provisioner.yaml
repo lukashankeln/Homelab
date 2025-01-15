@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cnfs-provisioner
+  name: nfs-provisioner
   namespace: argocd
 spec:
   project: hankeln
