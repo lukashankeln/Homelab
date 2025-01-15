@@ -22,7 +22,7 @@ spec:
       valuesObject:
         podLabels:
           network-policy/egress-fqdn: "raw.githubusercontent.com"
-          network-policy/ingess-nginx-port-8080: "true"
+          network-policy/ingess-nginx-port: "8080"
           network-policy/egress-dns: "true"
         ingress:
           enabled: true

@@ -24,7 +24,7 @@ spec:
     helm:
       valuesObject:
         podLabels:
-          network-policy/ingess-nginx-port-8080: "true"
+          network-policy/ingess-nginx-port: "8080"
           network-policy/egress-dns: "true"
           network-policy/egress-world: "true"
         ingress:
