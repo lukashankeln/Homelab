@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnfs-provisioner
+  namespace: argocd
+spec:
+  project: hankeln
+  destination:
+    name: in-cluster
+    namespace: nfs-provisioner
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+    targetRevision: 4.0.18
+    chart: nfs-subdir-external-provisioner
+    helm:
+      valuesObject:
+        nfs:
+          server: nas.hankeln.work
+          path: /volume1/Kubernetes
+        storageClass:
+          defaultClass: true
