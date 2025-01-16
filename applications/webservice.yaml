@@ -30,6 +30,7 @@ spec:
         application:
           port: 5090
           additionalLabels:
+            network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
             network-policy/egress-world: "true"
             network-policy/egress-otel: "true"
