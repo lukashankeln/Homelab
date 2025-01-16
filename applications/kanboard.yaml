@@ -19,13 +19,16 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/kanboard-helm/
-    targetRevision: 0.3.0
+    targetRevision: 0.3.1
     chart: kanboard
     helm:
       valuesObject:
         image:
           tag: "v1.2.43" # datasource=docker depName=docker.io/kanboard/kanboard versioning=semver
         application:
+          additionalLabels:
+            network-policy/deny-all: "true"
+            network-policy/ingess-nginx-port: "80"
           persistence:
             enabled: true
             persistentVolumeClaim:

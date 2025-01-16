@@ -1,10 +1,11 @@
 apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
+kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: kanboard-policy
-  namespace: kanboard
+  name: ingess-nginx-port-80
 spec:
-  endpointSelector: {}
+  endpointSelector:
+    matchLabels:
+      network-policy/ingess-nginx-port: "80"
   ingress:
     - fromEndpoints:
         - matchLabels:
@@ -12,4 +13,3 @@ spec:
       toPorts:
         - ports:
             - port: "80"
-  egress: []
