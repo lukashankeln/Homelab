@@ -21,20 +21,20 @@ spec:
           - name: backup-pvc
             mountPath: /mnt/backup
         env:
-          - name: POSTGRES_USER
+          - name: PGUSER
             valueFrom:
               secretKeyRef:
                 name: postgres-secret
                 key: POSTGRES_USER
-          - name: POSTGRES_PASSWORD
+          - name: PGPASSWORD
             valueFrom:
               secretKeyRef:
                 name: postgres-secret
                 key: POSTGRES_PASSWORD
-          - name: POSTGRES_DB
+          - name: PGDATABASE
             value: "WebService"
           - name: POSTGRES_HOST
-            value: "postgres-service.postgres.svc.cluster.local:5432"
+            value: "postgres-service.postgres.svc.cluster.local"
         command: [sh, -c]
         source: |
-          pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -d $POSTGRES_DB > /mnt/backup/database_$(date +%Y%m%d).sql
+          pg_dump -h $POSTGRES_HOST -d $POSTGRES_DB > /mnt/backup/database_$(date +%Y%m%d).sql
