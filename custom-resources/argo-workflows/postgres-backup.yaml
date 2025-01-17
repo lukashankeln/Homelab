@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: postgres-backup-template
+  namespace: argo-workflows
+spec:
+  entrypoint: backup
+  volumes:
+    - name: backup-pvc
+      persistentVolumeClaim:
+        claimName: postgres-backup
+  templates:
+    - name: backup
+      metadata:
+        labels:
+          network-policy/egress-postgres: "true"
+      script:
+        image: postgres:13
+        volumeMounts:
+          - name: backup-pvc
+            mountPath: /mnt/backup
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: username
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: password
+          - name: POSTGRES_DB
+            value: "WebService"
+          - name: POSTGRES_HOST
+            value: "postgres-service.postgres.svc.cluster.local:5432"
+        command: [sh, -c]
+        source: |
+          pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -d $POSTGRES_DB > /mnt/backup/database_$(date +%Y%m%d).sql

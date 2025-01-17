@@ -1,0 +1,23 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: postgres-backup
+  namespace: argo-workflows
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /Postgres
+        property: username
+      secretKey: POSTGRES_USER
+    - remoteRef:
+        key: /Postgres
+        property: password
+      secretKey: POSTGRES_PASSWORD
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: postgres-secret
