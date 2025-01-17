@@ -37,4 +37,4 @@ spec:
             value: "postgres-service.postgres.svc.cluster.local"
         command: [sh, -c]
         source: |
-          pg_dump -h $POSTGRES_HOST -d $POSTGRES_DB > /mnt/backup/database_$(date +%Y%m%d).sql
+          pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%Y%m%d).sql
