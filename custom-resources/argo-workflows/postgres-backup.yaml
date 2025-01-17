@@ -5,6 +5,7 @@ metadata:
   namespace: argo-workflows
 spec:
   entrypoint: backup
+  serviceAccountName: argo-workflow-executor
   volumes:
     - name: backup-pvc
       persistentVolumeClaim:
