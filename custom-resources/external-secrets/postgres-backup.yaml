@@ -11,11 +11,11 @@ spec:
   data:
     - remoteRef:
         key: /Postgres
-        property: username
+        property: User
       secretKey: POSTGRES_USER
     - remoteRef:
         key: /Postgres
-        property: password
+        property: Password
       secretKey: POSTGRES_PASSWORD
   target:
     creationPolicy: Owner

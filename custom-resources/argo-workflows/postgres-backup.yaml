@@ -24,12 +24,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: postgres-secret
-                key: username
+                key: POSTGRES_USER
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: postgres-secret
-                key: password
+                key: POSTGRES_PASSWORD
           - name: POSTGRES_DB
             value: "WebService"
           - name: POSTGRES_HOST
