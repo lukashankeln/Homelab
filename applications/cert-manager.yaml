@@ -16,7 +16,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://charts.jetstack.io
-    targetRevision: v1.16.2
+    targetRevision: v1.16.3
     chart: cert-manager
     helm:
       valuesObject:
