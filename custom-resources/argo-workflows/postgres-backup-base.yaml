@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: postgres-backup-template
+  name: postgres-backup-base
   namespace: argo-workflows
 spec:
   entrypoint: backup
@@ -38,4 +38,4 @@ spec:
             value: "postgres-service.postgres.svc.cluster.local"
         command: [sh, -c]
         source: |
-          pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%Y%m%d).sql
+          pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%H_%M_%d_%m_%Y).sql
