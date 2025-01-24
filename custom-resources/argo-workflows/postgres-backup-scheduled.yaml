@@ -9,6 +9,10 @@ spec:
   workflowSpec:
     entrypoint: template
     serviceAccountName: argo-workflow-executor
+    volumes:
+      - name: backup-pvc
+        persistentVolumeClaim:
+          claimName: postgres-backup
     templates:
       - name: template
         steps:
