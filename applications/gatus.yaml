@@ -46,6 +46,7 @@ spec:
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
+                - "[CERTIFICATE_EXPIRATION] > 48h"
               alerts:
                 - type: ntfy
                   description: "webservice is down"
@@ -55,6 +56,7 @@ spec:
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
+                - "[CERTIFICATE_EXPIRATION] > 48h"
               alerts:
                 - type: ntfy
                   description: "gitea is down"
