@@ -48,7 +48,13 @@ spec:
               - hosts:
                   - in-aspire.hankeln.work
                 secretName: in-aspire-tls
-
+        env:
+          - name: DASHBOARD__TELEMETRYLIMITS__MAXTRACECOUNT
+            value: "250"
+          - name: DASHBOARD__TELEMETRYLIMITS__MAXMETRICSCOUNT
+            value: "1000"
+          - name: DASHBOARD__TELEMETRYLIMITS__MAXLOGSCOUNT
+            value: "10000"
         opentelemetry-collector:
           enabled: true
           config:
