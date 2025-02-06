@@ -41,6 +41,12 @@ spec:
                 - status.hankeln.work
         config:
           endpoints:
+            - name: Hassio
+              url: https://hassio.hankeln.work
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
+                - "[CERTIFICATE_EXPIRATION] > 48h"
             - name: WebService
               url: https://web.hankeln.work/api/_health
               interval: 60s
