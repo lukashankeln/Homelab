@@ -38,5 +38,5 @@ spec:
             value: "postgres-service.postgres.svc.cluster.local"
         command: [sh, -c]
         source: |
-          pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%H_%M_%d_%m_%Y).sql
+          pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%d_%m_%Y-%H_%M).sql
           ls -tp /mnt/backup/database_*.sql | grep -v '/$' | tail -n +11 | xargs -I {} rm -- {}
