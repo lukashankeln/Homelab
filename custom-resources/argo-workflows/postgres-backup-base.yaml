@@ -39,3 +39,4 @@ spec:
         command: [sh, -c]
         source: |
           pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%H_%M_%d_%m_%Y).sql
+          ls -tp /mnt/backup/database_*.sql | grep -v '/$' | tail -n +11 | xargs -I {} rm -- {}
