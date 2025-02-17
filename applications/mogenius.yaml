@@ -19,7 +19,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://helm.mogenius.com/public
-    targetRevision: v2.5.2
+    targetRevision: v2.5.4
     chart: mogenius-k8s-manager
     helm:
       valuesObject:
