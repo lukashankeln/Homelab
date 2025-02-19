@@ -23,5 +23,6 @@ spec:
     chart: mogenius-k8s-manager
     helm:
       valuesObject:
+        fullnameOverride: mogenius-operator
         global:
           cluster_name: homelab
