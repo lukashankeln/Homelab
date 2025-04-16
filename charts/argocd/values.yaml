@@ -52,3 +52,5 @@ argo-cd:
   configs:
     cm:
       exec.enabled: "true"
+    params:
+      controller.diff.server.side: "true"
