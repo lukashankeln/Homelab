@@ -57,7 +57,7 @@ spec:
           enabled: true
           provisioning:
             enabled: true
-            ttlSecondsAfterFinished: null
+            ttlSecondsAfterFinished: 22896000 # 1 year
           statefulset:
             resources:
               requests:
