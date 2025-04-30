@@ -24,6 +24,11 @@ spec:
           network-policy/egress-fqdn: "raw.githubusercontent.com"
           network-policy/ingess-nginx-port: "8080"
           network-policy/egress-dns: "true"
+        resources:
+          limits:
+            cpu: 250m
+          requests:
+            cpu: 10m
         ingress:
           enabled: true
           className: "nginx"
