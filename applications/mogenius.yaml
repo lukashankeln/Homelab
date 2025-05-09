@@ -24,5 +24,6 @@ spec:
     helm:
       valuesObject:
         fullnameOverride: mogenius-operator
+        revisionHistoryLimit: 1
         global:
           cluster_name: homelab
