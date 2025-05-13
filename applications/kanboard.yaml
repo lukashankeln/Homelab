@@ -24,7 +24,7 @@ spec:
     helm:
       valuesObject:
         image:
-          tag: "v1.2.44" # datasource=docker depName=docker.io/kanboard/kanboard versioning=semver
+          tag: "v1.2.45" # datasource=docker depName=docker.io/kanboard/kanboard versioning=semver
         application:
           additionalLabels:
             network-policy/deny-all: "true"
