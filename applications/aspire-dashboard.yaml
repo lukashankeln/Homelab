@@ -23,10 +23,6 @@ spec:
     chart: aspire-dashboard
     helm:
       valuesObject:
-        image:
-          registry: mcr.microsoft.com/dotnet
-          repository: aspire-dashboard
-          tag: 9.1.0 # datasource=docker depName=mcr.microsoft.com/dotnet/aspire-dashboard versioning=docker
         ui:
           ingress:
             enabled: true

@@ -23,8 +23,6 @@ spec:
     chart: kanboard
     helm:
       valuesObject:
-        image:
-          tag: "v1.2.45" # datasource=docker depName=docker.io/kanboard/kanboard versioning=semver
         application:
           additionalLabels:
             network-policy/deny-all: "true"
