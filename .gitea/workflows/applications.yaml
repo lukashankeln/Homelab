@@ -2,7 +2,7 @@ name: "applications"
 on:
   push:
     branches: ["main"]
-    paths: ["applications/**"]
+    paths: ["applications/*.yaml"]
 
 jobs:
   argocd-linter:
