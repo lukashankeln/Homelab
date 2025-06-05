@@ -4,20 +4,20 @@
     "local>bot/renovate"
   ],
   "kubernetes": {
-    "fileMatch": [
-      "kubernetes/metallb/.+\\.yaml$",
-      "kubernetes/postgres/.+\\.yaml$",
-      "kubernetes/gitea-runner/.+\\.yaml$"
+    "managerFilePatterns": [
+      "/kubernetes/metallb/.+\\.yaml$/",
+      "/kubernetes/postgres/.+\\.yaml$/",
+      "/kubernetes/gitea-runner/.+\\.yaml$/"
     ]
   },
   "argocd": {
-    "fileMatch": [
-      "applications/.+\\.yaml$"
+    "managerFilePatterns": [
+      "/applications/.+\\.yaml$/"
     ]
   },
   "helmv3": {
-    "fileMatch": [
-      "applications/.+\\.yaml$"
+    "managerFilePatterns": [
+      "/applications/.+\\.yaml$/"
     ]
   },
   "packageRules": [
