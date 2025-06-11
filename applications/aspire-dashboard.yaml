@@ -19,7 +19,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/aspire-dashboard-helm/
-    targetRevision: 1.5.0
+    targetRevision: 1.6.0
     chart: aspire-dashboard
     helm:
       valuesObject:
