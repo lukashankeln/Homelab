@@ -44,7 +44,9 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^custom-resources/system-upgrade/plan.yaml$"],
+      "managerFilePatterns": [
+        "/^custom-resources/system-upgrade/plan.yaml$/"
+      ],
       "matchStrings": [
         "version:\\s*(?<currentValue>v[\\d.]+\\+k3s\\d+)"
       ],
