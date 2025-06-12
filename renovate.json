@@ -48,7 +48,7 @@
       "matchStrings": [
         "version:\\s*(?<currentValue>v[\\d.]+\\+k3s\\d+)"
       ],
-      "depNameTemplate": "rancher/k3s",
+      "depNameTemplate": "k3s-io/k3s",
       "datasourceTemplate": "github-releases",
       "versioningTemplate": "loose"
     }
