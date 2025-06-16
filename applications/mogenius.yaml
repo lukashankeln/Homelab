@@ -20,7 +20,6 @@ spec:
   ignoreDifferences:
     - group: "apps"
       kind: Deployment
-      name: mogenius-operator
       jsonPointers:
         - /spec/template/metadata/annotations/valkey-password-checksum
     - kind: Secret
