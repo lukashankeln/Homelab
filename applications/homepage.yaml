@@ -90,8 +90,8 @@ spec:
                   showLabel: true
           kubernetes:
             mode: cluster
-          docker:
-          settings:
+          docker: null
+          settings: null
 
           # all sections can alternately be appended with "String" such as this example settings. This is useful
           # for defining a stable ordering. Unfortunately Go's (and therefore Helm's) toYaml function sorts keys
