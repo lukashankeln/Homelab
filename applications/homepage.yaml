@@ -42,4 +42,64 @@ spec:
           - name: HOMEPAGE_ALLOWED_HOSTS
             # This value must be set
             # ref: https://gethomepage.dev/installation/#homepage_allowed_hosts
-            value: https://homepage.hankeln.work
+            value: homepage.hankeln.work
+        config:
+          # To use an existing ConfigMap uncomment this line and specify the name
+          # useExistingConfigMap: existing-homepage-configmap
+          bookmarks:
+            - Developer:
+                - Github:
+                    - abbr: GH
+                      href: https://github.com/
+
+          services:
+            - My First Group:
+                - My First Service:
+                    href: http://localhost/
+                    description: Homepage is awesome
+
+            - My Second Group:
+                - My Second Service:
+                    href: http://localhost/
+                    description: Homepage is the best
+
+            - My Third Group:
+                - My Third Service:
+                    href: http://localhost/
+                    description: Homepage is 😎
+          widgets:
+            - resources:
+                backend: kubernetes
+                expanded: true
+                cpu: true
+                memory: true
+            - search:
+                provider: duckduckgo
+                target: _blank
+            - kubernetes:
+                cluster:
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+                  label: "cluster"
+                nodes:
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+          kubernetes:
+            mode: cluster
+          docker:
+          settings:
+
+          # all sections can alternately be appended with "String" such as this example settings. This is useful
+          # for defining a stable ordering. Unfortunately Go's (and therefore Helm's) toYaml function sorts keys
+          # and loses and input ordering. Using a string is the best way around this.
+          settingsString: |
+            title: Homepage
+            headerStyle: boxed
+            layout:
+              My First Group:
+              My Second Group:
+              My Third Group:
