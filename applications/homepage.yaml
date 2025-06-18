@@ -38,8 +38,8 @@ spec:
               - hosts:
                   - homepage.hankeln.work
                 secretName: homepage-tls
-          env:
-            - name: HOMEPAGE_ALLOWED_HOSTS
-              # This value must be set
-              # ref: https://gethomepage.dev/installation/#homepage_allowed_hosts
-              value: homepage.hankeln.work
+        env:
+          - name: HOMEPAGE_ALLOWED_HOSTS
+            # This value must be set
+            # ref: https://gethomepage.dev/installation/#homepage_allowed_hosts
+            value: homepage.hankeln.work
