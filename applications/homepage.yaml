@@ -36,4 +36,5 @@ spec:
                     pathType: Prefix
             tls:
               - hosts:
-                  - homepage-tls
+                  - homepage.hankeln.work
+                secretName: homepage-tls
