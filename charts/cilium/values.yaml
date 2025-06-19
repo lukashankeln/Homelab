@@ -16,6 +16,11 @@ cilium:
       ingress:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+          gethomepage.dev/description: Hubble
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/group: Observability
+          gethomepage.dev/icon: cilium.png
+          gethomepage.dev/name: Hubble
         className: nginx
         enabled: true
         hosts:

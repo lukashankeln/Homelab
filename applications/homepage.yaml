@@ -64,10 +64,10 @@ spec:
             - Home Automation:
                 - NAS:
                     href: http://192.168.1.112:8000/portal/
-                    description: Network Attached Storage (QNAP NAS)
+                    description: Network Attached Storage
                 - Home Assistant:
                     href: https://hassio.hankeln.work/
-                    description: Home automation platform (Hass.io)
+                    description: Home automation platform
                 - Free Box:
                     href: http://mafreebox.freebox.fr/
                     description: Freebox management interface
