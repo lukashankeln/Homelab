@@ -53,10 +53,13 @@ spec:
                       href: https://github.com/
 
           services:
-            - My First Group:
-                - My First Service:
-                    href: http://localhost/
-                    description: Homepage is awesome
+            - Home Automation:
+                - NAS:
+                    href: http://192.168.1.112:8000/portal/
+                    description: Network Attached Storage
+                - Home Assistant:
+                    href: https://hassio.hankeln.work/
+                    description: Home automation platform
 
             - My Second Group:
                 - My Second Service:
@@ -100,6 +103,6 @@ spec:
             title: Homepage
             headerStyle: boxed
             layout:
-              My First Group:
+              Home Automation:
               My Second Group:
               My Third Group:
