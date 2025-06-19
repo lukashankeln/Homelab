@@ -77,8 +77,6 @@ spec:
                 expanded: true
                 cpu: true
                 memory: true
-            - gatus:
-                url: https://status.hankeln.work
             - search:
                 provider: duckduckgo
                 target: _blank
@@ -111,4 +109,3 @@ spec:
             layout:
               Home Automation:
               Observability:
-              My Third Group:
