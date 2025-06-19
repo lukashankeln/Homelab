@@ -71,20 +71,14 @@ spec:
                 - Free Box:
                     href: http://mafreebox.freebox.fr/
                     description: Freebox management interface
-            - My Second Group:
-                - My Second Service:
-                    href: http://localhost/
-                    description: Homepage is the best
-            - My Third Group:
-                - My Third Service:
-                    href: http://localhost/
-                    description: Homepage is 😎
           widgets:
             - resources:
                 backend: kubernetes
                 expanded: true
                 cpu: true
                 memory: true
+            - gatus:
+                url: https://status.hankeln.work
             - search:
                 provider: duckduckgo
                 target: _blank
@@ -116,5 +110,5 @@ spec:
             iconStyle: colored
             layout:
               Home Automation:
-              My Second Group:
+              Observability:
               My Third Group:
