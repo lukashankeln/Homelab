@@ -51,21 +51,27 @@ spec:
                 - Github:
                     - abbr: GH
                       href: https://github.com/
-
+                - Stack Overflow:
+                    - abbr: SO
+                      href: https://stackoverflow.com/
+                - GitLab:
+                    - abbr: GL
+                      href: https://gitlab.com/
+                - Docker Hub:
+                    - abbr: DH
+                      href: https://hub.docker.com/
           services:
             - Home Automation:
                 - NAS:
                     href: http://192.168.1.112:8000/portal/
-                    description: Network Attached Storage
+                    description: Network Attached Storage (QNAP NAS)
                 - Home Assistant:
                     href: https://hassio.hankeln.work/
-                    description: Home automation platform
-
+                    description: Home automation platform (Hass.io)
             - My Second Group:
                 - My Second Service:
                     href: http://localhost/
                     description: Homepage is the best
-
             - My Third Group:
                 - My Third Service:
                     href: http://localhost/
@@ -91,17 +97,20 @@ spec:
                   cpu: true
                   memory: true
                   showLabel: true
+            - datetime:
+                format:
+                  dateStyle: long
+                  timeStyle: short
+                  hour12: false
           kubernetes:
             mode: cluster
           docker: {}
           settings: {}
-
-          # all sections can alternately be appended with "String" such as this example settings. This is useful
-          # for defining a stable ordering. Unfortunately Go's (and therefore Helm's) toYaml function sorts keys
-          # and loses and input ordering. Using a string is the best way around this.
           settingsString: |
-            title: Homepage
+            title: "Hankeln Homelab Dashboard"
             headerStyle: boxed
+            theme: dark
+            iconStyle: colored
             layout:
               Home Automation:
               My Second Group:
