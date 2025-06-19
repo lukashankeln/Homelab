@@ -68,6 +68,9 @@ spec:
                 - Home Assistant:
                     href: https://hassio.hankeln.work/
                     description: Home automation platform (Hass.io)
+                - Free Box:
+                    href: http://mafreebox.freebox.fr/
+                    description: Freebox management interface
             - My Second Group:
                 - My Second Service:
                     href: http://localhost/
