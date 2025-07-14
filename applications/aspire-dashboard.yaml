@@ -19,7 +19,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/aspire-dashboard-helm/
-    targetRevision: 1.7.2
+    targetRevision: 1.8.0
     chart: aspire-dashboard
     helm:
       valuesObject:
@@ -44,13 +44,11 @@ spec:
               - hosts:
                   - in-aspire.hankeln.work
                 secretName: in-aspire-tls
-        env:
-          - name: DASHBOARD__TELEMETRYLIMITS__MAXTRACECOUNT
-            value: "250"
-          - name: DASHBOARD__TELEMETRYLIMITS__MAXMETRICSCOUNT
-            value: "1000"
-          - name: DASHBOARD__TELEMETRYLIMITS__MAXLOGSCOUNT
-            value: "10000"
+        config:
+          limits:
+            maxTraceCount: 1000
+            maxLogCount: 1000
+            maxMetricCount: 1000
         opentelemetry-collector:
           enabled: true
           config:
