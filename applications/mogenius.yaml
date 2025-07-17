@@ -28,7 +28,7 @@ spec:
         - /data/valkey-password
   source:
     repoURL: https://helm.mogenius.com/public
-    targetRevision: v2.11.1
+    targetRevision: v2.11.3
     chart: mogenius-k8s-manager
     helm:
       valuesObject:
