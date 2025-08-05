@@ -19,7 +19,7 @@ spec:
     namespace: cilium
   source:
     repoURL: https://helm.cilium.io/
-    targetRevision: 1.17.6
+    targetRevision: 1.18.0
     chart: cilium
     helm:
       valuesObject:
