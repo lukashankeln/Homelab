@@ -54,7 +54,11 @@ spec:
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
-                - "[CERTIFICATE_EXPIRATION] > 48h"
+                - "[CERTIFICATE_EXPIRATION] > 168h"
+              alerts:
+                - type: ntfy
+                  description: "homeassistant is down"
+                  send-on-resolved: true
             - name: WebService
               url: https://web.hankeln.work/api/_health
               interval: 60s
