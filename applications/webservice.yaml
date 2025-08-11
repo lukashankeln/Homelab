@@ -12,8 +12,6 @@ spec:
     name: in-cluster
     namespace: webservice
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       prune: true
       allowEmpty: true

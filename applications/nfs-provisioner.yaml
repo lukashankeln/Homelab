@@ -9,8 +9,6 @@ spec:
     name: in-cluster
     namespace: nfs-provisioner
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       prune: true
       allowEmpty: true

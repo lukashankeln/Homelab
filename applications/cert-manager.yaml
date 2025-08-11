@@ -9,8 +9,6 @@ spec:
     name: in-cluster
     namespace: cert-manager
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       prune: true
       allowEmpty: true

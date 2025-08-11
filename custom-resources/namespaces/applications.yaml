@@ -1,0 +1,140 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argo-workflows
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aspire-dashboard
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: chaos
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cilium
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: docker-ui
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: external-secrets-operator
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gatus
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitea
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homelab-operator
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homepage
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kanboard
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: memory
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metallb-system
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mogenius
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mogenius-dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nfs-provisioner
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ntfy
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: postgres
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: skooner
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: system-upgrade
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: too-restful-api
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: uptime-kuma
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vault
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: webservice
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: workflow

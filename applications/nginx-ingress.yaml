@@ -9,8 +9,6 @@ spec:
     name: in-cluster
     namespace: ingress-nginx
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       prune: true
       allowEmpty: true

@@ -9,8 +9,6 @@ spec:
   project: hankeln
   revisionHistoryLimit: 1
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       prune: true
       allowEmpty: true
