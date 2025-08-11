@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: gitea
+  namespace: mogenius
+spec:
+  resources:
+    - id: gitea
+      type: namespace
+status: {}

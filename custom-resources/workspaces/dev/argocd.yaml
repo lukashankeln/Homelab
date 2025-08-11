@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: argocd
+  namespace: mogenius-dev
+spec:
+  resources:
+    - id: argocd
+      type: namespace
+status: {}

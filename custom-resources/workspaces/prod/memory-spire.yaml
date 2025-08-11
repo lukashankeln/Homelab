@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: memory-spire
+  namespace: mogenius
+spec:
+  resources:
+    - id: memory-spire
+      type: namespace
+status: {}

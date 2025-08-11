@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: cilium
+  namespace: mogenius-dev
+spec:
+  resources:
+    - id: cilium
+      type: namespace
+status: {}

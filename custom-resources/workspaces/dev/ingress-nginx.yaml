@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: ingress-nginx
+  namespace: mogenius-dev
+spec:
+  resources:
+    - id: ingress-nginx
+      type: namespace
+status: {}

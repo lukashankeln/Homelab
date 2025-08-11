@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: argo-workflows
+  namespace: mogenius
+spec:
+  resources:
+    - id: argo-workflows
+      type: namespace
+status: {}

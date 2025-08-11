@@ -1,0 +1,89 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: homelab
+  namespace: mogenius
+spec:
+  resources:
+    - id: custom-resources
+      type: namespace
+    - id: dashy
+      type: namespace
+    - id: uptime-kuma
+      type: namespace
+    - id: webservice
+      type: namespace
+    - id: gatus
+      type: namespace
+    - id: homelab-operator
+      type: namespace
+    - id: default
+      type: namespace
+    - id: mogenius
+      type: namespace
+    - id: cilium
+      type: namespace
+    - id: docker-ui
+      type: namespace
+    - id: metallb-system
+      type: namespace
+    - id: kube-system
+      type: namespace
+    - id: ntfy
+      type: namespace
+    - id: gitea
+      type: namespace
+    - id: aspire-dashboard
+      type: namespace
+    - id: external-secrets-operator
+      type: namespace
+    - id: cilium-secrets
+      type: namespace
+    - id: argo-workflows
+      type: namespace
+    - id: argocd
+      type: namespace
+    - id: kanboard
+      type: namespace
+    - id: mogenius-dev
+      type: namespace
+    - id: cert-manager
+      type: namespace
+    - id: postgres
+      type: namespace
+    - id: nfs-provisioner
+      type: namespace
+    - id: ingress-nginx
+      type: namespace
+    - id: vault
+      type: namespace
+    - id: kube-node-lease
+      type: namespace
+    - id: workflow
+      type: namespace
+    - id: skooner
+      type: namespace
+    - id: too-restful-api
+      type: namespace
+    - id: memory
+      type: namespace
+    - id: kube-public
+      type: namespace
+    - id: memoryspire
+      namespace: memory
+      type: helm
+    - id: homelab-operator
+      namespace: homelab-operator
+      type: helm
+    - id: mogenius-operator
+      namespace: mogenius-dev
+      type: helm
+    - id: cilium
+      namespace: cilium
+      type: helm
+    - id: argocd
+      namespace: argocd
+      type: helm
+    - id: system-upgrade
+      type: namespace
+status: {}

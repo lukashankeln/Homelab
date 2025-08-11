@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: homelab-operator
+  namespace: mogenius-dev
+spec:
+  resources:
+    - id: homelab-operator
+      type: namespace
+status: {}

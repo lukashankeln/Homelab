@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: aspire-dashboard
+  namespace: mogenius
+spec:
+  resources:
+    - id: aspire-dashboard
+      type: namespace
+status: {}

@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: gatus
+  namespace: mogenius-dev
+spec:
+  resources:
+    - id: gatus
+      type: namespace
+status: {}
