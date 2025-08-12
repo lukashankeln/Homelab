@@ -8,7 +8,7 @@ jobs:
     name: "Yamllint"
     runs-on: ubuntu-latest
     container:
-      image: docker-registry.hankeln.work/gitea-runner:1.0.6
+      image: docker-registry.hankeln.work/gitea-runner:1.1.1
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
     name: "ArgoCD Linter"
     runs-on: ubuntu-latest
     container:
-      image: docker-registry.hankeln.work/gitea-runner:1.0.6
+      image: docker-registry.hankeln.work/gitea-runner:1.1.1
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
