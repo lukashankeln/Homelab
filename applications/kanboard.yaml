@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/kanboard-helm/
-    targetRevision: 1.0.2
+    targetRevision: 1.0.3
     chart: kanboard
     helm:
       valuesObject:
