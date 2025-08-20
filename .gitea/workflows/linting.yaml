@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
-      - uses: azure/setup-helm@v4.3.0
+      - uses: azure/setup-helm@v4.3.1
       - name: "Install yq"
         run: |
           wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
