@@ -1,0 +1,12 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: egress-ingress-nginx
+spec:
+  endpointSelector:
+    matchLabels:
+      network-policy/egress-ingress-nginx: "true"
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: ingress-nginx
