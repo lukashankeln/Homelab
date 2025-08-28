@@ -22,7 +22,7 @@ spec:
     helm:
       valuesObject:
 
-        kubeProxyReplacement: strict
+        kubeProxyReplacement: true
         k8sServiceHost: server-luha-1.hankeln.work
         k8sServicePort: 6443
         hubble:
