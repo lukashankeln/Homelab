@@ -35,3 +35,6 @@ spec:
       toPorts:
         - ports:
             - port: "3000"
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: ingress-nginx
