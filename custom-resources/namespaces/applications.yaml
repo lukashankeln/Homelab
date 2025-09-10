@@ -133,3 +133,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: workflow
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: renovate-operator

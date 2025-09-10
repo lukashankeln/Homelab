@@ -2,7 +2,7 @@ apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: renovate-secrets
-  namespace: argo-workflows
+  namespace: renovate-operator
 spec:
   refreshInterval: 10s
   secretStoreRef:

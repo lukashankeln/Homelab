@@ -1,0 +1,36 @@
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: renovate-secondary
+  namespace: renovate-operator
+spec:
+  metadata:
+    labels:
+      network-policy/egress-ingress-nginx: "true"
+      network-policy/egress-world: "true"
+  schedule: "0 * * * *"
+  discoveryFilter: "!Hankeln/*"
+  image: renovate/renovate:41.43.3 # renovate
+  secretRef: "renovate-secrets"
+  extraEnv:
+    - name: RENOVATE_ENDPOINT
+      value: "https://git.hankeln.work"
+    - name: RENOVATE_PLATFORM
+      value: "gitea"
+    - name: RENOVATE_ALLOW_PLUGINS
+      value: "true"
+
+    - name: LOG_FORMAT
+      value: "json"
+    - name: LOG_LEVEL
+      value: "debug"
+  parallelism: 1
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+  nodeSelector:
+    kubernetes.io/hostname: server-luha-2

@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: renovate-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizers.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: renovate-operator
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    repoURL: https://helm.mogenius.com/public
+    targetRevision: 1.0.7
+    chart: renovate-operator
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          ingressClassName: "nginx"
+          host: renovate.hankeln.work
+          tls:
+            - hosts:
+                - renovate.hankeln.work
+              secretName: arenovate-tls
+          labels: {}
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
