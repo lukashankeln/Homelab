@@ -8,7 +8,7 @@ spec:
   destination:
     namespace: paperless
     name: in-cluster
-  project: default
+  project: hankeln
   syncPolicy:
     automated:
       prune: true
