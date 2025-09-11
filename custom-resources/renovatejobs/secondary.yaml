@@ -9,7 +9,7 @@ spec:
       network-policy/egress-ingress-nginx: "true"
       network-policy/egress-world: "true"
       network-policy/egress-dns: "true"
-  schedule: "0 0 * * * *"
+  schedule: "0 0 * * *"
   discoveryFilter: "!Hankeln/*"
   image: renovate/renovate:41.99.9 # renovate
   secretRef: "renovate-secrets"
