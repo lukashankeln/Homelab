@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: renovate-operator
+  namespace: mogenius
+spec:
+  resources:
+    - id: renovate-operator
+      type: namespace
+status: {}
