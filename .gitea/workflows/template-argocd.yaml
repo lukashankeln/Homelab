@@ -9,7 +9,7 @@ jobs:
     name: ArgoCD-Template
     runs-on: ubuntu-latest
     container:
-      image: docker-registry.hankeln.work/gitea-runner:1.1.1
+      image: docker-registry.hankeln.work/gitea-runner:1.1.2
     steps:
       - name: Checkout
         uses: actions/checkout@v4
