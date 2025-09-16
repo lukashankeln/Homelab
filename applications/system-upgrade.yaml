@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/system-upgrade-controller-helm/
-    targetRevision: 1.4.0
+    targetRevision: 1.4.1
     chart: system-upgrade-controller
     helm:
       valuesObject: {}
