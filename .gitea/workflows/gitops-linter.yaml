@@ -1,0 +1,44 @@
+name: "gitops-linter"
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  yamllint:
+    name: "Yamllint"
+    runs-on: ubuntu-latest
+    container:
+      image: docker-registry.hankeln.work/gitea-runner:1.1.2
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - name: "Yamllint"
+        uses: karancode/yamllint-github-action@v3.0.0
+        with:
+          yamllint_file_or_dir: "."
+
+  gitops-linter:
+    name: "gitops linter"
+    runs-on: ubuntu-latest
+    container:
+      image: docker-registry.hankeln.work/gitea-runner:1.1.2
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4.3.1
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: ">=1.23.2"
+
+      - name: "Install gitops linter"
+        run: |
+          export GOPRIVATE=git.hankeln.work/*
+          export GONOSUMDB=git.hankeln.work/*
+          export GOPROXY=direct
+          go install git.hankeln.work/hankeln/gitops-linter@be449ccae4d2f7c7b21a4e3cc10fcb6334915dd5
+
+      - name: "gitops Linter"
+        run: |
+          gitops-linter lint --file-match=.*yaml --scan-dir=./applications
