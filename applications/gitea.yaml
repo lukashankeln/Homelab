@@ -52,4 +52,4 @@ spec:
             memory: "500Mi"
             cpu: "600m"
         valkey:
-          enabled: true
+          enabled: false
