@@ -17,7 +17,7 @@ spec:
     namespace: gitea
   source:
     repoURL: https://dl.gitea.io/charts
-    targetRevision: 11.0.1
+    targetRevision: 12.3.0
     chart: gitea
     helm:
       valuesObject:
@@ -40,7 +40,7 @@ spec:
           create: false
           claimName: "gitea-volume-claim"
           volumeName: "gitea-volume"
-        redis-cluster:
+        valkey-cluster:
           enabled: false
         postgresql-ha:
           enabled: false
@@ -51,16 +51,5 @@ spec:
           limits:
             memory: "500Mi"
             cpu: "600m"
-        actions:
+        valkey:
           enabled: true
-          provisioning:
-            enabled: true
-            ttlSecondsAfterFinished: 22896000 # 1 year
-          statefulset:
-            resources:
-              requests:
-                memory: "200Mi"
-                cpu: "50m"
-              limits:
-                memory: "1Gi"
-                cpu: "1000m"

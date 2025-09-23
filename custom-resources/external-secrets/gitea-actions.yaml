@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: gitea-actions-token
+  namespace: gitea
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /Gitea
+        property: Actions-Token
+      secretKey: token
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: gitea-actions-token

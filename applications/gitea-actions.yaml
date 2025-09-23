@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+  destination:
+    name: in-cluster
+    namespace: gitea
+  source:
+    repoURL: https://dl.gitea.io/charts
+    targetRevision: 0.0.1
+    chart: actions
+    helm:
+      valuesObject:
+        enabled: true
+        giteaRootURL: https://git.hankeln.work/
+
+        existingSecret: gitea-actions-token
+        existingSecretKey: token
+
+        statefulset:
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "50m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
