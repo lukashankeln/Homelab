@@ -8,7 +8,7 @@ metadata:
     k3s-upgrade: server
 spec:
   concurrency: 1
-  version: v1.33.4+k3s1
+  version: v1.33.5+k3s1
   nodeSelector:
     matchExpressions:
       - {key: kubernetes.io/hostname, operator: Exists}
