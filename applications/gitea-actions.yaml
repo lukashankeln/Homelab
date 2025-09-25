@@ -28,6 +28,10 @@ spec:
         existingSecretKey: token
 
         statefulset:
+          labels:
+            network-policy/egress-dns: "true"
+            network-policy/egress-ingress-nginx: "true"
+            network-policy/egress-world: "true"
           resources:
             requests:
               memory: "200Mi"

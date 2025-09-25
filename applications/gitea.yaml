@@ -21,6 +21,10 @@ spec:
     chart: gitea
     helm:
       valuesObject:
+        deployment:
+          labels:
+            network-policy/egress-dns: "true"
+            network-policy/ingess-nginx-port: "3000"
         ingress:
           enabled: true
           annotations:
@@ -53,3 +57,6 @@ spec:
             cpu: "600m"
         valkey:
           enabled: false
+          global:
+            valkey:
+              password: changemeplease
