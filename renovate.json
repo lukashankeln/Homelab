@@ -52,7 +52,8 @@
       ],
       "depNameTemplate": "k3s-io/k3s",
       "datasourceTemplate": "github-releases",
-      "versioningTemplate": "loose"
+      "versioningTemplate": "loose",
+      "minimumReleaseAge": "5 days"
     }
   ]
 }
