@@ -25,6 +25,7 @@ spec:
           labels:
             network-policy/egress-dns: "true"
             network-policy/ingess-nginx-port: "3000"
+            network-policy/egress-world: "true"
         ingress:
           enabled: true
           annotations:
