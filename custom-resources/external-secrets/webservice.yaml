@@ -17,3 +17,31 @@ spec:
     creationPolicy: Owner
     deletionPolicy: Merge
     name: postgres-connection
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: git-credentials
+  namespace: webservice
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /WebService
+        property: GIT_URL
+      secretKey: GIT_URL
+    - remoteRef:
+        key: /WebService
+        property: GIT_TOKEN
+      secretKey: GIT_TOKEN
+    - remoteRef:
+        key: /WebService
+        property: GIT_USER
+      secretKey: GIT_USER
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: git-credentials

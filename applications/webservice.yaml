@@ -74,6 +74,9 @@ spec:
             value: "prod:WebService.Server"
           - name: OTEL_EXPORTER_OTLP_HEADERS
             value: "x-otlp-api-key=aspire"
+          # Obsidian
+          - name: OBSIDIAN_PATH
+            value: /vault  # can be overridden
           # Postgres
           - name: ConnectionStrings__WebService
             valueFrom:
@@ -90,6 +93,12 @@ spec:
                 - ALL
             seccompProfile:
               type: RuntimeDefault
+        volumeMounts:
+          - name: obsidian
+            mountPath: /vault
+        volumes:
+          - name: obsidian
+            emptyDir: {}
         initContainers:
           - name: migrations
             image: docker-registry.hankeln.work/webservice/migrations:3.11.2 # renovate
@@ -111,3 +120,50 @@ spec:
                   secretKeyRef:
                     name: postgres-connection
                     key: PostgresConnectionString
+          - name: obsidian-sync
+            image: alpine/git:v2.49.1 # renovate
+            restartPolicy: Always
+            env:
+              - name: GIT_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: git-credentials
+                    key: GIT_URL
+              - name: GIT_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: git-credentials
+                    key: GIT_USER
+              - name: GIT_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: git-credentials
+                    key: GIT_TOKEN
+              - name: OBSIDIAN_PATH
+                value: /vault  # can be overridden
+              - name: PULL_INTERVAL
+                value: "900"  # seconds, 900 = 15 minutes
+            volumeMounts:
+              - name: obsidian
+                mountPath: /vault
+            command:
+              - /bin/sh
+              - -c
+              - |
+                set -eux
+
+                if [ -z "$(ls -A ${OBSIDIAN_PATH})" ]; then
+                  echo "[INFO] Directory is empty. Cloning repository..."
+                  git clone https://${GIT_USER}:${GIT_TOKEN}@${GIT_URL} ${OBSIDIAN_PATH}
+                  echo "[INFO] Clone completed."
+                else
+                  echo "[WARN] Directory not empty. Skipping clone."
+                fi
+
+                cd ${OBSIDIAN_PATH}
+                while true; do
+                  echo "[INFO] Pulling changes from remote repository..."
+                  git pull
+                  echo "[INFO] Pull completed. Sleeping for ${PULL_INTERVAL} seconds..."
+                  sleep ${PULL_INTERVAL}
+                done
