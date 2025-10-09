@@ -7,4 +7,10 @@ spec:
   resources:
     - id: gitea
       type: namespace
+    - id: gitea
+      namespace: gitea
+      type: argocd
+    - id: gitea-actions
+      namespace: gitea
+      type: argocd
 status: {}
