@@ -45,6 +45,7 @@ spec:
 
         registry:
           enabled: true
+          image: registry:2.8.2 # renovate
           extraEnv:
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin
               value: '["*"]'
