@@ -7,4 +7,10 @@ spec:
   resources:
     - id: memory
       type: namespace
+    - id: memoryspire-apiservice
+      namespace: argocd
+      type: argocd
+    - id: memoryspire-frontend
+      namespace: argocd
+      type: argocd
 status: {}
