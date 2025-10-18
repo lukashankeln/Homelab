@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: applications
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - list:
+        elements:
+          - cluster: prod
+            branch: main
+  template:
+    metadata:
+      name: "applications-{{ cluster }}"
+    spec:
+      project: hankeln
+      source:
+        repoURL: https://github.com/lukashankeln/Homelab.git
+        targetRevision: HEAD
+        path: "{{.path.path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        syncOptions:
+          # https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#respect-ignore-difference-configs
+          - RespectIgnoreDifferences=true
+        automated:
+          prune: true
+          allowEmpty: true

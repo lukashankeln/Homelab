@@ -6,7 +6,7 @@ metadata:
   namespace: argocd
 spec:
   sourceRepos:
-    - '*'
+    - 'https://github.com/lukashankeln/Homelab.git'
   destinations:
     - namespace: '*'
       server: '*'
