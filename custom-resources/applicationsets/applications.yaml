@@ -18,8 +18,8 @@ spec:
       project: hankeln
       source:
         repoURL: https://github.com/lukashankeln/Homelab.git
-        targetRevision: HEAD
-        path: "{{.path.path}}"
+        targetRevision: "{{ branch }}"
+        path: applications
       destination:
         server: https://kubernetes.default.svc
         namespace: argocd
