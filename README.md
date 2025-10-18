@@ -18,12 +18,17 @@ The infrastructure runs on a small k3s cluster composed of two nodes, both runni
 - Worker: Intel N97 mini-PC with 16GB RAM
 
 ## GitOps with ArgoCD
-ArgoCD is installed via the Helm chart located in `charts/argocd`. Updates to ArgoCD are automated using Gitea Actions. The following components are managed via ArgoCD:
+ArgoCD now manages itself from this repository. The primary ArgoCD Application is `applications/argocd.yaml` and ArgoCD will reconcile the rest of the repo.
 
-- **Applications**: Found in `applications/`, deployed using `charts/argocd/templates/applications.yaml`.
-- **Plain Kubernetes Manifests**: Located in `kubernetes/`, deployed via `applicationsets/deployments.yaml` using a Git directories generator.
-- **Custom Resources**: Found in `custom-resources/`, deployed via `applicationsets/custom-resources.yaml` using a Git directories generator.
-- **ApplicationSets**: Managed in `applicationsets/`, deployed using `charts/argocd/templates/applicationsets.yaml`.
+Key locations:
+
+- `applications/argocd.yaml` — ArgoCD self-management (the ArgoCD application manifest).
+- `applications/` — application-level ArgoCD Application manifests for services and charts.
+- `kubernetes/` — plain Kubernetes manifests that are deployed via ApplicationSets.
+- `custom-resources/applicationsets/` — ApplicationSet manifests (generators and templates) used to create many Applications from directories or lists.
+- `custom-resources/appprojects/` — ArgoCD AppProject manifests (project scoping, source/destination restrictions).
+
+ArgoCD is installed initially via the Helm chart but is now configured to self-manage using `applications/argocd.yaml`. Updates to ArgoCD and apps are automated via Renovate.
 
 ## Cilium - CNI Provider
 Cilium is used as the CNI provider. It's deployed through the repository (see `applications/cilium.yaml`) and configured with cluster-wide network policies under `custom-resources/cilium-clusterwide-network-policies/`.
