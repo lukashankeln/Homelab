@@ -11,7 +11,7 @@ spec:
       network-policy/egress-dns: "true"
   schedule: "0 0 * * *"
   discoveryFilter: "!Hankeln/*"
-  image: renovate/renovate:41.171.1 # renovate
+  image: renovate/renovate:41.171.2 # renovate
   secretRef: "renovate-secrets"
   extraEnv:
     - name: RENOVATE_ENDPOINT
