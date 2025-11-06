@@ -1,0 +1,249 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: kube-prometheus-stack
+    name: in-cluster
+  project: hankeln
+  revisionHistoryLimit: 1
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      jqPathExpressions:
+        - .webhooks[].failurePolicy
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jqPathExpressions:
+        - .webhooks[].failurePolicy
+  syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
+    automated:
+      prune: true
+  source:
+    # Repository: https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
+    # Artifacthub: https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack
+    # Values: https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 79.1.1
+    helm:
+      releaseName: kube-prometheus-stack
+      valuesObject:
+        kubeEtcd:
+          enabled: false
+        alertmanager:
+          config:
+            global:
+              resolve_timeout: 5m
+            route:
+              group_by:
+                - alertname
+                - environment
+              group_wait: 30s
+              group_interval: 5m
+              repeat_interval: 1d
+              receiver: "null"
+              routes:
+                - receiver: "null"
+                  matchers:
+                    - alertname = "Watchdog"
+                  continue: true
+            receivers:
+              - name: "null"
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            hosts: [alertmanager.hankeln.work]
+            tls:
+              - secretName: alertmanager-cert
+                hosts: [alertmanager.hankeln.work]
+          alertmanagerSpec:
+            logFormat: json
+            logLevel: warn
+            externalUrl: https://alertmanager.hankeln.work
+            retention: 336h
+            resources:
+              requests:
+                cpu: 11m
+                memory: 80Mi
+            initContainers:
+              - name: init-config-reloader
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                      - ALL
+                  readOnlyRootFilesystem: true
+                  runAsNonRoot: true
+            storage:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: nfs-client
+                  accessModes: [ReadWriteOnce]
+                  resources:
+                    requests:
+                      storage: 1Gi
+        grafana:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 220Mi
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+          containerSecurityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          sidecar:
+            dashboards:
+              provider:
+                foldersFromFilesStructure: true
+              folder: /grafana/dashboards
+              folderAnnotation: "grafana_folder"
+              annotations:
+                grafana_folder: "Kubernetes Resources"
+            securityContext:
+              runAsNonRoot: true
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 180Mi
+          extraEmptyDirMounts:
+            - name: tmp
+              mountPath: /tmp
+          admin:
+            existingSecret: grafana-admin-credentials
+            userKey: user
+            passwordKey: password
+          defaultDashboardsTimezone: cet
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            hosts: [grafana.hankeln.work]
+            tls:
+              - secretName: grafana-cert
+                hosts: [grafana.hankeln.work]
+          grafana.ini:
+            server:
+              root_url: https://grafana.hankeln.work
+            users:
+              auto_assign_org_role: Admin
+            log:
+              mode: console
+            log.console:
+              format: json
+              level: warn
+        prometheus:
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+            hosts: [prometheus.hankeln.work]
+            tls:
+              - secretName: prometheus-cert
+                hosts: [prometheus.hankeln.work]
+          prometheusSpec:
+            resources:
+              requests:
+                cpu: 511m
+                memory: 550Mi
+              limits:
+                cpu: 2000m
+                memory: 2000Mi
+            containerSecurityContext:
+              readOnlyRootFilesystem: true
+              runAsNonRoot: true
+            initContainers:
+              - name: init-config-reloader
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                      - ALL
+                  readOnlyRootFilesystem: true
+                  runAsNonRoot: true
+            additionalArgs:
+              - name: web.enable-remote-write-receiver
+            retention: 30d
+            scrapeInterval: 60s
+            serviceMonitorSelectorNilUsesHelmValues: false
+            podMonitorSelectorNilUsesHelmValues: false
+            ruleSelectorNilUsesHelmValues: false
+            externalLabels:
+              environment: prod
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: nfs-client
+                  accessModes: [ReadWriteOnce]
+                  resources:
+                    requests:
+                      storage: 10Gi
+            logFormat: json
+            logLevel: warn
+        prometheus-node-exporter:
+          # Repository: https://github.com/prometheus/node_exporter
+          # ArtifactHub: https://artifacthub.io/packages/helm/prometheus-community/prometheus-node-exporter
+          # Values: https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml
+          resources:
+            requests:
+              cpu: 5m
+              memory: 60Mi
+          extraArgs:
+            - --collector.filesystem.mount-points-exclude=^/(home|tmp|var/tmp|boot|dev/shm/|run|sys/.+|dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+            - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
+            - --log.level=warn
+            - --log.format=json
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+          containerSecurityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+        prometheusOperator:
+          tls:
+            enabled: true
+          prometheusConfigReloader:
+            resources:
+              requests:
+                cpu: 10m
+                memory: 20M
+              limits:
+                cpu: 10m
+                memory: 50M
+          resources:
+            requests:
+              cpu: 30m
+              memory: 60M
+            limits:
+              cpu: 100m
+              memory: 400M
+          securityContext:
+            runAsNonRoot: true
+          admissionWebhooks:
+            enabled: true
+            failurePolicy: "Ignore"
+            certManager:
+              enabled: true
+            patch:
+              enabled: true
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 20M
+          logFormat: json
+          logLevel: warn
