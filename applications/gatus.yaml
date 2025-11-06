@@ -50,6 +50,7 @@ spec:
           endpoints:
             - name: Hassio
               url: https://hassio.hankeln.work
+              group: homelab
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
@@ -60,6 +61,7 @@ spec:
                   send-on-resolved: true
             - name: WebService
               url: https://web.hankeln.work/api/_health
+              group: kubernetes
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
@@ -68,8 +70,20 @@ spec:
                 - type: ntfy
                   description: "webservice is down"
                   send-on-resolved: true
+            - name: Vault
+              url: https://vault.hankeln.work/v1/sys/seal-status
+              group: kubernetes
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
+                - "[CERTIFICATE_EXPIRATION] > 48h"
+              alerts:
+                - type: ntfy
+                  description: "vault is down or sealed"
+                  send-on-resolved: true
             - name: Gitea
               url: https://git.hankeln.work/api/healthz
+              group: kubernetes
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
@@ -80,6 +94,7 @@ spec:
                   send-on-resolved: true
             - name: External DNS
               url: "8.8.8.8"
+              group: external
               dns:
                 query-name: "hankeln.work"
                 query-type: "A"
