@@ -46,6 +46,8 @@ spec:
             - secretName: gatus-tls
               hosts:
                 - status.hankeln.work
+        persistence:
+          enabled: true
         config:
           endpoints:
             - name: Hassio
