@@ -7,8 +7,6 @@ spec:
   resources:
     - id: custom-resources
       type: namespace
-    - id: dashy
-      type: namespace
     - id: uptime-kuma
       type: namespace
     - id: webservice
