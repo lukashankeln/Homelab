@@ -20,7 +20,7 @@ spec:
     # Artifacthub: https://artifacthub.io/packages/helm/argo/argo-workflows
     # Values: https://github.com/argoproj/argo-helm/blob/main/charts/argo-workflows/values.yaml
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 0.45.27
+    targetRevision: 0.45.28
     chart: argo-workflows
     helm:
       valuesObject:
