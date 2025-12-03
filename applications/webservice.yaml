@@ -33,6 +33,7 @@ spec:
             network-policy/egress-world: "true"
             network-policy/egress-otel: "true"
             network-policy/egress-postgres: "true"
+            network-policy/egress-ingress-nginx: "true"
             network-policy/ingess-nginx-port: "5090"
         resources:
           requests:
