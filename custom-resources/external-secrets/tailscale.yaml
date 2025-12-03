@@ -1,0 +1,23 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: operator-oauth
+  namespace: tailscale
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /tailscale
+        property: client-id
+      secretKey: client_id
+    - remoteRef:
+        key: /tailscale
+        property: client-secret
+      secretKey: client_secret
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: operator-oauth

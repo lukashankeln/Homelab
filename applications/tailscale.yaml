@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tailscale
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  destination:
+    namespace: tailscale
+    name: in-cluster
+  project: hankeln
+  revisionHistoryLimit: 1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    # Repository: https://github.com/tailscale/tailscale/tree/main/cmd/k8s-operator/deploy/chart
+    # Values: https://github.com/tailscale/tailscale/blob/main/cmd/k8s-operator/deploy/chart/values.yaml
+    chart: tailscale-operator
+    repoURL: https://pkgs.tailscale.com/helmcharts
+    targetRevision: 1.90.9
+    helm:
+      releaseName: tailscale
+      valuesObject: {}

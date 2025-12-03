@@ -1,0 +1,14 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: home-exit-node
+  namespace: tailscale
+spec:
+  replicas: 1
+  tags:
+    - "tag:exitnode"
+  hostnamePrefix: home-exit
+  exitNode: true
+  subnetRouter:
+    advertiseRoutes:
+      - "192.168.1.0/24"
