@@ -64,3 +64,4 @@ spec:
           replicas: 1
         ingressController:
           enabled: true
+          loadbalancerMode: shared
