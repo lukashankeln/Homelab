@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 9.1.9
+    targetRevision: 9.2.3
     chart: argo-cd
     helm:
       valuesObject:
