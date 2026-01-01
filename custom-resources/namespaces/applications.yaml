@@ -117,11 +117,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: uptime-kuma
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: vault
 ---
 apiVersion: v1
