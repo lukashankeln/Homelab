@@ -5,7 +5,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      network-policy/ingess-nginx-port: "80"
+      network-policy/ingress-nginx-port: "80"
   ingress:
     - fromEndpoints:
         - matchLabels:

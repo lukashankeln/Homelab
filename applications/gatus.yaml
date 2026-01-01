@@ -23,7 +23,7 @@ spec:
       valuesObject:
         podLabels:
           network-policy/deny-all: "true"
-          network-policy/ingess-nginx-port: "8080"
+          network-policy/ingress-nginx-port: "8080"
           network-policy/egress-ingress-nginx: "true"
           network-policy/egress-dns: "true"
           network-policy/egress-world: "true"

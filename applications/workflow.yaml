@@ -32,7 +32,7 @@ spec:
             network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
             network-policy/egress-world: "true"
-            network-policy/ingess-nginx-port: "8080"
+            network-policy/ingress-nginx-port: "8080"
           probe:
             startup:
               enabled: false

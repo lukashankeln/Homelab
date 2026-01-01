@@ -24,7 +24,7 @@ spec:
         deployment:
           labels:
             network-policy/egress-dns: "true"
-            network-policy/ingess-nginx-port: "3000"
+            network-policy/ingress-nginx-port: "3000"
             network-policy/egress-world: "true"
         ingress:
           enabled: true

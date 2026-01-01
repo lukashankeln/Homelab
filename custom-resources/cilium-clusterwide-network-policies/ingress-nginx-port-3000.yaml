@@ -5,7 +5,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      network-policy/ingess-nginx-port: "3000"
+      network-policy/ingress-nginx-port: "3000"
   ingress:
     - fromEndpoints:
         - matchLabels:

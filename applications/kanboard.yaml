@@ -24,7 +24,7 @@ spec:
         application:
           additionalLabels:
             network-policy/deny-all: "true"
-            network-policy/ingess-nginx-port: "80"
+            network-policy/ingress-nginx-port: "80"
           persistence:
             enabled: true
             persistentVolumeClaim:
