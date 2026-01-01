@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 2.0.0
+    targetRevision: 2.1.0
     chart: generic
     helm:
       valuesObject:
@@ -34,7 +34,6 @@ spec:
             network-policy/egress-otel: "true"
             network-policy/egress-postgres: "true"
             network-policy/egress-ingress-nginx: "true"
-            network-policy/ingress-nginx-port: "5090"
             network-policy/ingress-port: "5090"
         resources:
           requests:
@@ -43,16 +42,13 @@ spec:
           limits:
             memory: "350Mi"
             cpu: "200m"
-        ingress:
+        route:
           enabled: true
-          ingressClassName: cilium
-          host: web.hankeln.work
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-          tls:
-            - hosts:
-                - web.hankeln.work
-              secretName: webservice-tls
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            - web.hankeln.work
         env:
           # DOTNET
           - name: DOTNET_gcServer
