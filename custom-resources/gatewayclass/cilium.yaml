@@ -1,0 +1,21 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: cilium-gateway
+  namespace: cilium
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+spec:
+  gatewayClassName: cilium
+  listeners:
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.hankeln.work"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: cilium-gateway-tls
+      allowedRoutes:
+        namespaces:
+          from: All
