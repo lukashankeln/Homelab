@@ -70,3 +70,5 @@ spec:
         ingressController:
           enabled: true
           loadbalancerMode: shared
+        gatewayAPI:
+          enabled: true
