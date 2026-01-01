@@ -7,7 +7,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    server: in-cluster
+    name: in-cluster
     namespace: default
   project: hankeln
   syncPolicy:
