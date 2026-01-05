@@ -7,8 +7,9 @@ spec:
     matchLabels:
       network-policy/egress-cluster-port-5090: "true"
   egress:
-    - toEntities:
-        - cluster
+    - endpointSelector:
+        matchLabels:
+          network-policy/ingress-cluster-port-5090: "true"
       toPorts:
         - ports:
             - port: "5090"
@@ -22,8 +23,9 @@ spec:
     matchLabels:
       network-policy/ingress-cluster-port-5090: "true"
   ingress:
-    - fromEntities:
-        - cluster
+    - endpointSelector:
+        matchLabels:
+          network-policy/egress-cluster-port-5090: "true"
       toPorts:
         - ports:
             - port: "5090"
