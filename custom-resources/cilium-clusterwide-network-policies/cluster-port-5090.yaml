@@ -7,9 +7,12 @@ spec:
     matchLabels:
       network-policy/egress-cluster-port-5090: "true"
   egress:
-    - endpointSelector:
-        matchLabels:
-          network-policy/ingress-cluster-port-5090: "true"
+    - toEndpoints:
+        - matchLabels:
+            network-policy/ingress-cluster-port-5090: "true"
+          matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
       toPorts:
         - ports:
             - port: "5090"
@@ -23,9 +26,12 @@ spec:
     matchLabels:
       network-policy/ingress-cluster-port-5090: "true"
   ingress:
-    - endpointSelector:
-        matchLabels:
-          network-policy/egress-cluster-port-5090: "true"
+    - fromEndpoints:
+        - matchLabels:
+            network-policy/egress-cluster-port-5090: "true"
+          matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
       toPorts:
         - ports:
             - port: "5090"
