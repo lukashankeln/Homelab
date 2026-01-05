@@ -35,6 +35,7 @@ spec:
             network-policy/egress-postgres: "true"
             network-policy/egress-ingress-nginx: "true"
             network-policy/ingress-port: "5090"
+            network-policy/ingress-cluster-port-5090: "true"
         resources:
           requests:
             memory: "250Mi"
