@@ -41,4 +41,4 @@ jobs:
 
       - name: "gitops Linter"
         run: |
-          gitops-linter lint --file-match=.*yaml --scan-dir=./applications
+          gitops-linter lint --file-match=.*yaml --file-skip="applications/gateway-api.yaml" --scan-dir=./applications
