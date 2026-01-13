@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloud-native-postgres-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: cloud-native-postgres-operator
+    name: in-cluster
+  project: hankeln
+  revisionHistoryLimit: 1
+  syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
+    automated:
+      prune: true
+  source:
+    # Values: https://github.com/cloudnative-pg/charts/blob/main/charts/cloudnative-pg/values.yaml
+    repoURL: https://cloudnative-pg.github.io/charts
+    targetRevision: 0.27.0
+    chart: cloudnative-pg
+    helm:
+      releaseName: cloud-native-postgres-operator
+      valuesObject:
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        podSecurityContext:
+          runAsGroup: 10001
+          runAsUser: 10001
+        config:
+          clusterWide: true
+        monitoring:
+          podMonitorEnabled: true
+          grafanaDashboard:
+            create: true
+            annotations:
+              grafana_folder: "Supporting Services"

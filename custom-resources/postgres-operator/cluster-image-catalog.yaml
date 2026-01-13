@@ -1,0 +1,12 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ClusterImageCatalog
+metadata:
+  name: postgresql
+spec:
+  images:
+    - major: 16
+      image: docker.io/library/postgres:16.11 # renovate
+    - major: 17
+      image: docker.io/library/postgres:17.0 # renovate
+    - major: 18
+      image: docker.io/library/postgres:18.0 # renovate
