@@ -38,6 +38,7 @@ spec:
         alertmanager:
           ingress:
             enabled: true
+            ingressClassName: nginx
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
             hosts: [alertmanager.hankeln.work]
@@ -114,6 +115,7 @@ spec:
           defaultDashboardsTimezone: cet
           ingress:
             enabled: true
+            ingressClassName: nginx
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
             hosts: [grafana.hankeln.work]
@@ -135,6 +137,7 @@ spec:
         prometheus:
           ingress:
             enabled: true
+            ingressClassName: nginx
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
             hosts: [prometheus.hankeln.work]
