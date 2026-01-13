@@ -45,8 +45,6 @@ spec:
       type: namespace
     - id: cert-manager
       type: namespace
-    - id: postgres
-      type: namespace
     - id: nfs-provisioner
       type: namespace
     - id: ingress-nginx

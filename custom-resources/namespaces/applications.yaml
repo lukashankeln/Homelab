@@ -97,11 +97,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: postgres
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: skooner
 ---
 apiVersion: v1

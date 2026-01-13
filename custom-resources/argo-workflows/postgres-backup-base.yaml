@@ -33,9 +33,9 @@ spec:
                 name: postgres-secret
                 key: POSTGRES_PASSWORD
           - name: PGDATABASE
-            value: "WebService"
+            value: "webservice"
           - name: POSTGRES_HOST
-            value: "postgres-service.postgres.svc.cluster.local"
+            value: "webservice-postgresql-ro.webservice.svc.cluster.local"
         command: [sh, -c]
         source: |
           pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%d-%m-%Y_%H-%M).sql
