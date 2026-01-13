@@ -9,7 +9,7 @@ spec:
   egress:
     - toEndpoints:
         - matchLabels:
-            network-policy/ingress-postgres: "true"
+            app.kubernetes.io/managed-by: cloudnative-pg
           matchExpressions:
             - key: io.kubernetes.pod.namespace
               operator: Exists
