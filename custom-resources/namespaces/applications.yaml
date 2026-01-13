@@ -22,11 +22,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: chaos
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: cilium
 ---
 apiVersion: v1
