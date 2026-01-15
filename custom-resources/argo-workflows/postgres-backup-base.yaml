@@ -35,7 +35,7 @@ spec:
           - name: PGDATABASE
             value: "webservice"
           - name: POSTGRES_HOST
-            value: "webservice-postgresql-ro.webservice.svc.cluster.local"
+            value: "webservice-postgresql-rw.webservice.svc.cluster.local"
         command: [sh, -c]
         source: |
           pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%d-%m-%Y_%H-%M).sql
