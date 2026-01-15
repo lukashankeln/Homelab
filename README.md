@@ -45,7 +45,7 @@ A variety of applications are deployed in the cluster, including:
 - **[MetalLB](/kubernetes/metallb-system/configuration.yaml)**: Load balancer for bare-metal Kubernetes clusters.
 - **[nginx](/applications/nginx-ingress.yaml)**: Ingress controller.
 - **[Skooner](/applications/skooner.yaml)**: Kubernetes dashboard for cluster management.
-- **[PostgreSQL](/kubernetes/postgres/)**: Open-source relational database.
+- **[Cloud Native Postgres Operator](/applications/cloud-native-postgres-operator.yaml)**: PostgreSQL operator for Kubernetes.
 
 ## Secret Management
 Secrets are managed using the External Secrets Operator. To enable it, create a Vault token as a Kubernetes secret:
@@ -57,6 +57,7 @@ kubectl create secret generic vault-token -n external-secrets-operator --from-li
 ## Additional Resources
 - **Network Policies**: Defined in `custom-resources/cilium-clusterwide-network-policies/`.
 - **Persistent Volumes**: Configured in `custom-resources/persistent-volumes/`.
+- **Postgres Operator**: Cluster image catalog and database clusters in `custom-resources/postgres-operator/`.
 - **RBAC Configurations**: Found in `custom-resources/rbac/`.
 
 This repository is continuously evolving to meet the needs of the home server infrastructure.

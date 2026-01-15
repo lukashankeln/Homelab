@@ -5,9 +5,7 @@
   ],
   "kubernetes": {
     "managerFilePatterns": [
-      "/kubernetes/metallb/.+\\.yaml$/",
-      "/kubernetes/postgres/.+\\.yaml$/",
-      "/kubernetes/gitea-runner/.+\\.yaml$/"
+      "/kubernetes/metallb/.+\\.yaml$/"
     ]
   },
   "argocd": {
