@@ -99,7 +99,7 @@ spec:
                   mountPath: /tmp
             securityContext:
               runAsNonRoot: true
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               allowPrivilegeEscalation: false
             resources:
               requests:
