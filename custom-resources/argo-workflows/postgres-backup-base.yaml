@@ -37,6 +37,14 @@ spec:
           - name: POSTGRES_HOST
             value: "webservice-postgresql-rw.webservice.svc.cluster.local"
         command: [sh, -c]
-        source: |
-          pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%d-%m-%Y_%H-%M).sql
-          ls -tp /mnt/backup/database_*.sql | grep -v '/$' | tail -n +11 | xargs -I {} rm -- {}
+        args:
+          - |
+            set -eu
+
+            echo "Starting backup at $(date)"
+            pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%d-%m-%Y_%H-%M).sql
+            echo "Backup completed at $(date)"
+
+            echo "Deleting old backups, keeping only the 10 most recent backups"
+            ls -tp /mnt/backup/database_*.sql | grep -v '/$' | tail -n +11 | xargs -I {} rm -- {}
+            echo "Old backups deleted at $(date)"
