@@ -80,7 +80,7 @@ spec:
             seccompProfile:
               type: RuntimeDefault
           containerSecurityContext:
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
             runAsNonRoot: true
           sidecar:
             dashboards:
