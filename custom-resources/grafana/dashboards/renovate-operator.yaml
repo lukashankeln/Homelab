@@ -42,6 +42,138 @@ data:
           "fieldConfig": {
             "defaults": {
               "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 0,
+            "y": 0
+          },
+          "id": 2,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.3.1",
+          "targets": [
+            {
+              "editorMode": "builder",
+              "exemplar": false,
+              "expr": "sum(renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"completed\"})",
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Completed",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 12,
+            "y": 0
+          },
+          "id": 3,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.3.1",
+          "targets": [
+            {
+              "editorMode": "builder",
+              "exemplar": false,
+              "expr": "renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"failed\"}",
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Failed",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
                 "mode": "palette-classic"
               },
               "custom": {
@@ -50,16 +182,29 @@ data:
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
-                "fillOpacity": 80,
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
                 "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
                 "lineWidth": 1,
+                "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
@@ -84,33 +229,23 @@ data:
           },
           "gridPos": {
             "h": 9,
-            "w": 24,
+            "w": 12,
             "x": 0,
-            "y": 0
+            "y": 4
           },
           "id": 1,
           "options": {
-            "barRadius": 0,
-            "barWidth": 1,
-            "fullHighlight": false,
-            "groupWidth": 0.7,
             "legend": {
               "calcs": [],
               "displayMode": "list",
               "placement": "bottom",
               "showLegend": true
             },
-            "orientation": "auto",
-            "showValue": "auto",
-            "stacking": "none",
             "tooltip": {
               "hideZeros": false,
               "mode": "single",
               "sort": "none"
-            },
-            "xField": "Time",
-            "xTickLabelRotation": 0,
-            "xTickLabelSpacing": 0
+            }
           },
           "pluginVersion": "12.3.1",
           "targets": [
@@ -120,14 +255,112 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "builder",
-              "expr": "renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\"}",
+              "expr": "renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"completed\"}",
               "legendFormat": "{{project}} - {{status}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "New panel",
-          "type": "barchart"
+          "title": "Renovate Executions - Completed",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 4
+          },
+          "id": 4,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "builder",
+              "expr": "renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"failed\"}",
+              "legendFormat": "{{project}} - {{status}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Renovate Executions - Failed",
+          "type": "timeseries"
         }
       ],
       "preload": false,
@@ -180,12 +413,12 @@ data:
         ]
       },
       "time": {
-        "from": "now-6h",
+        "from": "now-12h",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "browser",
       "title": "Renovate Operator",
       "uid": "lu79xfd",
-      "version": 2
+      "version": 4
     }
