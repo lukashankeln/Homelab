@@ -46,7 +46,7 @@ spec:
           limits:
             maxTraceCount: 1000
             maxLogCount: 1000
-            maxMetricCount: 1000
+            maxMetricCount: 10
         opentelemetry-collector:
           enabled: true
           config:
