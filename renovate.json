@@ -37,6 +37,15 @@
       "matchPackageNames": [
         "/docker-registry.hankeln.work/webservice/*/"
       ]
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/cloudnative-pg/postgresql"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
     }
   ],
   "customManagers": [
