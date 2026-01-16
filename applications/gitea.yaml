@@ -52,10 +52,7 @@ spec:
         resources:
           requests:
             memory: "250Mi"
-            cpu: "100m"
-          limits:
-            memory: "500Mi"
-            cpu: "600m"
+            cpu: "250m"
         valkey:
           enabled: false
           global:
