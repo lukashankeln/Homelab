@@ -7,6 +7,6 @@ spec:
     - major: 16
       image: ghcr.io/cloudnative-pg/postgresql:16.11 # renovate
     - major: 17
-      image: ghcr.io/cloudnative-pg/postgresql:17.0 # renovate
+      image: ghcr.io/cloudnative-pg/postgresql:17.7 # renovate
     - major: 18
       image: ghcr.io/cloudnative-pg/postgresql:18.0 # renovate
