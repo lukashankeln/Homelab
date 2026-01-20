@@ -20,7 +20,7 @@ spec:
       valuesObject:
         ui:
           dockerRegistryUrl: https://docker-registry.hankeln.work
-          image: joxit/docker-registry-ui:2.5.7 # renovate
+          image: joxit/docker-registry-ui:2.6.0 # renovate
           deleteImages: true
           showContentDigest: true
           ingress:
