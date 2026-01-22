@@ -284,14 +284,14 @@ data:
             {
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(renovate_operator_project_executions_total{status=\"failed\"}) / sum (renovate_operator_project_executions_total)",
+              "expr": "sum(renovate_operator_project_executions_total{status=\"failed\"}) / sum (renovate_operator_project_executions_total) * 100",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Failure Rate",
+          "title": "Failure Rate %",
           "type": "stat"
         },
         {
@@ -310,29 +310,16 @@ data:
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
+                "fillOpacity": 80,
                 "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
                   "tooltip": false,
                   "viz": false
                 },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
                 "lineWidth": 1,
-                "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
@@ -363,17 +350,26 @@ data:
           },
           "id": 1,
           "options": {
+            "barRadius": 0,
+            "barWidth": 0.97,
+            "fullHighlight": false,
+            "groupWidth": 0.7,
             "legend": {
               "calcs": [],
               "displayMode": "list",
               "placement": "bottom",
               "showLegend": true
             },
+            "orientation": "auto",
+            "showValue": "auto",
+            "stacking": "none",
             "tooltip": {
               "hideZeros": false,
               "mode": "single",
               "sort": "none"
-            }
+            },
+            "xTickLabelRotation": 0,
+            "xTickLabelSpacing": 0
           },
           "pluginVersion": "12.3.1",
           "targets": [
@@ -383,14 +379,16 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "builder",
-              "expr": "renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"completed\"}",
+              "exemplar": false,
+              "expr": "sum by(project) (renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"completed\"})",
+              "instant": true,
               "legendFormat": "{{project}} - {{status}}",
-              "range": true,
+              "range": false,
               "refId": "A"
             }
           ],
           "title": "Renovate Executions - Completed",
-          "type": "timeseries"
+          "type": "barchart"
         },
         {
           "datasource": {
@@ -408,29 +406,16 @@ data:
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
+                "fillOpacity": 80,
                 "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
                   "tooltip": false,
                   "viz": false
                 },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
                 "lineWidth": 1,
-                "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
@@ -461,17 +446,26 @@ data:
           },
           "id": 4,
           "options": {
+            "barRadius": 0,
+            "barWidth": 0.97,
+            "fullHighlight": false,
+            "groupWidth": 0.7,
             "legend": {
               "calcs": [],
               "displayMode": "list",
               "placement": "bottom",
               "showLegend": true
             },
+            "orientation": "auto",
+            "showValue": "auto",
+            "stacking": "none",
             "tooltip": {
               "hideZeros": false,
               "mode": "single",
               "sort": "none"
-            }
+            },
+            "xTickLabelRotation": 0,
+            "xTickLabelSpacing": 0
           },
           "pluginVersion": "12.3.1",
           "targets": [
@@ -481,14 +475,16 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "builder",
-              "expr": "renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"failed\"}",
+              "exemplar": false,
+              "expr": "sum by(project) (renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"failed\"})",
+              "instant": true,
               "legendFormat": "{{project}} - {{status}}",
-              "range": true,
+              "range": false,
               "refId": "A"
             }
           ],
           "title": "Renovate Executions - Failed",
-          "type": "timeseries"
+          "type": "barchart"
         }
       ],
       "preload": false,
@@ -548,5 +544,5 @@ data:
       "timezone": "browser",
       "title": "Renovate Operator",
       "uid": "lu79xfd",
-      "version": 7
+      "version": 8
     }
