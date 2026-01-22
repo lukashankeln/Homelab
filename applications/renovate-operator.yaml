@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://helm.mogenius.com/public
-    targetRevision: 1.17.1
+    targetRevision: 1.17.3
     chart: renovate-operator
     helm:
       valuesObject:
@@ -44,3 +44,10 @@ spec:
           enabled: true
           serviceMonitor:
             enabled: true
+          dashboard:
+            enabled: true
+            annotations:
+              argocd.argoproj.io/sync-options: ServerSideApply=true
+              grafana_folder: "Supporting Services"
+            labels:
+              grafana_dashboard: "1"
