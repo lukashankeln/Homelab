@@ -218,7 +218,7 @@ data:
             {
               "editorMode": "builder",
               "exemplar": false,
-              "expr": "renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"failed\"}",
+              "expr": "sum(renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"failed\"})",
               "instant": true,
               "legendFormat": "__auto",
               "range": false,
@@ -548,5 +548,5 @@ data:
       "timezone": "browser",
       "title": "Renovate Operator",
       "uid": "lu79xfd",
-      "version": 6
+      "version": 7
     }
