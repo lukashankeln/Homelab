@@ -84,9 +84,9 @@ data:
           "pluginVersion": "12.3.1",
           "targets": [
             {
-              "editorMode": "builder",
+              "editorMode": "code",
               "exemplar": false,
-              "expr": "count(group by(project) (renovate_operator_project_executions_total))",
+              "expr": "count(group by(project) (renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\"}))",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -296,7 +296,7 @@ data:
             {
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(renovate_operator_project_executions_total{status=\"failed\"}) / sum (renovate_operator_project_executions_total) * 100",
+              "expr": "sum(renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"failed\"}) / sum (renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\"}) * 100",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -390,7 +390,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "editorMode": "builder",
+              "editorMode": "code",
               "exemplar": false,
               "expr": "sum by(project) (renovate_operator_project_executions_total{\"renovate-namespace\"=~\"$RenovateNamespace\", \"renovate-job\"=~\"$RenovateJob\", status=\"completed\"})",
               "instant": true,
@@ -556,5 +556,5 @@ data:
       "timezone": "browser",
       "title": "Renovate Operator",
       "uid": "lu79xfd",
-      "version": 9
+      "version": 10
     }
