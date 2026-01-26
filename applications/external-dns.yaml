@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: external-dns
+  syncPolicy:
+    automated:
+      prune: true
+  source:
+    repoURL: https://kubernetes-sigs.github.io/external-dns/
+    targetRevision: 1.20.0
+    # Repository: https://github.com/kubernetes-sigs/external-dns
+    # ArtifactHub: https://artifacthub.io/packages/helm/external-dns/external-dns
+    # Values: https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/values.yaml
+    chart: external-dns
+    helm:
+      releaseName: external-dns
+      valuesObject:
+        podSecurityContext:
+          runAsUser: 65534
+          runAsGroup: 65534
+          seccompProfile:
+            type: RuntimeDefault
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+        provider:
+          name: cloudflare
+        env:
+          - name: CF_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: cloudflare-api-key
+                key: api-key
+          - name: CF_API_EMAIL
+            valueFrom:
+              secretKeyRef:
+                name: cloudflare-api-key
+                key: email
+        logFormat: json
+        logLevel: warning
+        triggerLoopOnEvent: true
+        sources:
+          - ingress
+          - gateway-httproute
+        extraArgs:
+          - --force-default-targets
+        serviceMonitor:
+          enabled: true
+        resources:
+          requests:
+            cpu: 10m
+            memory: 80Mi
