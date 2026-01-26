@@ -47,15 +47,13 @@ spec:
           limits:
             memory: "200Mi"
             cpu: "100m"
-        ingress:
+        route:
           enabled: true
-          host: workflow.hankeln.work
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-          tls:
-            - hosts:
-                - workflow.hankeln.work
-              secretName: workflow-tls
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            - workflow.hankeln.work
         env:
           # DOTNET
           - name: DOTNET_gcServer

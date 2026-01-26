@@ -22,26 +22,22 @@ spec:
     helm:
       valuesObject:
         ui:
-          ingress:
+          route:
             enabled: true
-            host: aspire.hankeln.work
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-            tls:
-              - hosts:
-                  - aspire.hankeln.work
-                secretName: aspire-tls
+            parentRefs:
+              - name: cilium-gateway
+                namespace: cilium
+            hostnames:
+              - aspire.hankeln.work
 
         otlp:
-          ingress:
+          route:
             enabled: true
-            host: in-aspire.hankeln.work
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-            tls:
-              - hosts:
-                  - in-aspire.hankeln.work
-                secretName: in-aspire-tls
+            parentRefs:
+              - name: cilium-gateway
+                namespace: cilium
+            hostnames:
+              - in-aspire.hankeln.work
         config:
           limits:
             maxTraceCount: 1000

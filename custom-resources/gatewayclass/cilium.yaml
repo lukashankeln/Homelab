@@ -11,11 +11,55 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.hankeln.work"
+      hostname: web.hankeln.work
       tls:
         mode: Terminate
         certificateRefs:
-          - name: cilium-gateway-tls
+          - name: web-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: aspire.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: aspire-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: in-aspire.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: in-aspire-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: board.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: board-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: workflow.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: workflow-hankeln-tls
       allowedRoutes:
         namespaces:
           from: All

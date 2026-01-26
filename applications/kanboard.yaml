@@ -30,15 +30,13 @@ spec:
             persistentVolumeClaim:
               storageClass: nfs
 
-        ingress:
+        route:
           enabled: true
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-          host: board.hankeln.work
-          tls:
-            - hosts:
-                - board.hankeln.work
-              secretName: kanboard-tls
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            - board.hankeln.work
         resources:
           requests:
             memory: "50Mi"
