@@ -6,6 +6,12 @@ metadata:
 spec:
   endpointSelector: {}
   ingress:
+    - fromEntities:
+        - ingress
+      toPorts:
+        - ports:
+            - port: "18888"
+              protocol: TCP
     - fromEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: webservice
@@ -30,12 +36,6 @@ spec:
       toPorts:
         - ports:
             - port: "18889"
-    - fromEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: ingress-nginx
-      toPorts:
-        - ports:
-            - port: "18888"
   egress:
     - toPorts:
         - ports:
