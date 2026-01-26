@@ -63,3 +63,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: renovate.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: renovate-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All

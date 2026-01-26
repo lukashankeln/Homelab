@@ -21,17 +21,13 @@ spec:
     chart: renovate-operator
     helm:
       valuesObject:
-        ingress:
+        route:
           enabled: true
-          ingressClassName: "nginx"
-          host: renovate.hankeln.work
-          tls:
-            - hosts:
-                - renovate.hankeln.work
-              secretName: arenovate-tls
-          labels: {}
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            - renovate.hankeln.work
 
         resources:
           requests:
