@@ -96,3 +96,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: argocd.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: argocd-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All

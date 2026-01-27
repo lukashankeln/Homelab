@@ -35,28 +35,17 @@ spec:
           enabled: false
 
         server:
-          certificate:
-            enabled: true
-            domain: argocd.hankeln.work
-            issuer:
-              kind: ClusterIssuer
-              name: letsencrypt-dns01-issuer
           resources:
             requests:
               cpu: 23m
               memory: 140M
-          ingress:
+          httproute:
             enabled: true
-            ingressClassName: nginx
-            hostname: argocd.hankeln.work
-            tls: true
-            extraPaths:
-              - pathType: ImplementationSpecific
-                backend:
-                  service:
-                    name: argocd-server
-                    port:
-                      name: http
+            parentRefs:
+              - name: cilium-gateway
+                namespace: cilium
+            hostnames:
+              - argocd.hankeln.work
           extraArgs:
             - --insecure
 
