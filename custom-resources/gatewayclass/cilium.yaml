@@ -8,7 +8,7 @@ metadata:
 spec:
   gatewayClassName: cilium
   listeners:
-    - name: https
+    - name: webservice
       protocol: HTTPS
       port: 443
       hostname: web.hankeln.work
@@ -19,7 +19,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: https
+    - name: aspire
       protocol: HTTPS
       port: 443
       hostname: aspire.hankeln.work
@@ -30,7 +30,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: https
+    - name: in-aspire
       protocol: HTTPS
       port: 443
       hostname: in-aspire.hankeln.work
@@ -41,7 +41,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: https
+    - name: board
       protocol: HTTPS
       port: 443
       hostname: board.hankeln.work
@@ -52,7 +52,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: https
+    - name: workflow
       protocol: HTTPS
       port: 443
       hostname: workflow.hankeln.work
@@ -63,7 +63,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: https
+    - name: renovate
       protocol: HTTPS
       port: 443
       hostname: renovate.hankeln.work
@@ -74,7 +74,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: https
+    - name: mogenius
       protocol: HTTPS
       port: 443
       hostname: mogenius.hankeln.work
@@ -85,7 +85,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: https
+    - name: argo-workflows
       protocol: HTTPS
       port: 443
       hostname: argo-workflows.hankeln.work
@@ -96,7 +96,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: https
+    - name: argocd
       protocol: HTTPS
       port: 443
       hostname: argocd.hankeln.work
