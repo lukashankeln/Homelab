@@ -1,0 +1,17 @@
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: server
+  namespace: external-dns
+spec:
+  endpoints:
+    - dnsName: server-luha-1.hankeln.work
+      recordTTL: 180
+      recordType: A
+      targets:
+        - 192.168.1.61
+    - dnsName: server-luha-2.hankeln.work
+      recordTTL: 180
+      recordType: A
+      targets:
+        - 192.168.1.41

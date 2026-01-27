@@ -1,0 +1,12 @@
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: nas
+  namespace: external-dns
+spec:
+  endpoints:
+    - dnsName: nas.hankeln.work
+      recordTTL: 180
+      recordType: A
+      targets:
+        - 192.168.1.112
