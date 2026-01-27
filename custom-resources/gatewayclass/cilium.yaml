@@ -74,3 +74,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: mogenius.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: mogenius-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
