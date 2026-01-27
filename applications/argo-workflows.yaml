@@ -70,14 +70,10 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             runAsNonRoot: true
-          ingress:
+          httproute:
             enabled: true
-            ingressClassName: nginx
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-            hosts:
+            parentRefs:
+              - name: cilium-gateway
+                namespace: cilium
+            hostnames:
               - argo-workflows.hankeln.work
-            tls:
-              - secretName: argo-workflows-cert
-                hosts:
-                  - argo-workflows.hankeln.work

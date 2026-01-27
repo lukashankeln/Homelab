@@ -85,3 +85,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: argo-workflows.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: argo-workflows-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
