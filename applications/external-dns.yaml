@@ -51,7 +51,9 @@ spec:
         triggerLoopOnEvent: true
         sources:
           - ingress
+          - crd
           - gateway-httproute
+          - gateway-grpcroute
         extraArgs:
           - --force-default-targets
         serviceMonitor:
