@@ -22,7 +22,7 @@ spec:
               - text
               - json
       container:
-        image: renovate/renovate:43.2.0 # renovate
+        image: renovate/renovate:43.2.1 # renovate
         command: [renovate]
         args: ["{{inputs.parameters.target}}"]
         env:
