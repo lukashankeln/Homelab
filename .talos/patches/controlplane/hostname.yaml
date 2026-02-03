@@ -1,0 +1,4 @@
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: server-luha-1
+auto: off

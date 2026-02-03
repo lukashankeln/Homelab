@@ -1,0 +1,4 @@
+machine:
+  install:
+    disk: /dev/sda
+    image: factory.talos.dev/metal-installer/c664842b0b171e8776198faa110a9b77d09e1478979e077edb54caffdb0b841b:v1.12.2

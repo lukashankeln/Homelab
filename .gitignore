@@ -1,1 +1,7 @@
-*.tgz
+# Talos files
+.talos/backup/
+.talos/secrets.yaml
+.talos/controlplane.yaml
+.talos/worker.yaml
+.talos/talosconfig
+.talos/.envrc
