@@ -6,9 +6,8 @@ metadata:
 spec:
   endpointSelector: {}
   ingress:
-    - fromEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: ingress-nginx
+    - fromEntities:
+        - ingress
   egress:
     - toPorts:
         - ports:
