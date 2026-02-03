@@ -23,7 +23,7 @@ spec:
       valuesObject:
         k8sServiceHost: localhost
         k8sServicePort: 7445
-        kubeProxyReplacement: false
+        kubeProxyReplacement: true
         ipam:
           mode: kubernetes
         securityContext:
