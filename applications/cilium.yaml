@@ -21,7 +21,6 @@ spec:
     chart: cilium
     helm:
       valuesObject:
-
         k8sServiceHost: localhost
         k8sServicePort: 7445
         kubeProxyReplacement: false
@@ -50,6 +49,9 @@ spec:
             enabled: false
           hostRoot: /sys/fs/cgroup
 
+        operator:
+          replicas: 1
+
         hubble:
           tls:
             enabled: false
@@ -72,7 +74,7 @@ spec:
               annotations:
                 cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
                 gethomepage.dev/description: Hubble
-                gethomepage.dev/enabled: 'true'
+                gethomepage.dev/enabled: "true"
                 gethomepage.dev/group: Observability
                 gethomepage.dev/icon: cilium.png
                 gethomepage.dev/name: Hubble
