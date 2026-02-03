@@ -47,19 +47,5 @@
       ],
       "enabled": false
     }
-  ],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^custom-resources/system-upgrade/plan.yaml$/"
-      ],
-      "matchStrings": [
-        "version:\\s*(?<currentValue>v[\\d.]+\\+k3s\\d+)"
-      ],
-      "depNameTemplate": "k3s-io/k3s",
-      "datasourceTemplate": "github-releases",
-      "versioningTemplate": "loose"
-    }
   ]
 }
