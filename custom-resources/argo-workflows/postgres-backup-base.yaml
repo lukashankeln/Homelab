@@ -17,7 +17,7 @@ spec:
           network-policy/egress-postgres: "true"
           network-policy/egress-dns: "true"
       script:
-        image: postgres:16.6
+        image: postgres:17.7
         volumeMounts:
           - name: backup-pvc
             mountPath: /mnt/backup
