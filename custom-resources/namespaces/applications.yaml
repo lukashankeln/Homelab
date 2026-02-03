@@ -84,6 +84,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: mogenius-dev
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
 ---
 apiVersion: v1
 kind: Namespace
