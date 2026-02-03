@@ -88,3 +88,5 @@ spec:
                   secretName: hubble-tls
         gatewayAPI:
           enabled: true
+          enableAlpn: true
+          enableAppProtocol: true
