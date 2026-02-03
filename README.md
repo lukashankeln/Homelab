@@ -1,7 +1,7 @@
 # Homelab
 This repository contains the applications and configurations for my private home server infrastructure.
 
-![](https://img.shields.io/badge/k3s-informational?style=flat-square&logo=k3s&logoColor=white&color=0366D6)
+![](https://img.shields.io/badge/Talos-informational?style=flat-square&logo=talos&logoColor=white&color=0366D6)
 ![](https://img.shields.io/badge/ArgoCD-informational?style=flat-square&logo=argo&logoColor=white&color=0366D6)
 ![](https://img.shields.io/badge/Helm-informational?style=flat-square&logo=helm&logoColor=white&color=0366D6)
 ![](https://img.shields.io/badge/Gitea-informational?style=flat-square&logo=gitea&logoColor=white&color=0366D6)
@@ -12,10 +12,12 @@ This repository contains the applications and configurations for my private home
 > The version on GitHub is a push mirror. Any changes made there will be overwritten during the next sync.
 
 ## Infrastructure
-The infrastructure runs on a small k3s cluster composed of two nodes, both running Ubuntu and k3s.
+The infrastructure runs on a Talos Linux Kubernetes cluster composed of two nodes.
 
 - Controlplane: Intel N100 mini-PC with 8GB RAM
 - Worker: Intel N97 mini-PC with 16GB RAM
+
+Talos is an immutable, minimal Kubernetes OS designed for security and ease of management. Configuration is managed declaratively in the `.talos/` directory.
 
 ## GitOps with ArgoCD
 ArgoCD now manages itself from this repository. The primary ArgoCD Application is `applications/argocd.yaml` and ArgoCD will reconcile the rest of the repo.
