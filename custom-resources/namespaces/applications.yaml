@@ -23,6 +23,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: cilium
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
 ---
 apiVersion: v1
 kind: Namespace
@@ -43,6 +45,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: gitea
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
 ---
 apiVersion: v1
 kind: Namespace
@@ -97,11 +101,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: system-upgrade
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: too-restful-api
 ---
 apiVersion: v1
@@ -133,11 +132,15 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: tailscale
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: kube-prometheus-stack
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
 ---
 apiVersion: v1
 kind: Namespace
