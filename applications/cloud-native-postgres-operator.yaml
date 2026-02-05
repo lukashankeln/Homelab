@@ -19,7 +19,7 @@ spec:
   source:
     # Values: https://github.com/cloudnative-pg/charts/blob/main/charts/cloudnative-pg/values.yaml
     repoURL: https://cloudnative-pg.github.io/charts
-    targetRevision: 0.27.0
+    targetRevision: 0.27.1
     chart: cloudnative-pg
     helm:
       releaseName: cloud-native-postgres-operator
