@@ -107,3 +107,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: skooner
+      protocol: HTTPS
+      port: 443
+      hostname: skooner.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: skooner-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All

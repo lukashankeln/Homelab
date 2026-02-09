@@ -21,15 +21,13 @@ spec:
     chart: skooner
     helm:
       valuesObject:
-        ingress:
+        route:
           enabled: true
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-          host: skooner.hankeln.work
-          tls:
-            - hosts:
-                - skooner.hankeln.work
-              secretName: skooner-tls
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            - skooner.hankeln.work
         resources:
           requests:
             memory: "100Mi"
