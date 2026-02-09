@@ -34,11 +34,11 @@ spec:
             cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
             kubernetes.io/ingress.class: nginx
             gethomepage.dev/description: Gatus
-            gethomepage.dev/enabled: 'true'
+            gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Observability
             gethomepage.dev/icon: gatus.png
             gethomepage.dev/name: Gatus
-            gethomepage.dev/pod-selector: ''
+            gethomepage.dev/pod-selector: ""
             gethomepage.dev/widget.type: gatus
             gethomepage.dev/widget.url: https://status.hankeln.work
           hosts:
@@ -97,6 +97,17 @@ spec:
               alerts:
                 - type: ntfy
                   description: "gitea is down"
+                  send-on-resolved: true
+            - name: Renovate Operator
+              url: https://renovate.hankeln.work/health
+              group: kubernetes
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
+                - "[CERTIFICATE_EXPIRATION] > 48h"
+              alerts:
+                - type: ntfy
+                  description: "renovate-operator is down"
                   send-on-resolved: true
             - name: External DNS
               url: "8.8.8.8"
