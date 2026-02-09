@@ -21,8 +21,6 @@ spec:
       type: namespace
     - id: docker-ui
       type: namespace
-    - id: metallb-system
-      type: namespace
     - id: kube-system
       type: namespace
     - id: ntfy

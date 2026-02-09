@@ -3,11 +3,6 @@
   "extends": [
     "local>bot/renovate"
   ],
-  "kubernetes": {
-    "managerFilePatterns": [
-      "/kubernetes/metallb/.+\\.yaml$/"
-    ]
-  },
   "argocd": {
     "managerFilePatterns": [
       "/applications/.+\\.yaml$/"
