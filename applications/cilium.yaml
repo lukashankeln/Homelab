@@ -96,7 +96,7 @@ spec:
 
         loadBalancer:
           enabled: true
-          acceleration: native # Use eBPF acceleration
+          acceleration: disabled
 
         externalIPs:
           enabled: true

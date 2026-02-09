@@ -6,5 +6,4 @@ metadata:
 spec:
   loadBalancerIPs: true
   interfaces:
-    - enp1s0
-    - enp2s0
+    - ^enp[0-9]+s0$
