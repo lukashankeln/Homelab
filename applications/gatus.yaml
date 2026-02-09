@@ -28,6 +28,7 @@ spec:
           network-policy/egress-dns: "true"
           network-policy/egress-world: "true"
           network-policy/egress-cluster-port-5090: "true"
+          network-policy/egress-cluster-port-8080: "true"
         ingress:
           enabled: true
           annotations:

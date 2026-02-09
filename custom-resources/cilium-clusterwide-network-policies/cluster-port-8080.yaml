@@ -1,0 +1,37 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: egress-cluster-port-8080
+spec:
+  endpointSelector:
+    matchLabels:
+      network-policy/egress-cluster-port-8080: "true"
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            network-policy/ingress-cluster-port-8080: "true"
+          matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
+      toPorts:
+        - ports:
+            - port: "8080"
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: ingress-cluster-port-8080
+spec:
+  endpointSelector:
+    matchLabels:
+      network-policy/ingress-cluster-port-8080: "true"
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            network-policy/egress-cluster-port-8080: "true"
+          matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
+      toPorts:
+        - ports:
+            - port: "8080"
