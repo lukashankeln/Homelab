@@ -4,11 +4,5 @@ metadata:
   name: ip-pool
   namespace: cilium
 spec:
-  cidrs:
+  blocks:
     - cidr: "192.168.1.10/30"
-  serviceSelector:
-    matchExpressions:
-      - key: io.kubernetes.service.type
-        operator: In
-        values:
-          - LoadBalancer
