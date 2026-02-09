@@ -32,8 +32,11 @@ Key locations:
 
 ArgoCD is installed initially via the Helm chart but is now configured to self-manage using `applications/argocd.yaml`. Updates to ArgoCD and apps are automated via Renovate.
 
-## Cilium - CNI Provider
-Cilium is used as the CNI provider. It's deployed through the repository (see `applications/cilium.yaml`) and configured with cluster-wide network policies under `custom-resources/cilium-clusterwide-network-policies/`.
+## Cilium - CNI & Load Balancing
+Cilium is used as the CNI provider and for LoadBalancer services (LB-IPAM with L2 announcements). It's deployed through the repository (see `applications/cilium.yaml`) and configured with:
+- Cluster-wide network policies: `custom-resources/cilium-clusterwide-network-policies/`
+- Load balancer IP pools: `custom-resources/cilium/ipPool.yaml`
+- L2 announcement policies: `custom-resources/cilium/l2Announcement.yaml`
 
 ## Applications
 A variety of applications are deployed in the cluster, including:
@@ -44,7 +47,6 @@ A variety of applications are deployed in the cluster, including:
 - **[Docker UI](/applications/docker-ui.yaml)**: Docker registry with a management UI.
 - **[Gitea](/applications/gitea.yaml)**: Self-hosted Git server with CI/CD capabilities.
 - **[Kanboard](/applications/kanboard.yaml)**: Project management software.
-- **[MetalLB](/kubernetes/metallb-system/configuration.yaml)**: Load balancer for bare-metal Kubernetes clusters.
 - **[nginx](/applications/nginx-ingress.yaml)**: Ingress controller.
 - **[Skooner](/applications/skooner.yaml)**: Kubernetes dashboard for cluster management.
 - **[Cloud Native Postgres Operator](/applications/cloud-native-postgres-operator.yaml)**: PostgreSQL operator for Kubernetes.
