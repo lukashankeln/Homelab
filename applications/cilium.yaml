@@ -90,3 +90,13 @@ spec:
           enabled: true
           enableAlpn: true
           enableAppProtocol: true
+
+        l2announcements:
+          enabled: true
+
+        loadBalancer:
+          enabled: true
+          acceleration: native # Use eBPF acceleration
+
+        externalIPs:
+          enabled: true
