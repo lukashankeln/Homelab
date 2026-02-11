@@ -23,31 +23,20 @@ spec:
       valuesObject:
         podLabels:
           network-policy/deny-all: "true"
-          network-policy/ingress-nginx-port: "8080"
+          network-policy/ingress-port: "8080"
           network-policy/egress-ingress-nginx: "true"
           network-policy/egress-dns: "true"
           network-policy/egress-world: "true"
           network-policy/egress-cluster-port-5090: "true"
           network-policy/egress-cluster-port-8080: "true"
-        ingress:
-          enabled: true
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-            kubernetes.io/ingress.class: nginx
-            gethomepage.dev/description: Gatus
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Observability
-            gethomepage.dev/icon: gatus.png
-            gethomepage.dev/name: Gatus
-            gethomepage.dev/pod-selector: ""
-            gethomepage.dev/widget.type: gatus
-            gethomepage.dev/widget.url: https://status.hankeln.work
-          hosts:
-            - status.hankeln.work
-          tls:
-            - secretName: gatus-tls
-              hosts:
-                - status.hankeln.work
+        gateway:
+          route:
+            enabled: true
+            parentRefs:
+              - name: cilium-gateway
+                namespace: cilium
+            hostnames:
+              - status.hankeln.work
         persistence:
           enabled: true
         config:

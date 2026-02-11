@@ -118,3 +118,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: status
+      protocol: HTTPS
+      port: 443
+      hostname: status.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: status-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
