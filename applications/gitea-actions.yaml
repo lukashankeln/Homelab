@@ -17,7 +17,7 @@ spec:
     namespace: gitea
   source:
     repoURL: https://dl.gitea.io/charts
-    targetRevision: 0.0.2
+    targetRevision: 0.0.3
     chart: actions
     helm:
       valuesObject:
