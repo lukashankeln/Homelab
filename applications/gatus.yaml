@@ -35,7 +35,7 @@ spec:
             parentRefs:
               - name: cilium-gateway
                 namespace: cilium
-            hostnames:
+            hosts:
               - status.hankeln.work
         persistence:
           enabled: true
