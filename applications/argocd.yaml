@@ -19,7 +19,7 @@ spec:
       - ServerSideApply=true
   source:
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 9.4.1
+    targetRevision: 9.4.2
     chart: argo-cd
     helm:
       valuesObject:
