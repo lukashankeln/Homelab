@@ -31,7 +31,7 @@ spec:
     # Values: https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
     chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 82.1.1
+    targetRevision: 82.2.0
     helm:
       releaseName: kube-prometheus-stack
       valuesObject:
