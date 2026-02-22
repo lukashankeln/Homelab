@@ -1,0 +1,38 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: gitea-postgresql
+  namespace: gitea
+spec:
+  instances: 1
+  logLevel: warning
+  primaryUpdateStrategy: unsupervised
+  enableSuperuserAccess: false
+  bootstrap:
+    initdb:
+      database: gitea
+      owner: gitea
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql
+    major: 17
+  managed:
+    roles:
+      - name: gitea
+        superuser: true
+        createdb: true
+        login: true
+  monitoring:
+    enablePodMonitor: true
+  resources:
+    requests:
+      cpu: 40m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
+  storage:
+    size: 1Gi
+  walStorage:
+    size: 1Gi
