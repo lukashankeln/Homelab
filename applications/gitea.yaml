@@ -59,3 +59,20 @@ spec:
           global:
             valkey:
               password: changemeplease
+        gitea:
+            config:
+              database:
+                DB_TYPE: postgres
+                HOST: gitea-postgresql-rw.gitea.svc.cluster.local:5432
+                NAME: gitea
+                USER:
+                  valueFrom:
+                    secretKeyRef:
+                      name: gitea-postgresql-app
+                      key: username
+                PASSWD:
+                  valueFrom:
+                    secretKeyRef:
+                      name: gitea-postgresql-app
+                      key: password
+                SSL_MODE: disable
