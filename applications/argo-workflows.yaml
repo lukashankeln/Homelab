@@ -12,6 +12,8 @@ spec:
     name: in-cluster
     namespace: argo-workflows
   syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
     automated:
       prune: true
       allowEmpty: true
@@ -29,6 +31,7 @@ spec:
             create: true
         crds:
           keep: false
+          full: true
         controller:
           volumeMounts:
             - name: tmp
