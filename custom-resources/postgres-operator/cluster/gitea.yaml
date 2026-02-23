@@ -25,6 +25,12 @@ spec:
         login: true
   monitoring:
     enablePodMonitor: true
+  postgresql:
+    parameters:
+      work_mem: "256MB"
+      maintenance_work_mem: "512MB"
+      max_stack_depth: "7MB"
+      statement_timeout: "0"
   resources:
     requests:
       cpu: 40m
