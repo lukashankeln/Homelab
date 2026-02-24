@@ -4,7 +4,7 @@ metadata:
   name: gitea-postgresql
   namespace: gitea
 spec:
-  instances: 1
+  instances: 3
   logLevel: warning
   primaryUpdateStrategy: unsupervised
   enableSuperuserAccess: false
