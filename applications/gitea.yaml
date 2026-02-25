@@ -29,6 +29,7 @@ spec:
             network-policy/egress-postgres: "true"
         strategy:
           type: "Recreate"
+          rollingUpdate: null
         ingress:
           enabled: true
           annotations:
