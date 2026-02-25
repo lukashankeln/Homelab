@@ -27,6 +27,8 @@ spec:
             network-policy/ingress-nginx-port: "3000"
             network-policy/egress-world: "true"
             network-policy/egress-postgres: "true"
+        strategy:
+          type: Recreate
         ingress:
           enabled: true
           annotations:
