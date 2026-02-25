@@ -28,7 +28,15 @@ spec:
               namespace: cilium
           hostnames:
             - renovate.hankeln.work
-
+        webhook:
+          enabled: true
+          route:
+            enabled: true
+            parentRefs:
+              - name: cilium-gateway
+                namespace: cilium
+            hostnames:
+              - renovate-webhooks.hankeln.work
         resources:
           requests:
             cpu: 100m

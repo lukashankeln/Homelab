@@ -129,3 +129,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: renovate-webhooks
+      protocol: HTTPS
+      port: 443
+      hostname: renovate-webhooks.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: renovate-webhooks-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
