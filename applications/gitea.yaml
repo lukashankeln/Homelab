@@ -60,6 +60,9 @@ spec:
             valkey:
               password: changemeplease
         gitea:
+          config:
+            webhook:
+              ALLOWED_HOST_LIST: renovate-webhooks.hankeln.work
           additionalConfigFromEnvs:
             - name: GITEA__DATABASE__DB_TYPE
               value: postgres
