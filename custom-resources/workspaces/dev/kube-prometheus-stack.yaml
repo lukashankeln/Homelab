@@ -1,0 +1,10 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Workspace
+metadata:
+  name: kube-prometheus-stack
+  namespace: mogenius-dev
+spec:
+  resources:
+    - id: kube-prometheus-stack
+      type: namespace
+status: {}
