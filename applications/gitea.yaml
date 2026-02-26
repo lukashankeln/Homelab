@@ -66,11 +66,10 @@ spec:
           config:
             webhook:
               ALLOWED_HOST_LIST: renovate-webhooks.hankeln.work
-        metrics:
-          enabled: true
-          token:
-          serviceMonitor:
+          metrics:
             enabled: true
+            serviceMonitor:
+              enabled: true
           additionalConfigFromEnvs:
             - name: GITEA__DATABASE__DB_TYPE
               value: postgres
