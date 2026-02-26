@@ -77,7 +77,8 @@ spec:
 
           # this is stupid af but the chart doesnt support setting fsGroups
           runAsRoot: true
-          additionalSpec:
+          additionalSpec: |
+
             securityContext:
               fsGroup: 1000
               runAsUser: 1000
