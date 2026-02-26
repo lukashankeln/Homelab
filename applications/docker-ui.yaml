@@ -74,3 +74,12 @@ spec:
           dataVolume:
             persistentVolumeClaim:
               claimName: docker-registry
+
+          # this is stupid af but the chart doesnt support setting fsGroups
+          runAsRoot: true
+          additionalSpec:
+            securityContext:
+              fsGroup: 1000
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
