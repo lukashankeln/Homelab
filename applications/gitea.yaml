@@ -28,6 +28,7 @@ spec:
             network-policy/egress-world: "true"
             network-policy/egress-postgres: "true"
             network-policy/egress-cluster-port-8082: "true"
+            network-policy/metrics-port-3000: "true"
         strategy:
           type: Recreate
         ingress:
