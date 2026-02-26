@@ -21,6 +21,11 @@ spec:
     chart: renovate-operator
     helm:
       valuesObject:
+        deployment:
+          podLabels:
+            network-policy/metrics-port-8080: "true"
+            network-policy/ingress-port: "8081"
+            network-policy/ingress-cluster-port-8082: "true"
         route:
           enabled: true
           parentRefs:
