@@ -24,7 +24,8 @@ spec:
         deployment:
           podLabels:
             network-policy/metrics-port-8080: "true"
-            network-policy/ingress-port: "8081"
+            network-policy/ingress-port-8081: "true"
+            network-policy/ingress-port-8082: "true"
             network-policy/ingress-cluster-port-8082: "true"
         route:
           enabled: true

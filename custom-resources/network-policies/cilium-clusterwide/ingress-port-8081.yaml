@@ -5,7 +5,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      network-policy/ingress-port: "8081"
+      network-policy/ingress-port-8081: "true"
   ingress:
     - fromEntities:
         - ingress
