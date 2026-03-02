@@ -21,10 +21,6 @@ spec:
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
 
-    - name: LOG_FORMAT
-      value: "json"
-    - name: LOG_LEVEL
-      value: "debug"
     - name: RENOVATE_DEPENDENCY_DASHBOARD_FOOTER
       value: "- [ ] <!-- manual job -->Check this box to trigger a request for Renovate to run again on this repository"
   parallelism: 1
