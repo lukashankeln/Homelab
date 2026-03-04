@@ -13,11 +13,10 @@ spec:
   discoveryFilter: "!Hankeln/*"
   image: renovate/renovate:43.52.0 # renovate
   secretRef: "renovate-secrets"
+  provider:
+    name: gitea
+    endpoint: "https://git.hankeln.work"
   extraEnv:
-    - name: RENOVATE_ENDPOINT
-      value: "https://git.hankeln.work"
-    - name: RENOVATE_PLATFORM
-      value: "gitea"
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
 
