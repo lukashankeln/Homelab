@@ -52,6 +52,13 @@ spec:
             maxMetricCount: 10
         opentelemetry-collector:
           enabled: true
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "256Mi"
+            requests:
+              cpu: "50m"
+              memory: "256Mi"
           config:
             receivers:
               filelog:
