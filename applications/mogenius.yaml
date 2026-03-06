@@ -34,3 +34,18 @@ spec:
         revisionHistoryLimit: 1
         global:
           cluster_name: homelab
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+          limits:
+            cpu: "100m"
+            memory: "512Mi"
+        nodeMetrics:
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "100m"
+              memory: "256Mi"
