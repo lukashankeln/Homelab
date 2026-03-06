@@ -21,6 +21,13 @@ spec:
     chart: aspire-dashboard
     helm:
       valuesObject:
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "512Mi"
+          requests:
+            cpu: "100m"
+            memory: "512Mi"
         ui:
           route:
             enabled: true

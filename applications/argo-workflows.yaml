@@ -43,6 +43,9 @@ spec:
             requests:
               cpu: 12m
               memory: 70M
+            limits:
+              cpu: 50m
+              memory: 200M
           podSecurityContext:
             runAsUser: 1000
             runAsGroup: 1000
@@ -64,6 +67,9 @@ spec:
             requests:
               cpu: 12m
               memory: 50M
+            limits:
+              cpu: 50m
+              memory: 200M
           podSecurityContext:
             runAsUser: 1000
             runAsGroup: 1000
