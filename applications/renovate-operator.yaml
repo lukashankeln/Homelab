@@ -21,6 +21,8 @@ spec:
     chart: renovate-operator
     helm:
       valuesObject:
+        config:
+          deleteSuccessfulJobs: true
         deployment:
           podLabels:
             network-policy/metrics-port-8080: "true"
