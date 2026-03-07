@@ -23,6 +23,7 @@ spec:
       valuesObject:
         config:
           deleteSuccessfulJobs: true
+          jobTTLSecondsAfterFinished: 3600
         deployment:
           podLabels:
             network-policy/metrics-port-8080: "true"
