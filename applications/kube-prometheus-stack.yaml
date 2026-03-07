@@ -112,6 +112,11 @@ spec:
             existingSecret: grafana-admin-credentials
             userKey: user
             passwordKey: password
+          dashboards:
+            default:
+              redis-exporter:
+                url: https://raw.githubusercontent.com/oliver006/redis_exporter/refs/heads/master/contrib/grafana_prometheus_redis_dashboard.json
+                datasource: Prometheus
           defaultDashboardsTimezone: cet
           ingress:
             enabled: true
@@ -132,8 +137,6 @@ spec:
             log.console:
               format: json
               level: warn
-            dashboards:
-              default_home_dashboard_path: /grafana/dashboards/home.json
         prometheus:
           ingress:
             enabled: true
