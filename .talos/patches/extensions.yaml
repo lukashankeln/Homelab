@@ -1,3 +1,5 @@
-machine:
-  systemExtensions:
-    officialExtensions: []
+customization:
+    systemExtensions:
+        officialExtensions:
+            - siderolabs/nfs-utils
+            - siderolabs/nfsrahead

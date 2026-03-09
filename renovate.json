@@ -3,6 +3,20 @@
   "extends": [
     "local>bot/renovate"
   ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.talos/version\\.txt$/"
+      ],
+      "matchStrings": [
+        "TALOS_VERSION=(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)"
+      ],
+      "depNameTemplate": "ghcr.io/siderolabs/installer",
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "semver"
+    }
+  ],
   "argocd": {
     "managerFilePatterns": [
       "/applications/.+\\.yaml$/"
@@ -14,6 +28,24 @@
     ]
   },
   "packageRules": [
+    {
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchFileNames": [
+        ".talos/version.txt"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          ".talos/scripts/3-get-image.sh"
+        ],
+        "fileFilters": [
+          ".talos/version.txt",
+          ".talos/patches/**/disk.yaml"
+        ],
+        "executionMode": "branch"
+      }
+    },
     {
       "automerge": true,
       "matchPackageNames": [
