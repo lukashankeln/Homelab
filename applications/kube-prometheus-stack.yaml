@@ -76,6 +76,8 @@ spec:
             requests:
               cpu: 100m
               memory: 220Mi
+            limits:
+              cpu: 200m
           securityContext:
             seccompProfile:
               type: RuntimeDefault
