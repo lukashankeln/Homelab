@@ -41,9 +41,9 @@ spec:
           resources:
             requests:
               cpu: 23m
-              memory: 140M
+              memory: 140Mi
             limits:
-              cpu: 50m
+              cpu: 100m
           httproute:
             enabled: true
             parentRefs:
@@ -58,17 +58,17 @@ spec:
           resources:
             requests:
               cpu: 70m
-              memory: 120M
+              memory: 120Mi
             limits:
-              cpu: 200m
+              cpu: 100m
 
         applicationSet:
           resources:
             requests:
               cpu: 15m
-              memory: 70M
+              memory: 70Mi
             limits:
-              cpu: 50m
+              cpu: 100m
         configs:
           cm:
             exec.enabled: "true"
