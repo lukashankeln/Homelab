@@ -1,0 +1,16 @@
+cluster:
+  apiServer:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 2Gi
+  controllerManager:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+  scheduler:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi

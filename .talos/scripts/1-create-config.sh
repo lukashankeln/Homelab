@@ -68,6 +68,7 @@ talosctl machineconfig patch controlplane.yaml \
     --patch @patches/controlplane/hostname.yaml \
     --patch @patches/controlplane/disk.yaml \
     --patch @patches/controlplane/allow-workloads.yaml \
+    --patch @patches/controlplane/resources.yaml \
     --output controlplane.yaml
 echo -e "${GREEN}✓ Controlplane configuration patched${NC}\n"
 
