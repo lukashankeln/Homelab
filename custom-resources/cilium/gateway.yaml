@@ -19,28 +19,6 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: aspire
-      protocol: HTTPS
-      port: 443
-      hostname: aspire.hankeln.work
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: aspire-hankeln-tls
-      allowedRoutes:
-        namespaces:
-          from: All
-    - name: in-aspire
-      protocol: HTTPS
-      port: 443
-      hostname: in-aspire.hankeln.work
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: in-aspire-hankeln-tls
-      allowedRoutes:
-        namespaces:
-          from: All
     - name: board
       protocol: HTTPS
       port: 443

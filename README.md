@@ -42,7 +42,6 @@ Cilium is used as the CNI provider and for LoadBalancer services (LB-IPAM with L
 A variety of applications are deployed in the cluster, including:
 
 - **[Argo Workflows](/applications/argo-workflows.yaml)**: Workflow engine for orchestrating jobs.
-- **[Aspire Dashboard](/applications/aspire-dashboard.yaml)**: Lightweight OpenTelemetry dashboard.
 - **[Cert-Manager](/applications/cert-manager.yaml)**: Automatic certificate generation for ingresses.
 - **[Docker UI](/applications/docker-ui.yaml)**: Docker registry with a management UI.
 - **[Gitea](/applications/gitea.yaml)**: Self-hosted Git server with CI/CD capabilities.

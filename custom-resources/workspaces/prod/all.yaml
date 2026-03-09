@@ -27,8 +27,6 @@ spec:
       type: namespace
     - id: gitea
       type: namespace
-    - id: aspire-dashboard
-      type: namespace
     - id: external-secrets-operator
       type: namespace
     - id: cilium-secrets

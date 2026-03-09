@@ -12,13 +12,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: aspire-dashboard
-  labels:
-    pod-security.kubernetes.io/enforce: privileged
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: cert-manager
 ---
 apiVersion: v1

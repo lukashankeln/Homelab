@@ -101,10 +101,6 @@ spec:
                       description: Uptime monitor and Status-Page
                       url: https://status.hankeln.work/
                       icon: https://status.hankeln.work/favicon.ico
-                    - title: Aspire Dashboard
-                      description: Logging and Telemetry
-                      url: https://aspire.hankeln.work
-                      icon: https://aspire.hankeln.work/favicon.ico
                     - title: Skooner
                       description: Kubernetes monitoring Dashboard
                       url: https://skooner.hankeln.work/
