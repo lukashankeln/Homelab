@@ -11,7 +11,7 @@ spec:
       network-policy/egress-dns: "true"
   schedule: "0 * * * *"
   discoveryFilter: "Hankeln/*"
-  image: renovate/renovate:43.64.6 # renovate
+  image: renovate/renovate:43.65.0 # renovate
   secretRef: "renovate-secrets"
   provider:
     name: gitea
