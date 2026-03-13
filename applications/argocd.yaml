@@ -68,7 +68,7 @@ spec:
               cpu: 100m
               memory: 650Mi
             limits:
-              cpu: 200m
+              cpu: 500m
 
         applicationSet:
           resources:
