@@ -1,7 +1,7 @@
 apiVersion: mogenius.com/v1alpha1
 kind: Workspace
 metadata:
-  name: ingress-nginx
+  name: contour
   namespace: mogenius-dev
 spec:
   resources:

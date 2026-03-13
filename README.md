@@ -46,7 +46,7 @@ A variety of applications are deployed in the cluster, including:
 - **[Docker UI](/applications/docker-ui.yaml)**: Docker registry with a management UI.
 - **[Gitea](/applications/gitea.yaml)**: Self-hosted Git server with CI/CD capabilities.
 - **[Kanboard](/applications/kanboard.yaml)**: Project management software.
-- **[nginx](/applications/nginx-ingress.yaml)**: Ingress controller.
+- **[Contour](/applications/contour.yaml)**: Ingress controller.
 - **[Skooner](/applications/skooner.yaml)**: Kubernetes dashboard for cluster management.
 - **[Cloud Native Postgres Operator](/applications/cloud-native-postgres-operator.yaml)**: PostgreSQL operator for Kubernetes.
 
