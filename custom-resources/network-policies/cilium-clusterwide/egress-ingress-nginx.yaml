@@ -1,12 +1,12 @@
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: egress-ingress-nginx
+  name: egress-ingress-controller
 spec:
   endpointSelector:
     matchLabels:
-      network-policy/egress-ingress-nginx: "true"
+      network-policy/egress-ingress-controller: "true"
   egress:
     - toEndpoints:
         - matchLabels:
-            io.kubernetes.pod.namespace: ingress-nginx
+            io.kubernetes.pod.namespace: contour

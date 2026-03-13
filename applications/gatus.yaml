@@ -24,7 +24,7 @@ spec:
         podLabels:
           network-policy/deny-all: "true"
           network-policy/ingress-port: "8080"
-          network-policy/egress-ingress-nginx: "true"
+          network-policy/egress-ingress-controller: "true"
           network-policy/egress-dns: "true"
           network-policy/egress-world: "true"
           network-policy/egress-cluster-port-5090: "true"
