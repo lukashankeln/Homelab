@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: contour
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  destination:
+    namespace: contour
+    name: in-cluster
+  project: mogenius
+  revisionHistoryLimit: 1
+  syncPolicy:
+    automated:
+      prune: true
+  source:
+    # Repository: https://github.com/projectcontour/helm-charts/tree/main/charts/contour
+    # ArtifactHub: https://artifacthub.io/packages/helm/contour/contour
+    # Values: https://github.com/projectcontour/helm-charts/blob/main/charts/contour/values.yaml
+    chart: contour
+    repoURL: https://projectcontour.github.io/helm-charts/
+    targetRevision: 0.3.0
+    helm:
+      releaseName: contour
+      valuesObject:
+        contour:
+          ingressClass:
+            name: nginx
+          resources:
+            requests:
+              cpu: 10m
+              memory: 128Mi
+            limits:
+              memory: 128Mi
+        envoy:
+          resources:
+            requests:
+              cpu: 6m
+              memory: 128Mi
+            limits:
+              memory: 128Mi
+          shutdownManager:
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 128Mi
