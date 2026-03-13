@@ -34,7 +34,7 @@ spec:
         ingress:
           enabled: true
           annotations:
-            nginx.ingress.kubernetes.io/proxy-body-size: 1024m
+            projectcontour.io/request-body-limit: "1073741824"
             cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
           className: nginx
           hosts:

@@ -50,16 +50,16 @@ spec:
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin
               value: '["*"]'
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods
-              value: '[HEAD,GET,OPTIONS,DELETE]'
+              value: "[HEAD,GET,OPTIONS,DELETE]"
             - name: REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers
-              value: '[Authorization, Accept]'
+              value: "[Authorization, Accept]"
           ingress:
             enabled: true
             path: /
             host: docker-registry.hankeln.work
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-              nginx.ingress.kubernetes.io/proxy-body-size: 1024m
+              projectcontour.io/request-body-limit: "1073741824"
             tls:
               - hosts:
                   - docker-registry.hankeln.work
