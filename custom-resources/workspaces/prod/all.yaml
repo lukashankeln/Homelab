@@ -51,8 +51,6 @@ spec:
       type: namespace
     - id: workflow
       type: namespace
-    - id: skooner
-      type: namespace
     - id: too-restful-api
       type: namespace
     - id: memory

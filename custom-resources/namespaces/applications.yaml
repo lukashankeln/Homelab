@@ -95,11 +95,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: skooner
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: too-restful-api
 ---
 apiVersion: v1
