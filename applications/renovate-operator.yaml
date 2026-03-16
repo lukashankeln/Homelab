@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://helm.mogenius.com/public
-    targetRevision: 3.1.2
+    targetRevision: 3.3.0
     chart: renovate-operator
     helm:
       valuesObject:
