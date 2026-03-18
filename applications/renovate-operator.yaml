@@ -12,6 +12,8 @@ spec:
     name: in-cluster
     namespace: renovate-operator
   syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
     automated:
       prune: true
       allowEmpty: true
