@@ -20,47 +20,64 @@ The infrastructure runs on a Talos Linux Kubernetes cluster composed of two node
 Talos is an immutable, minimal Kubernetes OS designed for security and ease of management. Configuration is managed declaratively in the `.talos/` directory.
 
 ## GitOps with ArgoCD
-ArgoCD now manages itself from this repository. The primary ArgoCD Application is `applications/argocd.yaml` and ArgoCD will reconcile the rest of the repo.
+ArgoCD manages itself and all other applications from this repository. The primary ArgoCD Application is `applications/argocd.yaml` and ArgoCD reconciles the rest of the repo.
 
 Key locations:
 
-- `applications/argocd.yaml` — ArgoCD self-management (the ArgoCD application manifest).
-- `applications/` — application-level ArgoCD Application manifests for services and charts.
-- `kubernetes/` — plain Kubernetes manifests that are deployed via ApplicationSets.
-- `custom-resources/applicationsets/` — ApplicationSet manifests (generators and templates) used to create many Applications from directories or lists.
-- `custom-resources/appprojects/` — ArgoCD AppProject manifests (project scoping, source/destination restrictions).
+- `applications/argocd.yaml` — ArgoCD self-management manifest.
+- `applications/` — ArgoCD Application manifests for all services.
+- `kubernetes/` — plain Kubernetes manifests deployed via ApplicationSets.
+- `custom-resources/applicationsets/` — ApplicationSet manifests (generators and templates).
+- `custom-resources/appprojects/` — ArgoCD AppProject manifests (scoping, source/destination restrictions).
 
-ArgoCD is installed initially via the Helm chart but is now configured to self-manage using `applications/argocd.yaml`. Updates to ArgoCD and apps are automated via Renovate.
+Updates to ArgoCD and all apps are automated via Renovate.
 
-## Cilium - CNI & Load Balancing
-Cilium is used as the CNI provider and for LoadBalancer services (LB-IPAM with L2 announcements). It's deployed through the repository (see `applications/cilium.yaml`) and configured with:
+## Cilium - CNI, Load Balancing & Gateway
+Cilium is the CNI provider, handles LoadBalancer services (LB-IPAM with L2 announcements), and serves as the Gateway API implementation. Configured via:
 - Cluster-wide network policies: `custom-resources/cilium-clusterwide-network-policies/`
 - Load balancer IP pools: `custom-resources/cilium/ipPool.yaml`
 - L2 announcement policies: `custom-resources/cilium/l2Announcement.yaml`
 
 ## Applications
-A variety of applications are deployed in the cluster, including:
 
-- **[Argo Workflows](/applications/argo-workflows.yaml)**: Workflow engine for orchestrating jobs.
-- **[Cert-Manager](/applications/cert-manager.yaml)**: Automatic certificate generation for ingresses.
-- **[Docker UI](/applications/docker-ui.yaml)**: Docker registry with a management UI.
-- **[Gitea](/applications/gitea.yaml)**: Self-hosted Git server with CI/CD capabilities.
-- **[Kanboard](/applications/kanboard.yaml)**: Project management software.
+### Networking & Ingress
+- **[Cilium](/applications/cilium.yaml)**: CNI, L2 load balancing, Hubble observability, and Gateway API implementation.
+- **[Gateway API](/applications/gateway-api.yaml)**: Kubernetes Gateway API CRDs.
 - **[Contour](/applications/contour.yaml)**: Ingress controller.
-- **[Skooner](/applications/skooner.yaml)**: Kubernetes dashboard for cluster management.
-- **[Cloud Native Postgres Operator](/applications/cloud-native-postgres-operator.yaml)**: PostgreSQL operator for Kubernetes.
+- **[Cert-Manager](/applications/cert-manager.yaml)**: Automatic TLS certificate provisioning.
+- **[External DNS](/applications/external-dns.yaml)**: Automatic DNS record management via Cloudflare.
+- **[Tailscale](/applications/tailscale.yaml)**: VPN operator for secure remote access.
+- **[Metrics Server](/applications/metrics-server.yaml)**: Kubernetes resource metrics (CPU/memory) for HPA and `kubectl top`.
 
-## Secret Management
-Secrets are managed using the External Secrets Operator. To enable it, create a Vault token as a Kubernetes secret:
+### GitOps & CI/CD
+- **[ArgoCD](/applications/argocd.yaml)**: GitOps controller managing all cluster applications.
+- **[Argo Workflows](/applications/argo-workflows.yaml)**: Workflow engine for orchestrating jobs.
+- **[Gitea](/applications/gitea.yaml)**: Self-hosted Git server.
+- **[Gitea Actions](/applications/gitea-actions.yaml)**: CI/CD runners for Gitea.
+- **[Renovate Operator](/applications/renovate-operator.yaml)**: Automated dependency updates.
 
-```bash
-kubectl create secret generic vault-token -n external-secrets-operator --from-literal=token=<token>
-```
+### Secret & Storage Management
+- **[Vault](/applications/vault.yaml)**: HashiCorp Vault for secret storage.
+- **[External Secrets Operator](/applications/external-secrets-operator.yaml)**: Syncs secrets from Vault into Kubernetes. Requires a bootstrap secret: `kubectl create secret generic vault-token -n external-secrets-operator --from-literal=token=<token>`
+- **[Cloud Native Postgres Operator](/applications/cloud-native-postgres-operator.yaml)**: PostgreSQL operator (CNPG) for managed database clusters.
+- **[NFS Provisioner](/applications/nfs-provisioner.yaml)**: Dynamic NFS-backed PersistentVolume provisioning.
+
+### Monitoring & Observability
+- **[Kube Prometheus Stack](/applications/kube-prometheus-stack.yaml)**: Prometheus, Grafana, and Alertmanager for cluster monitoring.
+- **[Gatus](/applications/gatus.yaml)**: Uptime and health status monitoring dashboard.
+
+### Applications
+- **[Homepage](/applications/homepage.yaml)**: Unified dashboard for all services.
+- **[Docker UI](/applications/docker-ui.yaml)**: Docker registry with a management UI.
+- **[Kanboard](/applications/kanboard.yaml)**: Project management (Kanban board).
+- **[Ntfy](/applications/ntfy.yaml)**: Self-hosted push notification service.
+- **[Mogenius Operator](/applications/mogenius.yaml)**: Cluster management operator.
+- **[Too Restful API](/applications/too-restful-api.yaml)**: REST API service.
+- **[Webservice](/applications/webservice.yaml)**: Generic web service deployment.
+- **[Workflow](/applications/workflow.yaml)**: Generic workflow deployment.
 
 ## Additional Resources
-- **Network Policies**: Defined in `custom-resources/cilium-clusterwide-network-policies/`.
-- **Persistent Volumes**: Configured in `custom-resources/persistent-volumes/`.
-- **Postgres Operator**: Cluster image catalog and database clusters in `custom-resources/postgres-operator/`.
-- **RBAC Configurations**: Found in `custom-resources/rbac/`.
-
-This repository is continuously evolving to meet the needs of the home server infrastructure.
+- **Network Policies**: `custom-resources/cilium-clusterwide-network-policies/`
+- **Persistent Volumes**: `custom-resources/persistent-volumes/`
+- **Postgres Clusters**: `custom-resources/postgres-operator/`
+- **RBAC Configurations**: `custom-resources/rbac/`
