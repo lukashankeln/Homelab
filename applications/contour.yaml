@@ -22,7 +22,7 @@ spec:
     # Values: https://github.com/projectcontour/helm-charts/blob/main/charts/contour/values.yaml
     chart: contour
     repoURL: https://projectcontour.github.io/helm-charts/
-    targetRevision: 0.3.0
+    targetRevision: 0.4.0
     helm:
       releaseName: contour
       valuesObject:
