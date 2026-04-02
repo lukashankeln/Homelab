@@ -204,6 +204,9 @@ spec:
             capabilities:
               drop:
                 - ALL
+        defaultRules:
+          rules:
+            kubeProxy: false
         prometheusOperator:
           tls:
             enabled: true
