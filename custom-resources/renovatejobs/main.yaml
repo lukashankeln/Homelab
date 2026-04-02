@@ -10,7 +10,8 @@ spec:
       network-policy/egress-world: "true"
       network-policy/egress-dns: "true"
   schedule: "0 * * * *"
-  discoveryFilter: "Hankeln/*"
+  discoveryFilters:
+    - "Hankeln/*"
   image: renovate/renovate:43.102.11 # renovate
   secretRef: "renovate-secrets"
   provider:
