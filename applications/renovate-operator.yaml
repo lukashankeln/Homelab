@@ -26,6 +26,8 @@ spec:
         config:
           deleteSuccessfulJobs: true
           jobTTLSecondsAfterFinished: 3600
+          logStorage:
+            mode: memory
         deployment:
           podLabels:
             network-policy/metrics-port-8080: "true"
