@@ -1,0 +1,3 @@
+machine:
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:v1.35.0 # renovate

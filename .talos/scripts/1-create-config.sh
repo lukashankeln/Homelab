@@ -65,10 +65,12 @@ echo -e "${YELLOW}Patching controlplane configuration...${NC}"
 talosctl machineconfig patch controlplane.yaml \
     --patch @patches/cni.yaml \
     --patch @patches/dns.yaml \
+    --patch @patches/kubernetes-version.yaml \
     --patch @patches/controlplane/hostname.yaml \
     --patch @patches/controlplane/disk.yaml \
     --patch @patches/controlplane/allow-workloads.yaml \
     --patch @patches/controlplane/resources.yaml \
+    --patch @patches/controlplane/kubernetes-version.yaml \
     --output controlplane.yaml
 echo -e "${GREEN}✓ Controlplane configuration patched${NC}\n"
 
@@ -77,6 +79,7 @@ echo -e "${YELLOW}Patching worker configuration...${NC}"
 talosctl machineconfig patch worker.yaml \
     --patch @patches/cni.yaml \
     --patch @patches/dns.yaml \
+    --patch @patches/kubernetes-version.yaml \
     --patch @patches/worker/hostname.yaml \
     --patch @patches/worker/disk.yaml \
     --output worker.yaml

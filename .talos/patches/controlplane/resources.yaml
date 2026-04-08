@@ -3,14 +3,14 @@ cluster:
     resources:
       requests:
         cpu: 200m
-        memory: 2Gi
+        memory: 4Gi
   controllerManager:
     resources:
       requests:
         cpu: 200m
-        memory: 256Mi
+        memory: 512Mi
   scheduler:
     resources:
       requests:
         cpu: 200m
-        memory: 256Mi
+        memory: 512Mi
