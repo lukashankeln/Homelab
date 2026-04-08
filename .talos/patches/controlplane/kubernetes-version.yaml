@@ -6,4 +6,4 @@ cluster:
   proxy:
     image: registry.k8s.io/kube-proxy:v1.35.3 # renovate
   scheduler:
-    image: registry.k8s.io/kube-scheduler:v1.35.0 # renovate
+    image: registry.k8s.io/kube-scheduler:v1.35.3 # renovate
