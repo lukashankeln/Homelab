@@ -13,7 +13,7 @@ spec:
   discoveryFilters:
     - "Ansible/*"
     - "Bot/*"
-  image: renovate/renovate:43.110.13 # renovate
+  image: renovate/renovate:43.110.14 # renovate
   secretRef: "renovate-secrets"
   provider:
     name: gitea
