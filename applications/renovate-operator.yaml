@@ -68,3 +68,9 @@ spec:
               grafana_folder: "Supporting Services"
             labels:
               grafana_dashboard: "1"
+        valkey:
+          enabled: true
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
