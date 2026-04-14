@@ -70,6 +70,11 @@ spec:
               grafana_dashboard: "1"
         valkey:
           enabled: true
+          auth:
+            enabled: true
+            aclUsers:
+              default:
+                password: "tmp"
           metrics:
             enabled: true
             serviceMonitor:
