@@ -7,6 +7,7 @@ spec:
   metadata:
     labels:
       network-policy/egress-ingress-controller: "true"
+      network-policy/egress-cluster-port-6379: "true"
       network-policy/egress-world: "true"
       network-policy/egress-dns: "true"
   schedule: "0 0 * * *"

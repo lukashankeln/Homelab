@@ -79,3 +79,6 @@ spec:
             enabled: true
             serviceMonitor:
               enabled: true
+          podLabels:
+            network-policy/metrics-port-9121: "true"
+            network-policy/ingress-cluster-port-6379: "true"

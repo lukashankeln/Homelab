@@ -1,0 +1,16 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: metrics-port-9121
+spec:
+  endpointSelector:
+    matchLabels:
+      network-policy/metrics-port-9121: "true"
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-prometheus-stack
+      toPorts:
+        - ports:
+            - port: "9121"
