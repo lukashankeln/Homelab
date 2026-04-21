@@ -29,6 +29,7 @@ spec:
           logStorage:
             mode: memory
         deployment:
+          revisionHistoryLimit: 1
           podLabels:
             network-policy/metrics-port-8080: "true"
             network-policy/ingress-port-8081: "true"
