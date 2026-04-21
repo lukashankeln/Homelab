@@ -36,6 +36,7 @@ spec:
             network-policy/ingress-cluster-port-8082: "true"
             network-policy/egress-cluster-port-6379: "true"
             network-policy/egress-dns: "true"
+            network-policy/egress-kube-api: "true"
         route:
           enabled: true
           parentRefs:
