@@ -1,6 +1,6 @@
 cluster:
   apiServer:
-    image: registry.k8s.io/kube-apiserver:v1.35.4 # renovate
+    image: registry.k8s.io/kube-apiserver:v1.36.0 # renovate
   controllerManager:
     image: registry.k8s.io/kube-controller-manager:v1.36.0 # renovate
   proxy:
