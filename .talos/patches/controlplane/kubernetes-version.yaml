@@ -4,6 +4,6 @@ cluster:
   controllerManager:
     image: registry.k8s.io/kube-controller-manager:v1.35.4 # renovate
   proxy:
-    image: registry.k8s.io/kube-proxy:v1.35.4 # renovate
+    image: registry.k8s.io/kube-proxy:v1.36.0 # renovate
   scheduler:
     image: registry.k8s.io/kube-scheduler:v1.35.4 # renovate
