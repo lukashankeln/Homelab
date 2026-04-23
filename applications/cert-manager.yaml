@@ -13,13 +13,86 @@ spec:
       prune: true
       allowEmpty: true
   source:
+    # Repository: https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager
+    # Artifacthub: https://artifacthub.io/packages/helm/cert-manager/cert-manager
+    # Values: https://github.com/cert-manager/cert-manager/blob/master/deploy/charts/cert-manager/values.yaml
     repoURL: https://charts.jetstack.io
     targetRevision: v1.20.2
     chart: cert-manager
     helm:
       valuesObject:
         installCRDs: true
+
+        global:
+          logLevel: 1 # Warning
+
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          seccompProfile:
+            type: RuntimeDefault
+        containerSecurityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+
         dns01RecursiveNameservers: "jaime.ns.cloudflare.com:53,zelda.ns.cloudflare.com:53"
         dns01RecursiveNameserversOnly: true
         config:
           enableGatewayAPI: true
+
+        extraArgs:
+          - --logging-format=json
+        resources:
+          requests:
+            cpu: 30m
+            memory: 125Mi
+          limits:
+            cpu: 60m
+            memory: 250Mi
+        webhook:
+          resources:
+            requests:
+              cpu: 20m
+              memory: 80M
+            limits:
+              cpu: 20m
+              memory: 80M
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          containerSecurityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+          extraArgs:
+            - --logging-format=json
+        cainjector:
+          enabled: true
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          containerSecurityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100M
+        startupapicheck:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100M
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          containerSecurityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+          extraArgs:
+            - --logging-format=json
