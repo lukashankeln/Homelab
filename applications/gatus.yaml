@@ -29,6 +29,7 @@ spec:
           network-policy/egress-world: "true"
           network-policy/egress-cluster-port-5090: "true"
           network-policy/egress-cluster-port-8080: "true"
+          network-policy/egress-cluster-port-8081: "true"
         gateway:
           route:
             enabled: true
