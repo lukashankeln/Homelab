@@ -18,6 +18,8 @@ spec:
     chart: ntfy
     helm:
       valuesObject:
+        image:
+          tag: v2.22.0 # datasource=docker depName=docker.io/binwiederhier/ntfy versioning=docker
         ingress:
           enabled: true
           className: nginx
