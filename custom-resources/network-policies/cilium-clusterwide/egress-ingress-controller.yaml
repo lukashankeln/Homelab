@@ -10,3 +10,6 @@ spec:
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: contour
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: cilium
