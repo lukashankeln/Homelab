@@ -20,7 +20,7 @@ spec:
   source:
     # https://artifacthub.io/packages/helm/argo-cd-oci/argo-cd
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 9.5.4
+    targetRevision: 9.5.5
     chart: argo-cd
     helm:
       valuesObject:
