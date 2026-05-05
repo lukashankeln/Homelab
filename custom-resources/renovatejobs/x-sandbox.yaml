@@ -1,0 +1,37 @@
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: renovate-x-sandbox
+  namespace: renovate-operator
+spec:
+  metadata:
+    labels:
+      network-policy/egress-ingress-controller: "true"
+      network-policy/egress-cluster-port-6379: "true"
+      network-policy/egress-world: "true"
+      network-policy/egress-dns: "true"
+  schedule: "0 0 1 * *"
+  discoveryFilters:
+    - "Sandbox/*"
+  image: renovate/renovate:43.142.1 # renovate
+  secretRef: "renovate-secrets"
+  provider:
+    name: gitea
+    endpoint: "https://git.hankeln.work"
+  extraEnv:
+    - name: RENOVATE_ALLOW_PLUGINS
+      value: "true"
+
+    - name: RENOVATE_DEPENDENCY_DASHBOARD_FOOTER
+      value: "- [ ] <!-- manual job -->Check this box to trigger a request for Renovate to run again on this repository"
+  parallelism: 1
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+  nodeSelector:
+    kubernetes.io/hostname: server-luha-2
+  webhook:
+    enabled: true
