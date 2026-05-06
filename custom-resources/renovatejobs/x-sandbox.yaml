@@ -13,7 +13,7 @@ spec:
   schedule: "0 0 1 * *"
   discoveryFilters:
     - "Sandbox/*"
-  image: renovate/renovate:43.168.1 # renovate
+  image: renovate/renovate:43.168.2 # renovate
   secretRef: "renovate-secrets"
   provider:
     name: gitea
