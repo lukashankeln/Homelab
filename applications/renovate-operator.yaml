@@ -27,7 +27,7 @@ spec:
           deleteSuccessfulJobs: true
           jobTTLSecondsAfterFinished: 3600
           logStorage:
-            mode: memory
+            mode: valkey
         deployment:
           revisionHistoryLimit: 1
           podLabels:
