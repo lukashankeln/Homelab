@@ -59,6 +59,21 @@ spec:
                     - abbr: DH
                       href: https://hub.docker.com/
           services:
+            - Platform:
+                - Gatus:
+                    href: https://status.hankeln.work
+                    description: Status monitoring
+                    icon: gatus.png
+                    widget:
+                      type: gatus
+                      url: https://status.hankeln.work
+                - Prometheus:
+                    href: http://prometheus.hankeln.work
+                    description: Metrics monitoring
+                    icon: prometheus.png
+                    widget:
+                      type: prometheus
+                      url: http://prometheus.hankeln.work
             - Home Automation:
                 - NAS:
                     href: http://192.168.1.112:8000/portal/
