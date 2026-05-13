@@ -74,6 +74,10 @@ spec:
                     widget:
                       type: prometheus
                       url: http://prometheus.hankeln.work
+                - Hubble:
+                    href: https://hubble.hankeln.work
+                    description: Cilium, Hubble
+                    icon: cilium.png
             - Home Automation:
                 - NAS:
                     href: http://192.168.1.112:8000/portal/
@@ -121,4 +125,4 @@ spec:
             iconStyle: colored
             layout:
               Home Automation:
-              Observability:
+              Platform:
