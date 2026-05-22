@@ -24,6 +24,7 @@ spec:
     helm:
       releaseName: external-dns
       valuesObject:
+        revisionHistoryLimit: 1
         podSecurityContext:
           runAsUser: 65534
           runAsGroup: 65534
