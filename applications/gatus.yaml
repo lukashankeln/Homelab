@@ -16,11 +16,14 @@ spec:
     name: in-cluster
     namespace: gatus
   source:
+    # https://artifacthub.io/packages/helm/twin/gatus
     repoURL: https://twin.github.io/helm-charts
     targetRevision: 1.5.0
     chart: gatus
     helm:
       valuesObject:
+        deployment:
+          revisionHistoryLimit: 1
         podLabels:
           network-policy/deny-all: "true"
           network-policy/ingress-port: "8080"
