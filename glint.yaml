@@ -1,0 +1,47 @@
+version: "v1alpha1"
+
+discovery:
+  paths: ["."]
+  exclude:
+    - "**/.git/**"
+
+render:
+  helm:
+    kubernetes_version: "1.36.0"
+    include_crds: true
+  subprocess_fallback: false
+
+rules:
+  built_in:
+    no_latest_tag:
+      enabled: true
+      severity: error
+    resource_requests:
+      enabled: true
+      severity: warning
+    deprecated_apis:
+      enabled: true
+      severity: error
+  exceptions:
+    - rule: no-latest-tag
+      resources:
+        - kind: Deployment
+          name: workflow
+          reason: "image tag is managed externally"
+  custom:
+    - id: renovate-node-selector
+      description: "RenovateJobs must have a node selector to ensure they run on the correct node"
+      severity: error
+      match:
+        kinds: [RenovateJob]
+      expression: "resource.spec.nodeSelector != null"
+      message: "{{ .kind }}/{{ .name }} must have a node selector defined"
+
+
+output:
+  format: text
+  color: auto
+  summary: true
+
+fail_on:
+  - error

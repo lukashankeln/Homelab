@@ -25,6 +25,7 @@ spec:
 
         global:
           logLevel: 1 # Warning
+          revisionHistoryLimit: 1
 
         securityContext:
           runAsUser: 1000
