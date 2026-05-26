@@ -27,7 +27,7 @@ spec:
     - group: "apps"
       kind: DaemonSet
       jsonPointers:
-        - /annotations/deprecated.daemonset.template.generation
+        - /metadata/annotations/deprecated.daemonset.template.generation
     - kind: Secret
       name: mogenius-operator-valkey
       jsonPointers:
