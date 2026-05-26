@@ -20,6 +20,10 @@ spec:
       kind: Deployment
       jsonPointers:
         - /spec/template/metadata/annotations/valkey-password-checksum
+    - group: "apps"
+      kind: DaemonSet
+      jsonPointers:
+        - /spec/template/metadata/annotations/valkey-password-checksum
     - kind: Secret
       name: mogenius-operator-valkey
       jsonPointers:
