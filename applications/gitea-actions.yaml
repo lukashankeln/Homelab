@@ -17,7 +17,7 @@ spec:
     namespace: gitea
   source:
     repoURL: https://dl.gitea.io/charts
-    targetRevision: 0.1.0
+    targetRevision: 0.1.1
     chart: actions
     helm:
       valuesObject:
@@ -28,6 +28,10 @@ spec:
         existingSecretKey: token
 
         statefulset:
+          dind:
+            # this can be removed when the helm chart updates to v0.1.2
+            # See: https://gitea.com/gitea/helm-actions/issues/152
+            tag: 29.5.2-dind # datasource=docker depName=docker.io/docker versioning=docker
           labels:
             network-policy/egress-dns: "true"
             network-policy/egress-ingress-controller: "true"
