@@ -13,7 +13,7 @@ spec:
   schedule: "0 0 * * *"
   discoveryFilters:
     - "kube-the-home/*"
-  image: renovate/renovate:43.212.0 # renovate
+  image: renovate/renovate:43.212.1 # renovate
   provider:
     name: github
   githubAppReference:
