@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v6
-      - uses: lukashankeln/glint@v0.1.9
+      - uses: lukashankeln/glint@v0.1.10
         with:
           fail-on: "error"
           upload-sarif: "false"
