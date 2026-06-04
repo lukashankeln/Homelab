@@ -31,7 +31,7 @@ spec:
           dind:
             # this can be removed when the helm chart updates to v0.1.2
             # See: https://gitea.com/gitea/helm-actions/issues/152
-            tag: 29.5.2-dind # datasource=docker depName=docker.io/docker versioning=docker
+            tag: 29.5.3-dind # datasource=docker depName=docker.io/docker versioning=docker
           labels:
             network-policy/egress-dns: "true"
             network-policy/egress-ingress-controller: "true"
