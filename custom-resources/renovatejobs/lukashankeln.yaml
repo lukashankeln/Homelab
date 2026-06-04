@@ -12,7 +12,9 @@ spec:
       network-policy/egress-dns: "true"
   schedule: "0 0 * * *"
   discoveryFilters:
-    - "lukashankeln/*"
+    - lukashankeln/Commandline.Runner
+    - lukashankeln/dotfiles
+    - lukashankeln/glint
   image: renovate/renovate:43.212.0 # renovate
   provider:
     name: github

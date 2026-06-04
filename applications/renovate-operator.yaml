@@ -26,6 +26,7 @@ spec:
         config:
           deleteSuccessfulJobs: true
           jobTTLSecondsAfterFinished: 3600
+          globalParallelismLimit: 2
           logStorage:
             mode: valkey
         deployment:
