@@ -1,0 +1,27 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: kube-the-home-renovate-secrets
+  namespace: renovate-operator
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /kube-the-home/renovate
+        property: APP_ID
+      secretKey: APP_ID
+    - remoteRef:
+        key: /kube-the-home/renovate
+        property: INSTALL_ID
+      secretKey: INSTALL_ID
+    - remoteRef:
+        key: /kube-the-home/renovate
+        property: PEM
+      secretKey: PEM
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: kube-the-home-renovate-secrets

@@ -1,0 +1,39 @@
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: kube-the-home
+  namespace: renovate-operator
+spec:
+  metadata:
+    labels:
+      network-policy/egress-ingress-controller: "true"
+      network-policy/egress-cluster-port-6379: "true"
+      network-policy/egress-world: "true"
+      network-policy/egress-dns: "true"
+  schedule: "0 * * * *"
+  discoveryFilters:
+    - "kube-the-home/*"
+  image: renovate/renovate:43.212.0 # renovate
+  provider:
+    name: github
+  githubAppReference:
+    secretName: kube-the-home-renovate-secrets
+    appIdSecretKey: APP_ID
+    installationIdSecretKey: INSTALL_ID
+    pemSecretKey: PEM
+  extraEnv:
+    - name: RENOVATE_ALLOW_PLUGINS
+      value: "true"
+    - name: RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS
+      value: '["^\\.talos/scripts/3-get-image\\.sh$"]'
+  parallelism: 1
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+  nodeSelector:
+    kubernetes.io/hostname: server-luha-2
+  webhook:
+    enabled: true
