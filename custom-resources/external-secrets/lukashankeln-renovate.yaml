@@ -1,0 +1,27 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: lukashankeln-renovate-secrets
+  namespace: renovate-operator
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /lukashankeln/renovate
+        property: APP_ID
+      secretKey: APP_ID
+    - remoteRef:
+        key: /lukashankeln/renovate
+        property: INSTALL_ID
+      secretKey: INSTALL_ID
+    - remoteRef:
+        key: /lukashankeln/renovate
+        property: PEM
+      secretKey: PEM
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: lukashankeln-renovate-secrets

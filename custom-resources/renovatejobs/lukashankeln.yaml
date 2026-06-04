@@ -1,7 +1,7 @@
 apiVersion: renovate-operator.mogenius.com/v1alpha1
 kind: RenovateJob
 metadata:
-  name: kube-the-home
+  name: lukashankeln
   namespace: renovate-operator
 spec:
   metadata:
@@ -12,12 +12,13 @@ spec:
       network-policy/egress-dns: "true"
   schedule: "0 0 * * *"
   discoveryFilters:
-    - "kube-the-home/*"
+    - "lukashankeln/*"
   image: renovate/renovate:43.212.0 # renovate
   provider:
     name: github
+  skipForks: true
   githubAppReference:
-    secretName: kube-the-home-renovate-secrets
+    secretName: lukashankeln-renovate-secrets
     appIdSecretKey: APP_ID
     installationIdSecretKey: INSTALL_ID
     pemSecretKey: PEM
