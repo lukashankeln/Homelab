@@ -77,6 +77,8 @@ spec:
           # Obsidian
           - name: OBSIDIAN_PATH
             value: /vault  # can be overridden
+          - name: PDF_STORAGE_PATH
+            value: /pdf
           # Postgres
           - name: ConnectionStrings__WebService
             valueFrom:
@@ -94,10 +96,12 @@ spec:
             seccompProfile:
               type: RuntimeDefault
         volumeMounts:
-          - name: obsidian
-            mountPath: /vault
+          - name: pdf
+            mountPath: /pdf
         volumes:
           - name: obsidian
+            emptyDir: {}
+          - name: pdf
             emptyDir: {}
         initContainers:
           - name: migrations
