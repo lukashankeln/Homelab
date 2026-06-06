@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 2.3.0
+    targetRevision: 2.4.0
     chart: generic
     helm:
       valuesObject:
@@ -25,6 +25,9 @@ spec:
           registry: docker-registry.hankeln.work
           repository: webservice/server
           tag: 3.63.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
+        persistence:
+          enabled: true
+          mountPath: /pdf
         application:
           port: 5090
           additionalLabels:
@@ -98,14 +101,10 @@ spec:
         volumeMounts:
           - name: obsidian
             mountPath: /vault
-          - name: pdf
-            mountPath: /pdf
           - name: tmp
             mountPath: /tmp
         volumes:
           - name: obsidian
-            emptyDir: {}
-          - name: pdf
             emptyDir: {}
           - name: tmp
             emptyDir: {}
