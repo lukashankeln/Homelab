@@ -27,8 +27,11 @@ spec:
   extraEnv:
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
-    - name: RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS
-      value: '["^\\.talos/scripts/3-get-image\\.sh$"]'
+    - name: RENOVATE_GITHUB_COM_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: lukashankeln-github-app-6d375865
+          key: RENOVATE_TOKEN
   parallelism: 1
   resources:
     requests:
