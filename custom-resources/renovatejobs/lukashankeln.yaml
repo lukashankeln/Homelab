@@ -10,7 +10,7 @@ spec:
       network-policy/egress-cluster-port-6379: "true"
       network-policy/egress-world: "true"
       network-policy/egress-dns: "true"
-  schedule: "0 0 * * *"
+  schedule: "30 3,4 * * *"
   discoveryFilters:
     - lukashankeln/Commandline.Runner
     - lukashankeln/dotfiles
