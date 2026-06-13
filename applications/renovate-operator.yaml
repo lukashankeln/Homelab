@@ -23,6 +23,9 @@ spec:
     chart: renovate-operator
     helm:
       valuesObject:
+        image:
+          tag: main
+          pullPolicy: Always
         config:
           deleteSuccessfulJobs: true
           jobTTLSecondsAfterFinished: 3600
