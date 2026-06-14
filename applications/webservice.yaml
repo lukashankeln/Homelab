@@ -130,7 +130,7 @@ spec:
                     name: postgres-connection
                     key: PostgresConnectionString
           - name: obsidian-sync
-            image: alpine/git:v2.52.0 # renovate
+            image: alpine/git:v2.54.0 # renovate
             restartPolicy: Always
             env:
               - name: GIT_URL
