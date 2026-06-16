@@ -15,7 +15,7 @@ spec:
     - lukashankeln/Commandline.Runner
     - lukashankeln/dotfiles
     - lukashankeln/glint
-  image: renovate/renovate:43.226.2 # renovate
+  image: renovate/renovate:43.227.0 # renovate
   provider:
     name: github
   skipForks: true
