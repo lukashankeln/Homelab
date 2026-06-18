@@ -5,30 +5,24 @@ on:
 
 jobs:
   yamllint:
-    name: "Yamllint"
     runs-on: ubuntu-latest
     container:
       image: docker-registry.hankeln.work/gitea-runner:1.2.0
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: "Yamllint"
-        uses: karancode/yamllint-github-action@v3.0.0
+        uses: karancode/yamllint-github-action@4052d365f09b8d34eb552c363d1141fd60e2aeb2 # v3.0.0
         with:
           yamllint_file_or_dir: "."
 
   gitops-linter:
-    name: "gitops linter"
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
     container:
       image: docker-registry.hankeln.work/gitea-runner:1.2.0
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v6
-      - uses: lukashankeln/glint@v0.1.16
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: lukashankeln/glint@e155c0d18ab5cc3fb50f2f226f1adeea514b20aa # v0.1.16
         with:
           fail-on: "error"
-          upload-sarif: "false"
