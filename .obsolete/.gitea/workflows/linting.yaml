@@ -11,7 +11,7 @@ jobs:
       image: docker-registry.hankeln.work/gitea-runner:1.2.0@sha256:304cfb32ff8523bdaac650c6c00ebffeb12b7cd842a5ef2590c73dcacc18d7f6
     steps:
       - name: "Checkout"
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - name: "Yamllint"
         uses: karancode/yamllint-github-action@4052d365f09b8d34eb552c363d1141fd60e2aeb2 # v3.0.0
         with:
@@ -24,7 +24,7 @@ jobs:
       image: docker-registry.hankeln.work/gitea-runner:1.2.0@sha256:304cfb32ff8523bdaac650c6c00ebffeb12b7cd842a5ef2590c73dcacc18d7f6
     steps:
       - name: "Checkout"
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - uses: azure/setup-helm@dda3372f752e03dde6b3237bc9431cdc2f7a02a2 # v5.0.0
       - name: "Install yq"
         run: |
