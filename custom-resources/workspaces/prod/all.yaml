@@ -49,8 +49,6 @@ spec:
       type: namespace
     - id: kube-node-lease
       type: namespace
-    - id: workflow
-      type: namespace
     - id: too-restful-api
       type: namespace
     - id: memory

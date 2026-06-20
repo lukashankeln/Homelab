@@ -22,12 +22,7 @@ rules:
     deprecated_apis:
       enabled: true
       severity: error
-  exceptions:
-    - rule: no-latest-tag
-      resources:
-        - kind: Deployment
-          name: workflow
-          reason: "image tag is managed externally"
+  exceptions: []
   custom:
     - id: renovate-node-selector
       description: "RenovateJobs must have a node selector to ensure they run on the correct node"
