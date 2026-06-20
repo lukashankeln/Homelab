@@ -20,9 +20,9 @@ spec:
   source:
     # Chart: https://github.com/kagent-dev/kagent/tree/main/helm/kagent
     # Values: https://github.com/kagent-dev/kagent/blob/main/helm/kagent/values.yaml
-    repoURL: oci://ghcr.io/kagent-dev/kagent/helm
-    chart: kagent
+    repoURL: oci://ghcr.io/kagent-dev/kagent/helm/kagent
     targetRevision: 0.9.9
+    path: .
     helm:
       valuesObject:
         providers:

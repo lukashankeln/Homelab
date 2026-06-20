@@ -21,6 +21,6 @@ spec:
       - ServerSideApply=true
   source:
     # Chart: https://github.com/kagent-dev/kagent/tree/main/helm/kagent-crds
-    repoURL: oci://ghcr.io/kagent-dev/kagent/helm
-    chart: kagent-crds
+    repoURL: oci://ghcr.io/kagent-dev/kagent/helm/kagent-crds
     targetRevision: 0.9.9
+    path: .
