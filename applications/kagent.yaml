@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kagent
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: kagent
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - ServerSideApply=true
+  source:
+    # Chart: https://github.com/kagent-dev/kagent/tree/main/helm/kagent
+    # Values: https://github.com/kagent-dev/kagent/blob/main/helm/kagent/values.yaml
+    repoURL: oci://ghcr.io/kagent-dev/kagent/helm
+    chart: kagent
+    targetRevision: 0.9.9
+    helm:
+      valuesObject:
+        providers:
+          default: ollama
+          ollama:
+            provider: Ollama
+            model: "llama3.2"
+            config:
+              # host.docker.internal does not resolve on Talos — update to your Ollama host IP or DNS name
+              host: host.docker.internal:11434
+              options:
+                num_ctx: "64000"
