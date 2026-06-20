@@ -37,7 +37,6 @@ spec:
             provider: Ollama
             model: "llama3.2"
             config:
-              # host.docker.internal does not resolve on Talos — update to your Ollama host IP or DNS name
-              host: host.docker.internal:11434
+              host: ollama.kagent.svc.cluster.local:11434
               options:
                 num_ctx: "64000"
