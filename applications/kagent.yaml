@@ -35,7 +35,7 @@ spec:
           default: ollama
           ollama:
             provider: Ollama
-            model: "llama3.2"
+            model: "gemma3:4b"
             config:
               host: ollama.kagent.svc.cluster.local:11434
               options:
