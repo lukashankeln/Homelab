@@ -96,6 +96,17 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: kagent
+      protocol: HTTPS
+      port: 443
+      hostname: kagent.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: kagent-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
     - name: renovate-webhooks
       protocol: HTTPS
       port: 443

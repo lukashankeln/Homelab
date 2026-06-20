@@ -25,6 +25,12 @@ spec:
     path: .
     helm:
       valuesObject:
+        kgateway-agent:
+          enabled: false
+        istio-agent:
+          enabled: false
+        argo-rollouts-agent:
+          enabled: false
         providers:
           default: ollama
           ollama:
