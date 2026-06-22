@@ -205,6 +205,24 @@ spec:
             capabilities:
               drop:
                 - ALL
+        kubeControllerManager:
+          endpoints:
+            - 192.168.1.61
+          service:
+            port: 10257
+            targetPort: 10257
+          serviceMonitor:
+            https: true
+            insecureSkipVerify: true
+        kubeScheduler:
+          endpoints:
+            - 192.168.1.61
+          service:
+            port: 10259
+            targetPort: 10259
+          serviceMonitor:
+            https: true
+            insecureSkipVerify: true
         defaultRules:
           rules:
             kubeProxy: false
