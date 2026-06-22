@@ -47,7 +47,7 @@ spec:
               repeat_interval: 1d
               receiver: "null"
               routes:
-                - receiver: null
+                - receiver: "null"
                   matchers:
                     - alertname="Watchdog"
                   continue: false
