@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: alertmanager
+  namespace: kube-prometheus-stack
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /kube-prometheus-stack/alertmanager
+        property: discord_url
+      secretKey: discord_url
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: alertmanager
