@@ -70,6 +70,7 @@ talosctl machineconfig patch controlplane.yaml \
     --patch @patches/controlplane/disk.yaml \
     --patch @patches/controlplane/allow-workloads.yaml \
     --patch @patches/controlplane/resources.yaml \
+    --patch @patches/controlplane/metrics-bind-address.yaml \
     --patch @patches/controlplane/kubernetes-version.yaml \
     --output controlplane.yaml
 echo -e "${GREEN}✓ Controlplane configuration patched${NC}\n"
