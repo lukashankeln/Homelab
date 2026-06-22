@@ -12,8 +12,34 @@ spec:
     - remoteRef:
         key: /kube-prometheus-stack/alertmanager
         property: discord_url
-      secretKey: discord_url
+      secretKey: webhook_url
   target:
     creationPolicy: Owner
     deletionPolicy: Merge
     name: alertmanager
+    template:
+      data:
+        alertmanager.yaml: |
+          global:
+            resolve_timeout: 5m
+          route:
+            group_by:
+              - alertname
+            group_wait: 30s
+            group_interval: 5m
+            repeat_interval: 1d
+            receiver: "null"
+            routes:
+              - receiver: "null"
+                matchers:
+                  - alertname="Watchdog"
+                continue: false
+              - receiver: discord
+                matchers:
+                  - severity =~ "warning|critical"
+                continue: false
+          receivers:
+            - name: "null"
+            - name: discord
+              discord_configs:
+                - webhook_url: "{{ .webhook_url }}"
