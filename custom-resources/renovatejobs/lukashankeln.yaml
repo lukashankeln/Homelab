@@ -15,6 +15,7 @@ spec:
     - lukashankeln/Commandline.Runner
     - lukashankeln/dotfiles
     - lukashankeln/glint
+    - lukashankeln/mogenius-argocd
   image: renovate/renovate:43.237.0 # renovate
   provider:
     name: github
