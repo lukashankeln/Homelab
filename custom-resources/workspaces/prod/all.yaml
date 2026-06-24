@@ -11,8 +11,6 @@ spec:
       type: namespace
     - id: gatus
       type: namespace
-    - id: homelab-operator
-      type: namespace
     - id: default
       type: namespace
     - id: mogenius
@@ -51,16 +49,8 @@ spec:
       type: namespace
     - id: too-restful-api
       type: namespace
-    - id: memory
-      type: namespace
     - id: kube-public
       type: namespace
-    - id: memoryspire
-      namespace: memory
-      type: helm
-    - id: homelab-operator
-      namespace: homelab-operator
-      type: helm
     - id: mogenius-operator
       namespace: mogenius-dev
       type: helm

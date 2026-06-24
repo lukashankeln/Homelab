@@ -46,11 +46,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: homelab-operator
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: homepage
 ---
 apiVersion: v1
@@ -62,11 +57,6 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: kanboard
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: memory
 ---
 apiVersion: v1
 kind: Namespace
