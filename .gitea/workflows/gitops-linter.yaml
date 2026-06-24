@@ -5,7 +5,7 @@ on:
 
 jobs:
   yamllint:
-    uses: https://github.com/kube-the-home/github-actions/.github/workflows/yamllint.yaml@6a42c4b92ae30747603d0846aad29a463f0ea11e # v1.4.3
+    uses: https://github.com/kube-the-home/github-actions/.github/workflows/yamllint.yaml@a4e300db6adb24b0f86b3fee25548b76dd18f999 # v1.4.4
 
   gitops-linter:
-    uses: https://github.com/kube-the-home/github-actions/.github/workflows/gitops-linter.yaml@6a42c4b92ae30747603d0846aad29a463f0ea11e # v1.4.3
+    uses: https://github.com/kube-the-home/github-actions/.github/workflows/gitops-linter.yaml@a4e300db6adb24b0f86b3fee25548b76dd18f999 # v1.4.4
