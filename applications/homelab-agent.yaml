@@ -64,7 +64,7 @@ spec:
 
 
           - name: MCP_URL
-            value: "https://mcp.hankeln.work"
+            value: "https://web.hankeln.work"
           - name: MCP_API_KEY
             valueFrom:
               secretKeyRef:
