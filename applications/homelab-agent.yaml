@@ -25,6 +25,7 @@ spec:
           registry: docker-registry.hankeln.work
           repository: homelab-agent
           tag: v0.0.1 # datasource=docker depName=docker-registry.hankeln.work/homelab-agent versioning=docker
+          pullPolicy: Always
         application:
           port: 8080
         resources:
