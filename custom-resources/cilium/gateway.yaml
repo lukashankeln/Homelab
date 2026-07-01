@@ -118,3 +118,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: homelab-agent
+      protocol: HTTPS
+      port: 443
+      hostname: agent.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: agent-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All

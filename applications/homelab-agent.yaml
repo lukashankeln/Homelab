@@ -1,0 +1,101 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homelab-agent
+  namespace: argocd
+  finalizers:
+    - resources-finalizers.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: homelab-agent
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    repoURL: https://kube-the-home.github.io/generic-helm/
+    targetRevision: 2.4.0
+    chart: generic
+    helm:
+      valuesObject:
+        image:
+          registry: docker-registry.hankeln.work
+          repository: homelab-agent
+          tag: v0.0.1 # datasource=docker depName=docker-registry.hankeln.work/homelab-agent versioning=docker
+        application:
+          port: 8080
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "100m"
+          limits:
+            memory: "350Mi"
+            cpu: "200m"
+        route:
+          enabled: true
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            - agent.hankeln.work
+        env:
+          - name: AGENT_SCHEDULE
+            value: "0 0 * * *"
+          - name: AGENT_PROMPT
+            value: "todo"
+          - name: AGENT_CATEGORY
+            value: "webservice"
+
+          - name: OLLAMA_URL
+            value: "http://192.168.1.158:11434"
+          - name: OLLAMA_MODEL
+            value: "qwen2.5-coder:3b"
+
+
+          - name: MCP_URL
+            value: "https://mcp.hankeln.work"
+          - name: MCP_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: homelab-agent
+                key: MCP_API_KEY
+
+          - name: GIT_USER_NAME
+            value: "Homelab Agent"
+          - name: GIT_USER_EMAIL
+            value: "agent@hankeln.work"
+
+          - name: GITEA_URL
+            value: "https://git.hankeln.work"
+          - name: GITEA_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: homelab-agent
+                key: GITEA_TOKEN
+
+
+          - name: TARGET_REPO_URL
+            value: "https://git.hankeln.work/hankeln/WebService.git"
+
+          - name: DB_PATH
+            value: "/tmp/homelab-agent.db"
+
+        securityContext:
+          container:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+        volumeMounts:
+          - name: tmp
+            mountPath: /tmp
+        volumes:
+          - name: tmp
+            emptyDir: {}

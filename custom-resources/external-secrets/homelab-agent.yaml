@@ -1,0 +1,23 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: homelab-agent
+  namespace: homelab-agent
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /HomelabAgent
+        property: GITEA_TOKEN
+      secretKey: GITEA_TOKEN
+    - remoteRef:
+        key: /HomelabAgent
+        property: MCP_API_KEY
+      secretKey: MCP_API_KEY
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: homelab-agent
