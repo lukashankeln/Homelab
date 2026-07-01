@@ -48,7 +48,7 @@ spec:
           - name: AGENT_PROMPT
             value: "You are a developer. get your tasks from the mcp api write a plan to fix the issue and if approved create a pull request to the target repo. If you need to ask questions about the task, ask them in the mcp api. If you need to ask questions about the code, ask them in the target repo. If you need to ask questions about the workflow, ask them in the workflow api."
           - name: AGENT_CATEGORY
-            value: "webservice"
+            value: "HomelabAgent"
 
           - name: OLLAMA_URL
             value: "http://192.168.1.158:11434"
@@ -79,7 +79,7 @@ spec:
 
 
           - name: TARGET_REPO_URL
-            value: "https://git.hankeln.work/hankeln/WebService.git"
+            value: "https://git.hankeln.work/Hankeln/Homelab-Agent.git"
 
           - name: DB_PATH
             value: "/tmp/homelab-agent.db"
