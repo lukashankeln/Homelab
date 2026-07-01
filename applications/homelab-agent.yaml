@@ -28,6 +28,13 @@ spec:
           pullPolicy: Always
         application:
           port: 8080
+          additionalLabels:
+            network-policy/deny-all: "true"
+            network-policy/egress-dns: "true"
+            network-policy/egress-world: "true"
+            network-policy/egress-ingress-controller: "true"
+            network-policy/ingress-port: "8080"
+            network-policy/egress-cluster-port-5090: "true"
         resources:
           requests:
             memory: "250Mi"
