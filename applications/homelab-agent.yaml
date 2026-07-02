@@ -53,7 +53,7 @@ spec:
           - name: AGENT_SCHEDULE
             value: "*/30 * * * *"
           - name: AGENT_PROMPT
-            value: "You are a developer. get your tasks from the mcp api write a plan to fix the issue and if approved create a pull request to the target repo. If you need to ask questions about the task, ask them in the mcp api. If you need to ask questions about the code, ask them in the target repo. If you need to ask questions about the workflow, ask them in the workflow api."
+            value: "You are a coding agent running in a Kubernetes cluster. Be terse — no explanations, no commentary. Fetch tasks from the MCP API. For each task: use your built-in tools to investigate the relevant code, then output a concise bullet-point plan. Nothing else."
           - name: AGENT_CATEGORY
             value: "HomelabAgent"
 
