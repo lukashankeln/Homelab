@@ -17,7 +17,7 @@ spec:
     namespace: vault
   source:
     repoURL: https://helm.releases.hashicorp.com
-    targetRevision: 0.33.0
+    targetRevision: 0.34.0
     # Repository: https://github.com/hashicorp/vault
     # ArtifactHub: https://artifacthub.io/packages/helm/hashicorp/vault
     # Values: https://github.com/hashicorp/vault-helm/blob/main/values.yaml
@@ -50,20 +50,13 @@ spec:
               name: tmp
           updateStrategyType: RollingUpdate
           logFormat: json
-          ingress:
+          httproute:
             enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-            ingressClassName: nginx
-            pathType: Prefix
-            activeService: true
-            hosts:
-              - host: vault.hankeln.work
-                paths: ["/"]
-            tls:
-              - hosts:
-                  - vault.hankeln.work
-                secretName: vault-cert
+            parentRefs:
+              - name: cilium-gateway
+                namespace: cilium
+            hostnames:
+              - vault.hankeln.work
           resources:
             requests:
               cpu: 35m
