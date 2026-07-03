@@ -51,7 +51,7 @@ spec:
             - agent.hankeln.work
         env:
           - name: AGENT_SCHEDULE
-            value: "*/30 * * * *"
+            value: "0,30 0-7 * * *"
           - name: AGENT_PROMPT
             value: "You are a coding agent running in a Kubernetes cluster. Be terse — no explanations, no commentary. Fetch tasks from the MCP API. For each task: use your built-in tools to investigate the relevant code, then output a concise bullet-point plan. Nothing else."
           - name: AGENT_CATEGORY
