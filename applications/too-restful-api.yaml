@@ -21,15 +21,13 @@ spec:
     chart: too-restful-api
     helm:
       valuesObject:
-        ingress:
+        route:
           enabled: true
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-          host: json.hankeln.work
-          tls:
-            - hosts:
-                - json.hankeln.work
-              secretName: too-restful-api-tls
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            - json.hankeln.work
         resources:
           requests:
             memory: "25Mi"

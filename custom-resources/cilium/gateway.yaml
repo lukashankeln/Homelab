@@ -140,3 +140,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: json
+      protocol: HTTPS
+      port: 443
+      hostname: json.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: json-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
