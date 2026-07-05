@@ -89,8 +89,8 @@ spec:
           - name: TARGET_REPO_URL
             value: "https://git.hankeln.work/Hankeln/Homelab-Agent.git"
 
-          - name: DB_PATH
-            value: "/tmp/homelab-agent.db"
+          - name: WEBSERVICE_URL
+            value: "https://web.hankeln.work"
 
         securityContext:
           container:
