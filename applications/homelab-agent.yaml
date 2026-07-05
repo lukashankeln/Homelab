@@ -60,7 +60,7 @@ spec:
           - name: OLLAMA_URL
             value: "http://192.168.1.158:11434"
           - name: OLLAMA_MODEL
-            value: "qwen3:4b"
+            value: "qwen3.5:2b"
           - name: OLLAMA_NUM_CTX
             value: "8192"
 
