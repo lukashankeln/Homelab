@@ -16,7 +16,7 @@ spec:
     - lukashankeln/dotfiles
     - lukashankeln/glint
     - lukashankeln/mogenius-argocd
-  image: renovate/renovate:43.255.1 # renovate
+  image: renovate/renovate:43.255.2 # renovate
   provider:
     name: github
   skipForks: true
