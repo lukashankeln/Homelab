@@ -34,7 +34,7 @@ spec:
         - /data/valkey-password
   source:
     repoURL: https://helm.mogenius.com/public
-    targetRevision: v2.23.2
+    targetRevision: v2.23.3
     chart: mogenius-operator
     helm:
       valuesObject:
