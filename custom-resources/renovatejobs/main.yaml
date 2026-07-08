@@ -36,3 +36,5 @@ spec:
     kubernetes.io/hostname: server-luha-2
   webhook:
     enabled: true
+    sync:
+      enabled: true
