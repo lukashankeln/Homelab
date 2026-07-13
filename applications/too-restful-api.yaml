@@ -21,6 +21,10 @@ spec:
     chart: too-restful-api
     helm:
       valuesObject:
+        application:
+          labels:
+            network-policy/ingress-cluster-port-8080: "true"
+            network-policy/ingress-port: "8080"
         route:
           enabled: true
           parentRefs:
