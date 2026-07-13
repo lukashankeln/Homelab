@@ -18,6 +18,7 @@ spec:
   source:
     repoURL: https://kube-the-home.github.io/too-restful-api/
     targetRevision: 1.0.1
+    chart: too-restful-api
     helm:
       valuesObject:
         route:
