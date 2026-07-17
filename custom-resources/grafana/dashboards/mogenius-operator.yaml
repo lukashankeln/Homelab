@@ -6,7 +6,7 @@ metadata:
     grafana_folder: "mongeius"
   labels:
     grafana_dashboard: "1"
-  name: mogenius-operator
+  name: dashboard-mogenius-operator
   namespace: kube-prometheus-stack
 data:
   mogenius-operator.json: |
@@ -16,17 +16,21 @@ data:
       "metadata": {
         "name": "lutm75f",
         "namespace": "default",
-        "uid": "f4472ccc-8149-4332-b035-75580ea3c3ed",
-        "resourceVersion": "1784271486355018",
+        "uid": "08e41398-432d-4276-830f-93612845b554",
+        "resourceVersion": "1784271917307981",
         "generation": 1,
-        "creationTimestamp": "2026-07-17T06:58:06Z",
+        "creationTimestamp": "2026-07-17T07:05:17Z",
         "labels": {
-          "grafana.app/deprecatedInternalID": "1851914469920768"
+          "grafana.app/deprecatedInternalID": "1853722086170624"
         },
         "annotations": {
-          "grafana.app/createdBy": "user:bfqvc6n49ko3kf",
-          "grafana.app/folder": "",
-          "grafana.app/saved-from-ui": "Grafana v13.1.0 (b309c9bb3b)"
+          "grafana.app/createdBy": "access-policy:service",
+          "grafana.app/managedBy": "classic-file-provisioning",
+          "grafana.app/managerId": "sidecarProvider",
+          "grafana.app/sourceChecksum": "a65c26a4d744311b301cf5fd4f70d196",
+          "grafana.app/sourcePath": "/tmp/dashboards/mogenius-operator.json",
+          "grafana.app/sourceTimestamp": "1784271904000",
+          "grafana.app/folder": ""
         }
       },
       "spec": {
@@ -34,34 +38,29 @@ data:
           {
             "kind": "AnnotationQuery",
             "spec": {
-              "query": {
-                "kind": "DataQuery",
-                "group": "grafana",
-                "version": "v0",
-                "datasource": {
-                  "name": "-- Grafana --"
-                },
-                "spec": {}
-              },
+              "builtIn": true,
               "enable": true,
               "hide": true,
               "iconColor": "rgba(0, 211, 255, 1)",
               "name": "Annotations & Alerts",
-              "builtIn": true
+              "query": {
+                "datasource": {
+                  "name": "-- Grafana --"
+                },
+                "group": "grafana",
+                "kind": "DataQuery",
+                "spec": {},
+                "version": "v0"
+              }
             }
           }
         ],
         "cursorSync": "Off",
-        "description": "",
         "editable": true,
         "elements": {
           "panel-1": {
             "kind": "Panel",
             "spec": {
-              "id": 1,
-              "title": "AuditLog Written",
-              "description": "",
-              "links": [],
               "data": {
                 "kind": "QueryGroup",
                 "spec": {
@@ -69,68 +68,39 @@ data:
                     {
                       "kind": "PanelQuery",
                       "spec": {
+                        "hidden": false,
                         "query": {
-                          "kind": "DataQuery",
-                          "group": "prometheus",
-                          "version": "v0",
                           "datasource": {
-                            "name": "prometheus"
+                            "name": "${DataSource}"
                           },
+                          "group": "prometheus",
+                          "kind": "DataQuery",
                           "spec": {
                             "editorMode": "code",
                             "expr": "group by(job) (rate(mogenius_operator_audit_log_entries_written_total{instance=~\"$instance\"}[$__rate_interval]))",
                             "legendFormat": "__auto",
                             "range": true
-                          }
+                          },
+                          "version": "v0"
                         },
-                        "refId": "A",
-                        "hidden": false
+                        "refId": "A"
                       }
                     }
                   ],
-                  "transformations": [],
-                  "queryOptions": {}
+                  "queryOptions": {},
+                  "transformations": []
                 }
               },
+              "description": "",
+              "id": 1,
+              "links": [],
+              "title": "AuditLog Written",
               "vizConfig": {
-                "kind": "VizConfig",
                 "group": "timeseries",
-                "version": "13.1.0",
+                "kind": "VizConfig",
                 "spec": {
-                  "options": {
-                    "annotations": {
-                      "clustering": -1,
-                      "multiLane": false
-                    },
-                    "legend": {
-                      "calcs": [],
-                      "displayMode": "list",
-                      "enableFacetedFilter": false,
-                      "overflow": "ellipsis",
-                      "placement": "bottom",
-                      "showLegend": true
-                    },
-                    "tooltip": {
-                      "hideZeros": false,
-                      "mode": "single",
-                      "sort": "none"
-                    }
-                  },
                   "fieldConfig": {
                     "defaults": {
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "value": 0,
-                            "color": "green"
-                          },
-                          {
-                            "value": 80,
-                            "color": "red"
-                          }
-                        ]
-                      },
                       "color": {
                         "mode": "palette-classic"
                       },
@@ -167,21 +137,50 @@ data:
                         "thresholdsStyle": {
                           "mode": "off"
                         }
+                      },
+                      "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                          {
+                            "color": "green",
+                            "value": 0
+                          },
+                          {
+                            "color": "red",
+                            "value": 80
+                          }
+                        ]
                       }
                     },
                     "overrides": []
+                  },
+                  "options": {
+                    "annotations": {
+                      "clustering": -1,
+                      "multiLane": false
+                    },
+                    "legend": {
+                      "calcs": [],
+                      "displayMode": "list",
+                      "enableFacetedFilter": false,
+                      "overflow": "ellipsis",
+                      "placement": "bottom",
+                      "showLegend": true
+                    },
+                    "tooltip": {
+                      "hideZeros": false,
+                      "mode": "single",
+                      "sort": "none"
+                    }
                   }
-                }
+                },
+                "version": "13.1.0"
               }
             }
           },
           "panel-2": {
             "kind": "Panel",
             "spec": {
-              "id": 2,
-              "title": "AuditLog Dropped",
-              "description": "",
-              "links": [],
               "data": {
                 "kind": "QueryGroup",
                 "spec": {
@@ -189,68 +188,39 @@ data:
                     {
                       "kind": "PanelQuery",
                       "spec": {
+                        "hidden": false,
                         "query": {
-                          "kind": "DataQuery",
-                          "group": "prometheus",
-                          "version": "v0",
                           "datasource": {
-                            "name": "prometheus"
+                            "name": "${DataSource}"
                           },
+                          "group": "prometheus",
+                          "kind": "DataQuery",
                           "spec": {
                             "editorMode": "code",
                             "expr": "group by(job) (rate(mogenius_operator_audit_log_events_dropped_total{instance=~\"$instance\"}[$__rate_interval]))",
                             "legendFormat": "__auto",
                             "range": true
-                          }
+                          },
+                          "version": "v0"
                         },
-                        "refId": "A",
-                        "hidden": false
+                        "refId": "A"
                       }
                     }
                   ],
-                  "transformations": [],
-                  "queryOptions": {}
+                  "queryOptions": {},
+                  "transformations": []
                 }
               },
+              "description": "",
+              "id": 2,
+              "links": [],
+              "title": "AuditLog Dropped",
               "vizConfig": {
-                "kind": "VizConfig",
                 "group": "timeseries",
-                "version": "13.1.0",
+                "kind": "VizConfig",
                 "spec": {
-                  "options": {
-                    "annotations": {
-                      "clustering": -1,
-                      "multiLane": false
-                    },
-                    "legend": {
-                      "calcs": [],
-                      "displayMode": "list",
-                      "enableFacetedFilter": false,
-                      "overflow": "ellipsis",
-                      "placement": "bottom",
-                      "showLegend": true
-                    },
-                    "tooltip": {
-                      "hideZeros": false,
-                      "mode": "single",
-                      "sort": "none"
-                    }
-                  },
                   "fieldConfig": {
                     "defaults": {
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "value": 0,
-                            "color": "green"
-                          },
-                          {
-                            "value": 80,
-                            "color": "red"
-                          }
-                        ]
-                      },
                       "color": {
                         "mode": "palette-classic"
                       },
@@ -287,21 +257,50 @@ data:
                         "thresholdsStyle": {
                           "mode": "off"
                         }
+                      },
+                      "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                          {
+                            "color": "green",
+                            "value": 0
+                          },
+                          {
+                            "color": "red",
+                            "value": 80
+                          }
+                        ]
                       }
                     },
                     "overrides": []
+                  },
+                  "options": {
+                    "annotations": {
+                      "clustering": -1,
+                      "multiLane": false
+                    },
+                    "legend": {
+                      "calcs": [],
+                      "displayMode": "list",
+                      "enableFacetedFilter": false,
+                      "overflow": "ellipsis",
+                      "placement": "bottom",
+                      "showLegend": true
+                    },
+                    "tooltip": {
+                      "hideZeros": false,
+                      "mode": "single",
+                      "sort": "none"
+                    }
                   }
-                }
+                },
+                "version": "13.1.0"
               }
             }
           },
           "panel-3": {
             "kind": "Panel",
             "spec": {
-              "id": 3,
-              "title": "AuditLog Write Failures",
-              "description": "",
-              "links": [],
               "data": {
                 "kind": "QueryGroup",
                 "spec": {
@@ -309,68 +308,39 @@ data:
                     {
                       "kind": "PanelQuery",
                       "spec": {
+                        "hidden": false,
                         "query": {
-                          "kind": "DataQuery",
-                          "group": "prometheus",
-                          "version": "v0",
                           "datasource": {
-                            "name": "prometheus"
+                            "name": "${DataSource}"
                           },
+                          "group": "prometheus",
+                          "kind": "DataQuery",
                           "spec": {
                             "editorMode": "code",
                             "expr": "group by(job) (rate(mogenius_operator_audit_log_write_failures_total{instance=~\"$instance\"}[$__rate_interval]))",
                             "legendFormat": "__auto",
                             "range": true
-                          }
+                          },
+                          "version": "v0"
                         },
-                        "refId": "A",
-                        "hidden": false
+                        "refId": "A"
                       }
                     }
                   ],
-                  "transformations": [],
-                  "queryOptions": {}
+                  "queryOptions": {},
+                  "transformations": []
                 }
               },
+              "description": "",
+              "id": 3,
+              "links": [],
+              "title": "AuditLog Write Failures",
               "vizConfig": {
-                "kind": "VizConfig",
                 "group": "timeseries",
-                "version": "13.1.0",
+                "kind": "VizConfig",
                 "spec": {
-                  "options": {
-                    "annotations": {
-                      "clustering": -1,
-                      "multiLane": false
-                    },
-                    "legend": {
-                      "calcs": [],
-                      "displayMode": "list",
-                      "enableFacetedFilter": false,
-                      "overflow": "ellipsis",
-                      "placement": "bottom",
-                      "showLegend": true
-                    },
-                    "tooltip": {
-                      "hideZeros": false,
-                      "mode": "single",
-                      "sort": "none"
-                    }
-                  },
                   "fieldConfig": {
                     "defaults": {
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "value": 0,
-                            "color": "green"
-                          },
-                          {
-                            "value": 80,
-                            "color": "red"
-                          }
-                        ]
-                      },
                       "color": {
                         "mode": "palette-classic"
                       },
@@ -407,56 +377,23 @@ data:
                         "thresholdsStyle": {
                           "mode": "off"
                         }
+                      },
+                      "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                          {
+                            "color": "green",
+                            "value": 0
+                          },
+                          {
+                            "color": "red",
+                            "value": 80
+                          }
+                        ]
                       }
                     },
                     "overrides": []
-                  }
-                }
-              }
-            }
-          },
-          "panel-4": {
-            "kind": "Panel",
-            "spec": {
-              "id": 4,
-              "title": "Duration",
-              "description": "",
-              "links": [],
-              "data": {
-                "kind": "QueryGroup",
-                "spec": {
-                  "queries": [
-                    {
-                      "kind": "PanelQuery",
-                      "spec": {
-                        "query": {
-                          "kind": "DataQuery",
-                          "group": "prometheus",
-                          "version": "v0",
-                          "datasource": {
-                            "name": "prometheus"
-                          },
-                          "spec": {
-                            "editorMode": "code",
-                            "expr": "histogram_quantile(0.95, sum(rate(mogenius_operator_reconcile_duration_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le))",
-                            "legendFormat": "Duration",
-                            "range": true
-                          }
-                        },
-                        "refId": "A",
-                        "hidden": false
-                      }
-                    }
-                  ],
-                  "transformations": [],
-                  "queryOptions": {}
-                }
-              },
-              "vizConfig": {
-                "kind": "VizConfig",
-                "group": "timeseries",
-                "version": "13.1.0",
-                "spec": {
+                  },
                   "options": {
                     "annotations": {
                       "clustering": -1,
@@ -475,26 +412,55 @@ data:
                       "mode": "single",
                       "sort": "none"
                     }
-                  },
+                  }
+                },
+                "version": "13.1.0"
+              }
+            }
+          },
+          "panel-4": {
+            "kind": "Panel",
+            "spec": {
+              "data": {
+                "kind": "QueryGroup",
+                "spec": {
+                  "queries": [
+                    {
+                      "kind": "PanelQuery",
+                      "spec": {
+                        "hidden": false,
+                        "query": {
+                          "datasource": {
+                            "name": "${DataSource}"
+                          },
+                          "group": "prometheus",
+                          "kind": "DataQuery",
+                          "spec": {
+                            "editorMode": "code",
+                            "expr": "histogram_quantile(0.95, sum(rate(mogenius_operator_reconcile_duration_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le))",
+                            "legendFormat": "Duration",
+                            "range": true
+                          },
+                          "version": "v0"
+                        },
+                        "refId": "A"
+                      }
+                    }
+                  ],
+                  "queryOptions": {},
+                  "transformations": []
+                }
+              },
+              "description": "",
+              "id": 4,
+              "links": [],
+              "title": "Duration",
+              "vizConfig": {
+                "group": "timeseries",
+                "kind": "VizConfig",
+                "spec": {
                   "fieldConfig": {
                     "defaults": {
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "value": 0,
-                            "color": "green"
-                          },
-                          {
-                            "value": 0.5,
-                            "color": "#EAB839"
-                          },
-                          {
-                            "value": 1,
-                            "color": "red"
-                          }
-                        ]
-                      },
                       "color": {
                         "mode": "continuous-GrYlRd",
                         "seriesBy": "last"
@@ -535,56 +501,27 @@ data:
                         "thresholdsStyle": {
                           "mode": "off"
                         }
+                      },
+                      "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                          {
+                            "color": "green",
+                            "value": 0
+                          },
+                          {
+                            "color": "#EAB839",
+                            "value": 0.5
+                          },
+                          {
+                            "color": "red",
+                            "value": 1
+                          }
+                        ]
                       }
                     },
                     "overrides": []
-                  }
-                }
-              }
-            }
-          },
-          "panel-5": {
-            "kind": "Panel",
-            "spec": {
-              "id": 5,
-              "title": "Queue Wait Time",
-              "description": "",
-              "links": [],
-              "data": {
-                "kind": "QueryGroup",
-                "spec": {
-                  "queries": [
-                    {
-                      "kind": "PanelQuery",
-                      "spec": {
-                        "query": {
-                          "kind": "DataQuery",
-                          "group": "prometheus",
-                          "version": "v0",
-                          "datasource": {
-                            "name": "prometheus"
-                          },
-                          "spec": {
-                            "editorMode": "code",
-                            "expr": "histogram_quantile(0.95, sum(rate(mogenius_operator_reconcile_queue_wait_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le))",
-                            "legendFormat": "Wait Time",
-                            "range": true
-                          }
-                        },
-                        "refId": "A",
-                        "hidden": false
-                      }
-                    }
-                  ],
-                  "transformations": [],
-                  "queryOptions": {}
-                }
-              },
-              "vizConfig": {
-                "kind": "VizConfig",
-                "group": "timeseries",
-                "version": "13.1.0",
-                "spec": {
+                  },
                   "options": {
                     "annotations": {
                       "clustering": -1,
@@ -603,22 +540,55 @@ data:
                       "mode": "single",
                       "sort": "none"
                     }
-                  },
+                  }
+                },
+                "version": "13.1.0"
+              }
+            }
+          },
+          "panel-5": {
+            "kind": "Panel",
+            "spec": {
+              "data": {
+                "kind": "QueryGroup",
+                "spec": {
+                  "queries": [
+                    {
+                      "kind": "PanelQuery",
+                      "spec": {
+                        "hidden": false,
+                        "query": {
+                          "datasource": {
+                            "name": "${DataSource}"
+                          },
+                          "group": "prometheus",
+                          "kind": "DataQuery",
+                          "spec": {
+                            "editorMode": "code",
+                            "expr": "histogram_quantile(0.95, sum(rate(mogenius_operator_reconcile_queue_wait_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le))",
+                            "legendFormat": "Wait Time",
+                            "range": true
+                          },
+                          "version": "v0"
+                        },
+                        "refId": "A"
+                      }
+                    }
+                  ],
+                  "queryOptions": {},
+                  "transformations": []
+                }
+              },
+              "description": "",
+              "id": 5,
+              "links": [],
+              "title": "Queue Wait Time",
+              "vizConfig": {
+                "group": "timeseries",
+                "kind": "VizConfig",
+                "spec": {
                   "fieldConfig": {
                     "defaults": {
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "value": 0,
-                            "color": "green"
-                          },
-                          {
-                            "value": 80,
-                            "color": "red"
-                          }
-                        ]
-                      },
                       "color": {
                         "mode": "palette-classic"
                       },
@@ -655,56 +625,23 @@ data:
                         "thresholdsStyle": {
                           "mode": "off"
                         }
+                      },
+                      "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                          {
+                            "color": "green",
+                            "value": 0
+                          },
+                          {
+                            "color": "red",
+                            "value": 80
+                          }
+                        ]
                       }
                     },
                     "overrides": []
-                  }
-                }
-              }
-            }
-          },
-          "panel-6": {
-            "kind": "Panel",
-            "spec": {
-              "id": 6,
-              "title": "Tracked Objects",
-              "description": "",
-              "links": [],
-              "data": {
-                "kind": "QueryGroup",
-                "spec": {
-                  "queries": [
-                    {
-                      "kind": "PanelQuery",
-                      "spec": {
-                        "query": {
-                          "kind": "DataQuery",
-                          "group": "prometheus",
-                          "version": "v0",
-                          "datasource": {
-                            "name": "prometheus"
-                          },
-                          "spec": {
-                            "editorMode": "code",
-                            "expr": "mogenius_operator_reconcile_tracked_objects{instance=~\"$instance\"}",
-                            "legendFormat": "__auto",
-                            "range": true
-                          }
-                        },
-                        "refId": "A",
-                        "hidden": false
-                      }
-                    }
-                  ],
-                  "transformations": [],
-                  "queryOptions": {}
-                }
-              },
-              "vizConfig": {
-                "kind": "VizConfig",
-                "group": "timeseries",
-                "version": "13.1.0",
-                "spec": {
+                  },
                   "options": {
                     "annotations": {
                       "clustering": -1,
@@ -723,22 +660,55 @@ data:
                       "mode": "single",
                       "sort": "none"
                     }
-                  },
+                  }
+                },
+                "version": "13.1.0"
+              }
+            }
+          },
+          "panel-6": {
+            "kind": "Panel",
+            "spec": {
+              "data": {
+                "kind": "QueryGroup",
+                "spec": {
+                  "queries": [
+                    {
+                      "kind": "PanelQuery",
+                      "spec": {
+                        "hidden": false,
+                        "query": {
+                          "datasource": {
+                            "name": "${DataSource}"
+                          },
+                          "group": "prometheus",
+                          "kind": "DataQuery",
+                          "spec": {
+                            "editorMode": "code",
+                            "expr": "mogenius_operator_reconcile_tracked_objects{instance=~\"$instance\"}",
+                            "legendFormat": "__auto",
+                            "range": true
+                          },
+                          "version": "v0"
+                        },
+                        "refId": "A"
+                      }
+                    }
+                  ],
+                  "queryOptions": {},
+                  "transformations": []
+                }
+              },
+              "description": "",
+              "id": 6,
+              "links": [],
+              "title": "Tracked Objects",
+              "vizConfig": {
+                "group": "timeseries",
+                "kind": "VizConfig",
+                "spec": {
                   "fieldConfig": {
                     "defaults": {
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "value": 0,
-                            "color": "green"
-                          },
-                          {
-                            "value": 80,
-                            "color": "red"
-                          }
-                        ]
-                      },
                       "color": {
                         "mode": "palette-classic"
                       },
@@ -775,21 +745,50 @@ data:
                         "thresholdsStyle": {
                           "mode": "off"
                         }
+                      },
+                      "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                          {
+                            "color": "green",
+                            "value": 0
+                          },
+                          {
+                            "color": "red",
+                            "value": 80
+                          }
+                        ]
                       }
                     },
                     "overrides": []
+                  },
+                  "options": {
+                    "annotations": {
+                      "clustering": -1,
+                      "multiLane": false
+                    },
+                    "legend": {
+                      "calcs": [],
+                      "displayMode": "list",
+                      "enableFacetedFilter": false,
+                      "overflow": "ellipsis",
+                      "placement": "bottom",
+                      "showLegend": true
+                    },
+                    "tooltip": {
+                      "hideZeros": false,
+                      "mode": "single",
+                      "sort": "none"
+                    }
                   }
-                }
+                },
+                "version": "13.1.0"
               }
             }
           },
           "panel-7": {
             "kind": "Panel",
             "spec": {
-              "id": 7,
-              "title": "Websocket Status",
-              "description": "",
-              "links": [],
               "data": {
                 "kind": "QueryGroup",
                 "spec": {
@@ -797,34 +796,58 @@ data:
                     {
                       "kind": "PanelQuery",
                       "spec": {
+                        "hidden": false,
                         "query": {
-                          "kind": "DataQuery",
-                          "group": "prometheus",
-                          "version": "v0",
                           "datasource": {
-                            "name": "prometheus"
+                            "name": "${DataSource}"
                           },
+                          "group": "prometheus",
+                          "kind": "DataQuery",
                           "spec": {
                             "editorMode": "code",
                             "expr": "mogenius_operator_websocket_connected{instance=~\"$instance\"}",
                             "legendFormat": "{{job}} - {{connection}}",
                             "range": true
-                          }
+                          },
+                          "version": "v0"
                         },
-                        "refId": "A",
-                        "hidden": false
+                        "refId": "A"
                       }
                     }
                   ],
-                  "transformations": [],
-                  "queryOptions": {}
+                  "queryOptions": {},
+                  "transformations": []
                 }
               },
+              "description": "",
+              "id": 7,
+              "links": [],
+              "title": "Websocket Status",
               "vizConfig": {
-                "kind": "VizConfig",
                 "group": "stat",
-                "version": "13.1.0",
+                "kind": "VizConfig",
                 "spec": {
+                  "fieldConfig": {
+                    "defaults": {
+                      "color": {
+                        "mode": "thresholds"
+                      },
+                      "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                          {
+                            "color": "red",
+                            "value": 0
+                          },
+                          {
+                            "color": "green",
+                            "value": 1
+                          }
+                        ]
+                      }
+                    },
+                    "overrides": []
+                  },
                   "options": {
                     "colorMode": "background",
                     "graphMode": "none",
@@ -841,39 +864,15 @@ data:
                     "showPercentChange": false,
                     "textMode": "auto",
                     "wideLayout": true
-                  },
-                  "fieldConfig": {
-                    "defaults": {
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "value": 0,
-                            "color": "red"
-                          },
-                          {
-                            "value": 1,
-                            "color": "green"
-                          }
-                        ]
-                      },
-                      "color": {
-                        "mode": "thresholds"
-                      }
-                    },
-                    "overrides": []
                   }
-                }
+                },
+                "version": "13.1.0"
               }
             }
           },
           "panel-8": {
             "kind": "Panel",
             "spec": {
-              "id": 8,
-              "title": "Pattern Duration",
-              "description": "",
-              "links": [],
               "data": {
                 "kind": "QueryGroup",
                 "spec": {
@@ -881,68 +880,39 @@ data:
                     {
                       "kind": "PanelQuery",
                       "spec": {
+                        "hidden": false,
                         "query": {
-                          "kind": "DataQuery",
-                          "group": "prometheus",
-                          "version": "v0",
                           "datasource": {
-                            "name": "prometheus"
+                            "name": "${DataSource}"
                           },
+                          "group": "prometheus",
+                          "kind": "DataQuery",
                           "spec": {
                             "editorMode": "code",
                             "expr": "histogram_quantile(0.99, sum by(le, path, instance) (rate(mogenius_operator_pattern_duration_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])))",
                             "legendFormat": "__auto",
                             "range": true
-                          }
+                          },
+                          "version": "v0"
                         },
-                        "refId": "A",
-                        "hidden": false
+                        "refId": "A"
                       }
                     }
                   ],
-                  "transformations": [],
-                  "queryOptions": {}
+                  "queryOptions": {},
+                  "transformations": []
                 }
               },
+              "description": "",
+              "id": 8,
+              "links": [],
+              "title": "Pattern Duration",
               "vizConfig": {
-                "kind": "VizConfig",
                 "group": "timeseries",
-                "version": "13.1.0",
+                "kind": "VizConfig",
                 "spec": {
-                  "options": {
-                    "annotations": {
-                      "clustering": -1,
-                      "multiLane": false
-                    },
-                    "legend": {
-                      "calcs": [],
-                      "displayMode": "list",
-                      "enableFacetedFilter": false,
-                      "overflow": "ellipsis",
-                      "placement": "bottom",
-                      "showLegend": true
-                    },
-                    "tooltip": {
-                      "hideZeros": false,
-                      "mode": "single",
-                      "sort": "none"
-                    }
-                  },
                   "fieldConfig": {
                     "defaults": {
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "value": 0,
-                            "color": "green"
-                          },
-                          {
-                            "value": 80,
-                            "color": "red"
-                          }
-                        ]
-                      },
                       "color": {
                         "mode": "palette-classic"
                       },
@@ -979,11 +949,44 @@ data:
                         "thresholdsStyle": {
                           "mode": "off"
                         }
+                      },
+                      "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                          {
+                            "color": "green",
+                            "value": 0
+                          },
+                          {
+                            "color": "red",
+                            "value": 80
+                          }
+                        ]
                       }
                     },
                     "overrides": []
+                  },
+                  "options": {
+                    "annotations": {
+                      "clustering": -1,
+                      "multiLane": false
+                    },
+                    "legend": {
+                      "calcs": [],
+                      "displayMode": "list",
+                      "enableFacetedFilter": false,
+                      "overflow": "ellipsis",
+                      "placement": "bottom",
+                      "showLegend": true
+                    },
+                    "tooltip": {
+                      "hideZeros": false,
+                      "mode": "single",
+                      "sort": "none"
+                    }
                   }
-                }
+                },
+                "version": "13.1.0"
               }
             }
           }
@@ -995,7 +998,6 @@ data:
               {
                 "kind": "TabsLayoutTab",
                 "spec": {
-                  "title": "Overview",
                   "layout": {
                     "kind": "GridLayout",
                     "spec": {
@@ -1003,38 +1005,38 @@ data:
                         {
                           "kind": "GridLayoutItem",
                           "spec": {
-                            "x": 0,
-                            "y": 0,
-                            "width": 12,
-                            "height": 8,
                             "element": {
                               "kind": "ElementReference",
                               "name": "panel-7"
-                            }
+                            },
+                            "height": 8,
+                            "width": 12,
+                            "x": 0,
+                            "y": 0
                           }
                         },
                         {
                           "kind": "GridLayoutItem",
                           "spec": {
-                            "x": 12,
-                            "y": 0,
-                            "width": 12,
-                            "height": 8,
                             "element": {
                               "kind": "ElementReference",
                               "name": "panel-8"
-                            }
+                            },
+                            "height": 8,
+                            "width": 12,
+                            "x": 12,
+                            "y": 0
                           }
                         }
                       ]
                     }
-                  }
+                  },
+                  "title": "Overview"
                 }
               },
               {
                 "kind": "TabsLayoutTab",
                 "spec": {
-                  "title": "Audit Log",
                   "layout": {
                     "kind": "GridLayout",
                     "spec": {
@@ -1042,51 +1044,51 @@ data:
                         {
                           "kind": "GridLayoutItem",
                           "spec": {
-                            "x": 0,
-                            "y": 0,
-                            "width": 12,
-                            "height": 8,
                             "element": {
                               "kind": "ElementReference",
                               "name": "panel-1"
-                            }
+                            },
+                            "height": 8,
+                            "width": 12,
+                            "x": 0,
+                            "y": 0
                           }
                         },
                         {
                           "kind": "GridLayoutItem",
                           "spec": {
-                            "x": 12,
-                            "y": 0,
-                            "width": 12,
-                            "height": 8,
                             "element": {
                               "kind": "ElementReference",
                               "name": "panel-2"
-                            }
+                            },
+                            "height": 8,
+                            "width": 12,
+                            "x": 12,
+                            "y": 0
                           }
                         },
                         {
                           "kind": "GridLayoutItem",
                           "spec": {
-                            "x": 0,
-                            "y": 8,
-                            "width": 12,
-                            "height": 8,
                             "element": {
                               "kind": "ElementReference",
                               "name": "panel-3"
-                            }
+                            },
+                            "height": 8,
+                            "width": 12,
+                            "x": 0,
+                            "y": 8
                           }
                         }
                       ]
                     }
-                  }
+                  },
+                  "title": "Audit Log"
                 }
               },
               {
                 "kind": "TabsLayoutTab",
                 "spec": {
-                  "title": "Reconciler",
                   "layout": {
                     "kind": "GridLayout",
                     "spec": {
@@ -1094,45 +1096,46 @@ data:
                         {
                           "kind": "GridLayoutItem",
                           "spec": {
-                            "x": 0,
-                            "y": 0,
-                            "width": 12,
-                            "height": 8,
                             "element": {
                               "kind": "ElementReference",
                               "name": "panel-4"
-                            }
+                            },
+                            "height": 8,
+                            "width": 12,
+                            "x": 0,
+                            "y": 0
                           }
                         },
                         {
                           "kind": "GridLayoutItem",
                           "spec": {
-                            "x": 12,
-                            "y": 0,
-                            "width": 12,
-                            "height": 8,
                             "element": {
                               "kind": "ElementReference",
                               "name": "panel-5"
-                            }
+                            },
+                            "height": 8,
+                            "width": 12,
+                            "x": 12,
+                            "y": 0
                           }
                         },
                         {
                           "kind": "GridLayoutItem",
                           "spec": {
-                            "x": 0,
-                            "y": 8,
-                            "width": 12,
-                            "height": 8,
                             "element": {
                               "kind": "ElementReference",
                               "name": "panel-6"
-                            }
+                            },
+                            "height": 8,
+                            "width": 12,
+                            "x": 0,
+                            "y": 8
                           }
                         }
                       ]
                     }
-                  }
+                  },
+                  "title": "Reconciler"
                 }
               }
             ]
@@ -1140,12 +1143,17 @@ data:
         },
         "links": [],
         "liveNow": false,
+        "preferences": {
+          "layout": {
+            "kind": "GridLayout",
+            "spec": {
+              "items": []
+            }
+          }
+        },
         "preload": false,
         "tags": [],
         "timeSettings": {
-          "timezone": "browser",
-          "from": "now-6h",
-          "to": "now",
           "autoRefresh": "",
           "autoRefreshIntervals": [
             "5s",
@@ -1159,15 +1167,18 @@ data:
             "2h",
             "1d"
           ],
+          "fiscalYearStartMonth": 0,
+          "from": "now-6h",
           "hideTimepicker": false,
-          "fiscalYearStartMonth": 0
+          "timezone": "browser",
+          "to": "now"
         },
         "title": "Mogenius Operator",
         "variables": [
           {
             "kind": "QueryVariable",
             "spec": {
-              "name": "instance",
+              "allowCustomValue": true,
               "current": {
                 "text": [
                   "All"
@@ -1176,40 +1187,51 @@ data:
                   "$__all"
                 ]
               },
+              "definition": "label_values(mogenius_operator_websocket_connected,instance)",
               "hide": "dontHide",
-              "refresh": "onDashboardLoad",
-              "skipUrlSync": false,
+              "includeAll": true,
+              "multi": true,
+              "name": "instance",
+              "options": [],
               "query": {
-                "kind": "DataQuery",
-                "group": "prometheus",
-                "version": "v0",
                 "datasource": {
-                  "name": "prometheus"
+                  "name": "${DataSource}"
                 },
+                "group": "prometheus",
+                "kind": "DataQuery",
                 "spec": {
                   "qryType": 1,
                   "query": "label_values(mogenius_operator_websocket_connected,instance)",
                   "refId": "PrometheusVariableQueryEditor-VariableQuery"
-                }
+                },
+                "version": "v0"
               },
+              "refresh": "onDashboardLoad",
               "regex": "",
               "regexApplyTo": "value",
-              "sort": "disabled",
-              "definition": "label_values(mogenius_operator_websocket_connected,instance)",
-              "options": [],
-              "multi": true,
-              "includeAll": true,
-              "allowCustomValue": true
+              "skipUrlSync": false,
+              "sort": "disabled"
             }
-          }
-        ],
-        "preferences": {
-          "layout": {
-            "kind": "GridLayout",
+          },
+          {
+            "kind": "DatasourceVariable",
             "spec": {
-              "items": []
+              "allowCustomValue": true,
+              "current": {
+                "text": "Mimir",
+                "value": "PAE45454D0EDB9216"
+              },
+              "hide": "dontHide",
+              "includeAll": false,
+              "multi": false,
+              "name": "DataSource",
+              "options": [],
+              "pluginId": "prometheus",
+              "refresh": "onDashboardLoad",
+              "regex": "",
+              "skipUrlSync": false
             }
           }
-        }
+        ]
       }
     }
