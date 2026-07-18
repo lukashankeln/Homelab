@@ -226,6 +226,9 @@ spec:
         defaultRules:
           rules:
             kubeProxy: false
+          disabled:
+            # TODO: reactivate once a third node is added to the cluster
+            KubeMemoryOvercommit: true
         prometheusOperator:
           tls:
             enabled: true
