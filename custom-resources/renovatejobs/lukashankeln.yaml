@@ -28,6 +28,8 @@ spec:
   extraEnv:
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
+    - name: RENOVATE_REPORT_TYPE
+      value: "logging"
     - name: RENOVATE_GITHUB_COM_TOKEN
       valueFrom:
         secretKeyRef:
