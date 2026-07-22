@@ -28,6 +28,20 @@ spec:
         existingSecretKey: token
 
         statefulset:
+          runner:
+            config: |
+              log:
+                level: debug
+              cache:
+                enabled: true
+              container:
+                require_docker: true
+                docker_timeout: 300s
+              runner:
+                labels:
+                  - "ubuntu-latest:docker://docker-registry.hankeln.work/gitea-runner:1.2.0"
+                  - "ubuntu-22.04:docker://docker-registry.hankeln.work/gitea-runner:1.2.0"
+                  - "ubuntu-20.04:docker://docker-registry.hankeln.work/gitea-runner:1.2.0"
           dind:
             # this can be removed when the helm chart updates to v0.1.2
             # See: https://gitea.com/gitea/helm-actions/issues/152
