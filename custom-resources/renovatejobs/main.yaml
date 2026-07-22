@@ -22,6 +22,8 @@ spec:
   extraEnv:
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
+    - name: RENOVATE_REPORT_TYPE
+      value: "logging"
     - name: RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS
       value: '["^\\.talos/scripts/3-get-image\\.sh$"]'
     - name: RENOVATE_DEPENDENCY_DASHBOARD_FOOTER
