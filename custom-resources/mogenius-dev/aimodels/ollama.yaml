@@ -1,0 +1,12 @@
+apiVersion: mogenius.com/v1alpha1
+kind: AiModel
+metadata:
+  name: ollama
+  namespace: mogenius-dev
+spec:
+  apiUrl: http://ollama.hankeln.work:11434
+  dailyTokenLimit: 0
+  displayName: ollama
+  maxTokensPerRun: 0
+  model: qwen3.5:2b
+  sdk: ollama
