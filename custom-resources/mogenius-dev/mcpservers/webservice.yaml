@@ -1,0 +1,16 @@
+apiVersion: mogenius.com/v1alpha1
+kind: McpServer
+metadata:
+  name: webservice
+  namespace: mogenius-dev
+spec:
+  auth:
+    header: X-Api-Key
+    secretRef:
+      key: API_KEY
+      name: webservice-mcp
+    type: apiKey
+  description: MCP Server for Todo & Wiki management
+  displayName: Webservice
+  transport: streamableHttp
+  url: https://web.hankeln.work/mcp

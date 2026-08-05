@@ -1,0 +1,26 @@
+apiVersion: mogenius.com/v1alpha1
+kind: Agent
+metadata:
+  name: reviewer
+  namespace: mogenius-dev
+spec:
+  description: Agent that reviews the kubernetes cluster and writes todos to the webservice mcp server.
+  displayName: Cluster Reviewer
+  enabled: true
+  icon: fa-robot
+  instruction: |
+    analyse the kubernetes cluster. focus one one specific random namespace at a time.
+    If you find any issues, write a todo to the webservice mcp server.
+    As and todo category please use HomelabAgent.
+  modelRef: ollama
+  scope:
+    namespaces:
+      - "*"
+  triggers:
+    cron: 0 0 * * *
+  tools:
+    builtin:
+      helm: true
+      kubernetes: true
+    mcpServerRefs:
+      - webservice

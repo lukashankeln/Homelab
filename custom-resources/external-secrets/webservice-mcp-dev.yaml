@@ -1,8 +1,8 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: mogenius-operator-api-secret
-  namespace: mogenius
+  name: webservice-mcp-dev
+  namespace: mogenius-dev
 spec:
   refreshInterval: 10s
   secretStoreRef:
@@ -10,10 +10,10 @@ spec:
     kind: ClusterSecretStore
   data:
     - remoteRef:
-        key: /mogenius/prod
-        property: API_KEY
+        key: /mogenius/dev
+        property: WEBSERVICE_API_KEY
       secretKey: API_KEY
   target:
     creationPolicy: Owner
     deletionPolicy: Merge
-    name: mogenius-operator-api-secret
+    name: webservice-mcp
