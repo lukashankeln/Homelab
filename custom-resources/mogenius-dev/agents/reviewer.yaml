@@ -9,7 +9,7 @@ spec:
   enabled: true
   icon: fa-robot
   instruction: |
-    analyse the kubernetes cluster. focus one one specific random namespace at a time.
+    analyse the kubernetes cluster. focus on the mogenius-dev namespace.
     If you find any issues, write a todo to the webservice mcp server.
     As and todo category please use HomelabAgent.
   modelRef: ollama
