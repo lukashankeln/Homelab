@@ -25,3 +25,7 @@ spec:
     creationPolicy: Owner
     deletionPolicy: Merge
     name: lukashankeln-renovate-secrets
+    template:
+      metadata:
+        labels:
+          renovate-operator.mogenius.com/allow-ref: "true"
