@@ -135,3 +135,10 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: homelab-agent
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: unifi
+  labels:
+    pod-security.kubernetes.io/enforce: privileged

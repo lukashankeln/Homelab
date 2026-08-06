@@ -1,0 +1,16 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+  name: unifi
+  namespace: unifi
+spec:
+  parentRefs:
+    - name: cilium-gateway
+      namespace: cilium
+      sectionName: unify
+  hostnames:
+    - unify.hankeln.work
+  rules:
+    - backendRefs:
+        - name: unifi
+          port: 443

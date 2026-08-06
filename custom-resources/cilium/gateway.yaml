@@ -151,3 +151,12 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: unify
+      protocol: TLS
+      port: 443
+      hostname: unify.hankeln.work
+      tls:
+        mode: Passthrough
+      allowedRoutes:
+        namespaces:
+          from: All
