@@ -24,7 +24,7 @@ spec:
         image:
           registry: docker.io
           repository: library/mongo
-          tag: "4.4" # renovate
+          tag: "4.4.29" # renovate
         application:
           port: 27017
           strategy: Recreate
