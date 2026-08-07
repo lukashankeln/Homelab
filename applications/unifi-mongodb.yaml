@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: unifi-os-server-mongodb
+  namespace: argocd
+  finalizers:
+    - resources-finalizers.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: unifi
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    repoURL: https://kube-the-home.github.io/generic-helm/
+    targetRevision: 2.4.0
+    chart: generic
+    helm:
+      valuesObject:
+        image:
+          registry: docker.io
+          repository: library/mongo
+          tag: "4.4.29" # renovate
+        application:
+          port: 27017
+          strategy: Recreate
+          probe:
+            startup:
+              enabled: false
+            readiness:
+              enabled: false
+            liveness:
+              enabled: false
+        clusterip:
+          enabled: true
+          port: 27017
+        persistence:
+          enabled: true
+          mountPath: /data/db
+          size: 5Gi
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

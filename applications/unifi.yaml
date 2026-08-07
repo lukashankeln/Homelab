@@ -48,6 +48,8 @@ spec:
         env:
           - name: TZ
             value: Europe/Amsterdam
+          - name: MONGO_INTERNAL
+            value: "false"
           - name: UOS_SYSTEM_IP
             value: "127.0.0.1"
           - name: EXPOSE_NETWORK_APP
@@ -61,15 +63,26 @@ spec:
               add:
                 - NET_RAW
                 - NET_ADMIN
+        initContainers:
+          - name: init-config-dir
+            image: alpine:3.22
+            command: ["sh", "-c", "mkdir -p /data/unifi-core/config/http"]
+            volumeMounts:
+              - name: unifi-data
+                mountPath: /data
+                subPath: data
         volumeMounts:
           - name: cgroup
             mountPath: /sys/fs/cgroup
-          - name: uos-data
+          - name: unifi-data
             mountPath: /var/lib/uosserver
-          - name: uos-data
+            subPath: uosserver
+          - name: unifi-data
             mountPath: /var/lib/unifi
-          - name: app-data
+            subPath: unifi
+          - name: unifi-data
             mountPath: /data
+            subPath: data
           - name: run
             mountPath: /run
           - name: tmp
@@ -83,12 +96,9 @@ spec:
             hostPath:
               path: /sys/fs/cgroup
               type: Directory
-          - name: uos-data
+          - name: unifi-data
             persistentVolumeClaim:
-              claimName: unifi-uos-data
-          - name: app-data
-            persistentVolumeClaim:
-              claimName: unifi-app-data
+              claimName: unifi-data
           - name: run
             emptyDir: {}
           - name: tmp
