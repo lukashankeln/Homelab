@@ -90,15 +90,10 @@ spec:
             persistentVolumeClaim:
               claimName: unifi-app-data
           - name: run
-            emptyDir:
-              medium: Memory
+            emptyDir: {}
           - name: tmp
-            emptyDir:
-              medium: Memory
+            emptyDir: {}
           - name: journal
-            emptyDir:
-              medium: Memory
+            emptyDir: {}
           - name: unifi-tmp
-            emptyDir:
-              medium: Memory
-              sizeLimit: 64Mi
+            emptyDir: {}
