@@ -52,8 +52,6 @@ spec:
             value: "127.0.0.1"
           - name: EXPOSE_NETWORK_APP
             value: "true"
-          - name: MONGO_INTERNAL
-            value: "false"
         securityContext:
           pod:
             runAsUser: 0
