@@ -24,7 +24,7 @@ spec:
         image:
           registry: ghcr.io
           repository: unihosted/unifi-os-server-docker
-          tag: latest # datasource=docker depName=ghcr.io/unihosted/unifi-os-server-docker
+          tag: 5.1.21 # datasource=docker depName=ghcr.io/unihosted/unifi-os-server-docker
         application:
           port: 443
           strategy: Recreate
