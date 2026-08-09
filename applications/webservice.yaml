@@ -24,7 +24,7 @@ spec:
         image:
           registry: docker-registry.hankeln.work
           repository: webservice/server
-          tag: 3.80.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
+          tag: 3.81.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
         persistence:
           enabled: true
           mountPath: /pdf
