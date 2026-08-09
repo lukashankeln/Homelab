@@ -110,7 +110,7 @@ spec:
             emptyDir: {}
         initContainers:
           - name: migrations
-            image: docker-registry.hankeln.work/webservice/migrations:3.80.0 # renovate
+            image: docker-registry.hankeln.work/webservice/migrations:3.81.0 # renovate
             env:
               # OTEL
               - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES
