@@ -24,7 +24,7 @@ spec:
         image:
           registry: docker.io
           repository: library/python
-          tag: "3.13.5" # datasource=docker depName=docker.io/library/python versioning=docker
+          tag: "3.13.15" # datasource=docker depName=docker.io/library/python versioning=docker
         persistence:
           enabled: true
           mountPath: /data
@@ -80,7 +80,7 @@ spec:
             emptyDir: {}
         initContainers:
           - name: install-deps
-            image: docker.io/library/python:3.13.5 # renovate
+            image: docker.io/library/python:3.13.15 # renovate
             command:
               - pip
               - install
