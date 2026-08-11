@@ -71,7 +71,7 @@ spec:
             emptyDir: {}
         initContainers:
           - name: install-deps
-            image: python:3.13
+            image: docker.io/library/python:3.13.5 # renovate
             command:
               - pip
               - install
