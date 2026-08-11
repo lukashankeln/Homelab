@@ -42,7 +42,7 @@ spec:
             - --threshold
             - "10"
             - --cooldown
-            - "0.5"
+            - "0.25"
             - --out
             - /data
           additionalLabels:
