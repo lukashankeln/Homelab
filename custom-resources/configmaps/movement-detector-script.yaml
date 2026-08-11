@@ -9,7 +9,7 @@ data:
     #!/usr/bin/env python3
     """
     Motion detection from MJPEG stream.
-    Saves a screenshot to ./captures/ whenever motion is detected.
+    Saves a screenshot to the output directory whenever motion is detected.
     """
 
     import cv2
@@ -27,6 +27,7 @@ data:
     BLUR_SIZE = 21            # gaussian blur kernel (must be odd) — reduces noise
     COOLDOWN_SECS = 2.0       # min seconds between saved frames
     DILATE_ITERS = 2          # dilation passes to merge nearby blobs
+    MAX_IMAGES = 10000        # max images to keep; oldest deleted when exceeded
 
 
     def open_stream(url: str) -> cv2.VideoCapture:
@@ -36,6 +37,15 @@ data:
         return cap
 
 
+    def cleanup_old_frames(output_dir: str, max_images: int):
+        files = sorted(
+            (f for f in os.scandir(output_dir) if f.name.endswith(".jpg")),
+            key=lambda f: f.stat().st_mtime
+        )
+        for f in files[:max(0, len(files) - max_images)]:
+            os.remove(f.path)
+
+
     def save_frame(frame, output_dir: str) -> str:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
         path = os.path.join(output_dir, f"motion_{ts}.jpg")
@@ -43,7 +53,7 @@ data:
         return path
 
 
-    def run(url: str, output_dir: str, threshold: int, cooldown: float):
+    def run(url: str, output_dir: str, threshold: int, cooldown: float, max_images: int):
         os.makedirs(output_dir, exist_ok=True)
         print(f"Connecting to {url}")
         cap = open_stream(url)
@@ -53,7 +63,7 @@ data:
         frame_count = 0
 
         print(f"Motion detection threshold: {threshold} px, cooldown: {cooldown:.1f}s")
-        print(f"Streaming — saves go to ./{output_dir}/  (Ctrl+C to stop)")
+        print(f"Streaming — saves go to {output_dir}  (Ctrl+C to stop)")
 
         try:
             while True:
@@ -86,11 +96,12 @@ data:
                     path = save_frame(frame, output_dir)
                     last_save = now
                     print(f"[{datetime.now().strftime('%H:%M:%S')}] Motion! {changed_pixels} px changed → {path}")
+                    cleanup_old_frames(output_dir, max_images)
 
                 prev_gray = gray
 
         except KeyboardInterrupt:
-            print(f"\nStopped after {frame_count} frames. Captures in ./{output_dir}/")
+            print(f"\nStopped after {frame_count} frames. Captures in {output_dir}")
         finally:
             cap.release()
 
@@ -103,6 +114,8 @@ data:
                             help="Min changed pixels to trigger (default %(default)s)")
         parser.add_argument("--cooldown", type=float, default=COOLDOWN_SECS,
                             help="Seconds between saves (default %(default)s)")
+        parser.add_argument("--max-images", type=int, default=MAX_IMAGES,
+                            help="Max images to keep; oldest deleted automatically (default %(default)s)")
         args = parser.parse_args()
 
-        run(args.url, args.out, args.threshold, args.cooldown)
+        run(args.url, args.out, args.threshold, args.cooldown, args.max_images)

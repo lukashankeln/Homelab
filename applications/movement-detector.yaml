@@ -61,6 +61,8 @@ spec:
             value: /deps
           - name: PYTHONDONTWRITEBYTECODE
             value: "1"
+          - name: PYTHONUNBUFFERED
+            value: "1"
         volumeMounts:
           - name: deps
             mountPath: /deps
@@ -88,13 +90,25 @@ spec:
             volumeMounts:
               - name: deps
                 mountPath: /deps
+            securityContext:
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              runAsUser: 1000
+              runAsGroup: 1000
+              capabilities:
+                drop:
+                  - ALL
         securityContext:
+          pod:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
           container:
             allowPrivilegeEscalation: false
-            runAsNonRoot: false
             readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
-            seccompProfile:
-              type: RuntimeDefault
