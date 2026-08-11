@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 2.4.0
+    targetRevision: 2.5.0
     chart: generic
     helm:
       valuesObject:
@@ -28,15 +28,6 @@ spec:
         persistence:
           enabled: true
           mountPath: /data
-        command:
-          - python3
-          - /scripts/script.py
-          - --threshold
-          - "10"
-          - --cooldown
-          - "0.5"
-          - --out
-          - /data
         resources:
           requests:
             memory: "256Mi"
@@ -45,6 +36,15 @@ spec:
             memory: "512Mi"
             cpu: "500m"
         application:
+          command:
+            - python3
+            - /scripts/script.py
+            - --threshold
+            - "10"
+            - --cooldown
+            - "0.5"
+            - --out
+            - /data
           additionalLabels:
             network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
