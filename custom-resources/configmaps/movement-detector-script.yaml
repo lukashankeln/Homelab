@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: movement-detector-script
+  namespace: webservice
+data:
+  script.py: |
+
+    #!/usr/bin/env python3
+    """
+    Motion detection from MJPEG stream.
+    Saves a screenshot to ./captures/ whenever motion is detected.
+    """
+
+    import cv2
+    import numpy as np
+    import os
+    import time
+    import argparse
+    from datetime import datetime
+
+    STREAM_URL = "http://192.168.1.121:1984/api/stream.mjpeg?src=webcam"
+    OUTPUT_DIR = "captures"
+
+    # Tuning knobs
+    MOTION_THRESHOLD = 1500   # min number of changed pixels to count as motion
+    BLUR_SIZE = 21            # gaussian blur kernel (must be odd) — reduces noise
+    COOLDOWN_SECS = 2.0       # min seconds between saved frames
+    DILATE_ITERS = 2          # dilation passes to merge nearby blobs
+
+
+    def open_stream(url: str) -> cv2.VideoCapture:
+        cap = cv2.VideoCapture(url)
+        if not cap.isOpened():
+            raise RuntimeError(f"Cannot open stream: {url}")
+        return cap
+
+
+    def save_frame(frame, output_dir: str) -> str:
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
+        path = os.path.join(output_dir, f"motion_{ts}.jpg")
+        cv2.imwrite(path, frame)
+        return path
+
+
+    def run(url: str, output_dir: str, threshold: int, cooldown: float):
+        os.makedirs(output_dir, exist_ok=True)
+        print(f"Connecting to {url}")
+        cap = open_stream(url)
+
+        prev_gray = None
+        last_save = 0.0
+        frame_count = 0
+
+        print(f"Motion detection threshold: {threshold} px, cooldown: {cooldown:.1f}s")
+        print(f"Streaming — saves go to ./{output_dir}/  (Ctrl+C to stop)")
+
+        try:
+            while True:
+                ret, frame = cap.read()
+                if not ret:
+                    print("Stream lost, reconnecting in 3s…")
+                    cap.release()
+                    time.sleep(3)
+                    cap = open_stream(url)
+                    prev_gray = None
+                    print("Reconnected.")
+                    continue
+
+                frame_count += 1
+                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                gray = cv2.GaussianBlur(gray, (BLUR_SIZE, BLUR_SIZE), 0)
+
+                if prev_gray is None:
+                    prev_gray = gray
+                    continue
+
+                diff = cv2.absdiff(prev_gray, gray)
+                _, thresh = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)
+                thresh = cv2.dilate(thresh, None, iterations=DILATE_ITERS)
+
+                changed_pixels = cv2.countNonZero(thresh)
+                now = time.time()
+
+                if changed_pixels > threshold and (now - last_save) >= cooldown:
+                    path = save_frame(frame, output_dir)
+                    last_save = now
+                    print(f"[{datetime.now().strftime('%H:%M:%S')}] Motion! {changed_pixels} px changed → {path}")
+
+                prev_gray = gray
+
+        except KeyboardInterrupt:
+            print(f"\nStopped after {frame_count} frames. Captures in ./{output_dir}/")
+        finally:
+            cap.release()
+
+
+    if __name__ == "__main__":
+        parser = argparse.ArgumentParser(description="MJPEG motion detector")
+        parser.add_argument("--url", default=STREAM_URL, help="MJPEG stream URL")
+        parser.add_argument("--out", default=OUTPUT_DIR, help="Output directory")
+        parser.add_argument("--threshold", type=int, default=MOTION_THRESHOLD,
+                            help="Min changed pixels to trigger (default %(default)s)")
+        parser.add_argument("--cooldown", type=float, default=COOLDOWN_SECS,
+                            help="Seconds between saves (default %(default)s)")
+        args = parser.parse_args()
+
+        run(args.url, args.out, args.threshold, args.cooldown)

@@ -1,0 +1,93 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: movement-detector
+  namespace: argocd
+  finalizers:
+    - resources-finalizers.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: webservice
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    repoURL: https://kube-the-home.github.io/generic-helm/
+    targetRevision: 2.4.0
+    chart: generic
+    helm:
+      valuesObject:
+        image:
+          registry: docker.io
+          repository: library/python
+          tag: "3.13.5" # datasource=docker depName=docker.io/library/python versioning=docker
+        persistence:
+          enabled: true
+          mountPath: /data
+        command:
+          - python3
+          - /scripts/script.py
+          - --threshold
+          - "10"
+          - --cooldown
+          - "0.5"
+          - --out
+          - /data
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        application:
+          additionalLabels:
+            network-policy/deny-all: "true"
+            network-policy/egress-dns: "true"
+            network-policy/egress-world: "true"
+        env:
+          - name: PYTHONPATH
+            value: /deps
+          - name: PYTHONDONTWRITEBYTECODE
+            value: "1"
+        volumeMounts:
+          - name: deps
+            mountPath: /deps
+          - name: script
+            mountPath: /scripts
+          - name: tmp
+            mountPath: /tmp
+        volumes:
+          - name: deps
+            emptyDir: {}
+          - name: script
+            configMap:
+              name: movement-detector-script
+          - name: tmp
+            emptyDir: {}
+        initContainers:
+          - name: install-deps
+            image: python:3.13
+            command:
+              - pip
+              - install
+              - --target=/deps
+              - opencv-python-headless
+              - numpy
+            volumeMounts:
+              - name: deps
+                mountPath: /deps
+        securityContext:
+          container:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
