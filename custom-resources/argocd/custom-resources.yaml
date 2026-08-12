@@ -18,17 +18,17 @@ spec:
   template:
     metadata:
       name: "crds-{{.path.basename | lower}}"
-      annotations:
-        config.kubernetes.io/origin: |
-          path: {{.path.path}}
     spec:
       project: hankeln
       source:
         repoURL: https://github.com/lukashankeln/Homelab.git
         targetRevision: HEAD
         path: "{{.path.path}}"
-        directory:
-          recurse: true
+        plugin:
+          name: origin-annotate
+          env:
+            - name: SOURCE_SUBPATH
+              value: "{{.path.path}}"
       destination:
         name: in-cluster
         namespace: "custom-resources"

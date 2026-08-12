@@ -14,15 +14,17 @@ spec:
   template:
     metadata:
       name: "applications-{{ cluster }}"
-      annotations:
-        config.kubernetes.io/origin: |
-          path: applications
     spec:
       project: hankeln
       source:
         repoURL: https://github.com/lukashankeln/Homelab.git
         targetRevision: "{{ branch }}"
         path: applications
+        plugin:
+          name: origin-annotate
+          env:
+            - name: SOURCE_SUBPATH
+              value: applications
       destination:
         name: in-cluster
         namespace: argocd
