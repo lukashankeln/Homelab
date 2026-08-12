@@ -20,11 +20,11 @@ spec:
         repoURL: https://github.com/lukashankeln/Homelab.git
         targetRevision: "{{ branch }}"
         path: applications
-        plugin:
-          name: origin-annotate
-          env:
-            - name: SOURCE_SUBPATH
-              value: applications
+        # plugin:
+        #   name: origin-annotate
+        #   env:
+        #     - name: SOURCE_SUBPATH
+        #       value: applications
       destination:
         name: in-cluster
         namespace: argocd
