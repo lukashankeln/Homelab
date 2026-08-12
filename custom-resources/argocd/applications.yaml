@@ -14,6 +14,9 @@ spec:
   template:
     metadata:
       name: "applications-{{ cluster }}"
+      annotations:
+        config.kubernetes.io/origin: |
+          path: applications
     spec:
       project: hankeln
       source:
