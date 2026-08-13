@@ -25,15 +25,6 @@ spec:
       releaseName: external-dns
       valuesObject:
         revisionHistoryLimit: 1
-        podSecurityContext:
-          runAsUser: 65534
-          runAsGroup: 65534
-          seccompProfile:
-            type: RuntimeDefault
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
         provider:
           name: cloudflare
         env:
