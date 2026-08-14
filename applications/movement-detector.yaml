@@ -17,14 +17,15 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://kube-the-home.github.io/generic-helm/
-    targetRevision: 2.5.0
+    targetRevision: 2.6.0
     chart: generic
     helm:
       valuesObject:
         image:
-          registry: docker.io
-          repository: library/python
-          tag: "3.13.15" # datasource=docker depName=docker.io/library/python versioning=docker
+          registry: docker-registry.hankeln.work
+          repository: petit-nvr
+          tag: main
+          pullPolicy: Always
         persistence:
           enabled: true
           mountPath: /data
@@ -36,15 +37,7 @@ spec:
             memory: "512Mi"
             cpu: "500m"
         application:
-          command:
-            - python3
-            - /scripts/script.py
-            - --threshold
-            - "10"
-            - --cooldown
-            - "0.25"
-            - --out
-            - /data
+          port: 8080
           additionalLabels:
             network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
@@ -56,48 +49,39 @@ spec:
               enabled: false
             liveness:
               enabled: false
+        configMaps:
+          - name: config
+            data:
+              config.yaml: |
+                global:
+                  output_dir: /data
+                  default_fps: 15.0
+                  motion_threshold: 1500
+                  blur_size: 7
+                  cooldown_secs: 10.0
+                  dilate_iters: 2
+                  clip_duration: 5.0
+                  pre_buffer_secs: 5.0
+                  max_videos: 100
+                  stale_days: 30
+
+                cameras:
+                  - name: webcam
+                    url: http://192.168.1.121:1984/api/stream.mjpeg?src=webcam
+                    motion_threshold: 30
         env:
-          - name: PYTHONPATH
-            value: /deps
-          - name: PYTHONDONTWRITEBYTECODE
-            value: "1"
-          - name: PYTHONUNBUFFERED
-            value: "1"
+          - name: CAMERA_CONFIG
+            value: /config/config.yaml
         volumeMounts:
           - name: deps
             mountPath: /deps
-          - name: script
-            mountPath: /scripts
           - name: tmp
             mountPath: /tmp
         volumes:
           - name: deps
             emptyDir: {}
-          - name: script
-            configMap:
-              name: movement-detector-script
           - name: tmp
             emptyDir: {}
-        initContainers:
-          - name: install-deps
-            image: docker.io/library/python:3.13.15 # renovate
-            command:
-              - pip
-              - install
-              - --target=/deps
-              - opencv-python-headless
-              - numpy
-            volumeMounts:
-              - name: deps
-                mountPath: /deps
-            securityContext:
-              allowPrivilegeEscalation: false
-              runAsNonRoot: true
-              runAsUser: 1000
-              runAsGroup: 1000
-              capabilities:
-                drop:
-                  - ALL
         securityContext:
           pod:
             runAsNonRoot: true
