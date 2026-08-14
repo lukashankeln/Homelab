@@ -19,10 +19,15 @@ spec:
       allowEmpty: true
   source:
     repoURL: https://helm.mogenius.com/public
-    targetRevision: 5.6.0
+    targetRevision: 6.0.0
     chart: renovate-operator
     helm:
       valuesObject:
+        policy:
+          enabled: true
+          allowedHosts:
+            - api.github.com
+            - git.hankeln.work
         image:
           tag: main
           pullPolicy: Always
