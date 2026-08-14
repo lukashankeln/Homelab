@@ -80,6 +80,10 @@ spec:
         env:
           - name: CAMERA_CONFIG
             value: /config/camera-config/config.yaml
+          - name: PYTHONDONTWRITEBYTECODE
+            value: "1"
+          - name: PYTHONUNBUFFERED
+            value: "1"
         volumeMounts:
           - name: deps
             mountPath: /deps
