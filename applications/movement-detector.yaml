@@ -58,7 +58,7 @@ spec:
             liveness:
               enabled: false
         configMaps:
-          - name: config
+          - name: camera-config
             data:
               config.yaml: |
                 global:
@@ -79,7 +79,7 @@ spec:
                     motion_threshold: 30
         env:
           - name: CAMERA_CONFIG
-            value: /config/config.yaml
+            value: /config/camera-config/config.yaml
         volumeMounts:
           - name: deps
             mountPath: /deps
