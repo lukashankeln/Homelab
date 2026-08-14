@@ -36,12 +36,20 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "500m"
+        route:
+          enabled: true
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            - motion.hankeln.work
         application:
           port: 8080
           additionalLabels:
             network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
             network-policy/egress-world: "true"
+            network-policy/ingress-port: "8080"
           probe:
             startup:
               enabled: false

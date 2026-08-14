@@ -151,3 +151,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: motion
+      protocol: HTTPS
+      port: 443
+      hostname: motion.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: motion-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
