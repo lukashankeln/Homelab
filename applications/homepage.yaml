@@ -51,6 +51,12 @@ spec:
             value: dash.hankeln.work
           - name: HOMEPAGE_CONFIG_DIR
             value: /config/homepage
+          - name: LOG_TARGETS
+            value: stdout
+          - name: PGID
+            value: "1000"
+          - name: PUID
+            value: "1000"
         configMaps:
           - name: homepage
             data:
@@ -115,3 +121,17 @@ spec:
                       dateStyle: long
                       timeStyle: short
                       hour12: false
+        securityContext:
+          pod:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          container:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
