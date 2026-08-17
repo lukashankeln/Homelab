@@ -61,42 +61,6 @@ spec:
               memory: 120Mi
             limits:
               cpu: 100m
-          # Sidecar Config Management Plugin: stamps config.kubernetes.io/origin
-          # onto manifests that live 1:1 in git (opt-in via source.plugin.name).
-          volumes:
-            - name: cmp-tmp
-              emptyDir: {}
-            - name: cmp-origin-annotate
-              configMap:
-                name: cmp-origin-annotate
-                # optional so a fresh bootstrap doesn't wedge the repo-server if
-                # the ConfigMap (synced by crds-argocd) isn't applied yet.
-                optional: true
-          extraContainers:
-            - name: cmp-origin-annotate
-              command: ["/var/run/argocd/argocd-cmp-server"]
-              image: docker.io/library/alpine:3.21.3 # datasource=docker depName=docker.io/library/alpine
-              securityContext:
-                runAsNonRoot: true
-                runAsUser: 999
-                allowPrivilegeEscalation: false
-                readOnlyRootFilesystem: true
-                capabilities:
-                  drop:
-                    - ALL
-                seccompProfile:
-                  type: RuntimeDefault
-              volumeMounts:
-                - mountPath: /var/run/argocd
-                  name: var-files
-                - mountPath: /home/argocd/cmp-server/plugins
-                  name: plugins
-                - mountPath: /home/argocd/cmp-server/config/plugin.yaml
-                  subPath: plugin.yaml
-                  name: cmp-origin-annotate
-                - mountPath: /tmp
-                  name: cmp-tmp
-
         controller:
           resources:
             requests:
