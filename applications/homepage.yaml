@@ -40,10 +40,10 @@ spec:
             - name: cilium-gateway
               namespace: cilium
           hostnames:
-            - hankeln.work
+            - dash.hankeln.work
         env:
           - name: HOMEPAGE_ALLOWED_HOSTS
-            value: hankeln.work
+            value: dash.hankeln.work
           - name: HOMEPAGE_CONFIG_DIR
             value: /config/homepage
         configMaps:

@@ -162,14 +162,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: hankeln
+    - name: dash
       protocol: HTTPS
       port: 443
-      hostname: hankeln.work
+      hostname: dash.hankeln.work
       tls:
         mode: Terminate
         certificateRefs:
-          - name: hankeln-tls
+          - name: dash-hankeln-tls
       allowedRoutes:
         namespaces:
           from: All
