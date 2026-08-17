@@ -29,10 +29,15 @@ spec:
           port: 3000
           probe:
             path: /
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
           additionalLabels:
             network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
-            network-policy/egress-world: "true"
             network-policy/ingress-port: "3000"
         route:
           enabled: true
