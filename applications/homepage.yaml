@@ -27,6 +27,8 @@ spec:
           tag: v2.0.0 # datasource=docker depName=ghcr.io/gethomepage/homepage versioning=docker
         application:
           port: 3000
+          probe:
+            path: /
           additionalLabels:
             network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
