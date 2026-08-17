@@ -100,30 +100,11 @@ spec:
                         href: http://mafreebox.freebox.fr/
                         description: Freebox management interface
               widgets.yaml: |
-                - resources:
-                    backend: kubernetes
-                    expanded: true
-                    cpu: true
-                    memory: true
                 - search:
                     provider: duckduckgo
                     target: _blank
-                - kubernetes:
-                    cluster:
-                      show: true
-                      cpu: true
-                      memory: true
-                      showLabel: true
-                      label: "cluster"
-                    nodes:
-                      show: true
-                      cpu: true
-                      memory: true
-                      showLabel: true
                 - datetime:
                     format:
                       dateStyle: long
                       timeStyle: short
                       hour12: false
-              kubernetes.yaml: |
-                mode: cluster
