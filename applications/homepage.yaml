@@ -120,6 +120,12 @@ spec:
                       dateStyle: long
                       timeStyle: short
                       hour12: false
+              kubernetes.yaml: |
+                ---
+              proxmox.yaml: |
+                ---
+              docker.yaml: |
+                ---
         securityContext:
           pod:
             runAsNonRoot: true
