@@ -42,7 +42,7 @@ spec:
             - dash.hankeln.work
         env:
           - name: HOMEPAGE_ALLOWED_HOSTS
-            value: dash.hankeln.work
+            value: "*" # healthchecks use the pod ip as host...
           - name: LOG_TARGETS
             value: stdout
           - name: PGID
