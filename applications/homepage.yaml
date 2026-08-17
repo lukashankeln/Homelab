@@ -49,8 +49,6 @@ spec:
         env:
           - name: HOMEPAGE_ALLOWED_HOSTS
             value: dash.hankeln.work
-          - name: HOMEPAGE_CONFIG_DIR
-            value: /config/homepage
           - name: LOG_TARGETS
             value: stdout
           - name: PGID
@@ -59,6 +57,7 @@ spec:
             value: "1000"
         configMaps:
           - name: homepage
+            mountPath: /app/config
             data:
               settings.yaml: |
                 title: "Hankeln Homelab Dashboard"
