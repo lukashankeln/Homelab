@@ -28,13 +28,7 @@ spec:
         application:
           port: 3000
           probe:
-            path: /
-            liveness:
-              enabled: false
-            readiness:
-              enabled: false
-            startup:
-              enabled: false
+            path: /api/healthcheck
           additionalLabels:
             network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
@@ -126,6 +120,8 @@ spec:
                 ---
               docker.yaml: |
                 ---
+              custom.css: ""
+              custom.js: ""
         securityContext:
           pod:
             runAsNonRoot: true
