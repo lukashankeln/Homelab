@@ -3,6 +3,8 @@ kind: Cluster
 metadata:
   name: gitea-postgresql
   namespace: gitea
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=confirm
 spec:
   instances: 3
   logLevel: warning

@@ -3,6 +3,8 @@ kind: Cluster
 metadata:
   name: webservice-postgresql
   namespace: webservice
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=confirm
 spec:
   instances: 1
   logLevel: warning
