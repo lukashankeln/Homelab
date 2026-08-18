@@ -1,0 +1,32 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: postgres-backup-gitea
+  namespace: argo-workflows
+spec:
+  schedules:
+    - "0 23 * * *"
+  concurrencyPolicy: "Replace"
+  workflowSpec:
+    entrypoint: template
+    serviceAccountName: argo-workflow-executor
+    arguments:
+      parameters:
+        - name: secretName
+          value: postgres-secret-gitea
+    volumes:
+      - name: backup-pvc
+        persistentVolumeClaim:
+          claimName: postgres-backup
+    templates:
+      - name: template
+        steps:
+          - - name: backup
+              templateRef:
+                name: postgres-backup-base
+                template: backup
+              arguments:
+                parameters:
+                  - name: secretName
+                    value: "{{workflow.parameters.secretName}}"

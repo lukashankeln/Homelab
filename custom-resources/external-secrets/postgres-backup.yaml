@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: postgres-backup
+  name: postgres-backup-webservice
   namespace: argo-workflows
 spec:
   refreshInterval: 10s
@@ -10,14 +10,50 @@ spec:
     kind: ClusterSecretStore
   data:
     - remoteRef:
-        key: /Postgres
-        property: User
+        key: /postgres-backup/webservice
+        property: POSTGRES_USER
       secretKey: POSTGRES_USER
     - remoteRef:
-        key: /Postgres
-        property: Password
+        key: /postgres-backup/webservice
+        property: POSTGRES_PASSWORD
       secretKey: POSTGRES_PASSWORD
   target:
     creationPolicy: Owner
     deletionPolicy: Merge
     name: postgres-secret
+    template:
+      mergePolicy: Merge
+      data:
+        POSTGRES_DB: webservice
+        POSTGRES_HOST: webservice-postgresql-rw.webservice.svc.cluster.local
+        BACKUP_NAME: webservice
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: postgres-backup-gitea
+  namespace: argo-workflows
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /postgres-backup/gitea
+        property: POSTGRES_USER
+      secretKey: POSTGRES_USER
+    - remoteRef:
+        key: /postgres-backup/gitea
+        property: POSTGRES_PASSWORD
+      secretKey: POSTGRES_PASSWORD
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: postgres-secret
+    template:
+      mergePolicy: Merge
+      data:
+        POSTGRES_DB: gitea
+        POSTGRES_HOST: gitea-postgresql-rw.gitea.svc.cluster.local
+        BACKUP_NAME: gitea

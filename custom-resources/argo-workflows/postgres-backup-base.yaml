@@ -4,14 +4,30 @@ metadata:
   name: postgres-backup-base
   namespace: argo-workflows
 spec:
-  entrypoint: backup
+  entrypoint: main
   serviceAccountName: argo-workflow-executor
+  arguments:
+    parameters:
+      - name: secretName
+        value: postgres-secret
   volumes:
     - name: backup-pvc
       persistentVolumeClaim:
         claimName: postgres-backup
   templates:
+    - name: main
+      steps:
+        - - name: backup
+            template: backup
+            arguments:
+              parameters:
+                - name: secretName
+                  value: "{{workflow.parameters.secretName}}"
+
     - name: backup
+      inputs:
+        parameters:
+          - name: secretName
       metadata:
         labels:
           network-policy/egress-postgres: "true"
@@ -25,26 +41,37 @@ spec:
           - name: PGUSER
             valueFrom:
               secretKeyRef:
-                name: postgres-secret
+                name: "{{inputs.parameters.secretName}}"
                 key: POSTGRES_USER
           - name: PGPASSWORD
             valueFrom:
               secretKeyRef:
-                name: postgres-secret
+                name: "{{inputs.parameters.secretName}}"
                 key: POSTGRES_PASSWORD
           - name: PGDATABASE
-            value: "webservice"
+            valueFrom:
+              secretKeyRef:
+                name: "{{inputs.parameters.secretName}}"
+                key: POSTGRES_DB
           - name: POSTGRES_HOST
-            value: "webservice-postgresql-rw.webservice.svc.cluster.local"
+            valueFrom:
+              secretKeyRef:
+                name: "{{inputs.parameters.secretName}}"
+                key: POSTGRES_HOST
+          - name: BACKUP_NAME
+            valueFrom:
+              secretKeyRef:
+                name: "{{inputs.parameters.secretName}}"
+                key: BACKUP_NAME
         command: [sh, -c]
         args:
           - |
             set -eu
 
             echo "Starting backup at $(date)"
-            pg_dump -h $POSTGRES_HOST > /mnt/backup/database_$(date +%d-%m-%Y_%H-%M).sql
+            pg_dump -h $POSTGRES_HOST > /mnt/backup/${BACKUP_NAME}_$(date +%d-%m-%Y_%H-%M).sql
             echo "Backup completed at $(date)"
 
             echo "Deleting old backups, keeping only the 10 most recent backups"
-            ls -tp /mnt/backup/database_*.sql | grep -v '/$' | tail -n +11 | xargs -I {} rm -- {}
+            ls -tp /mnt/backup/${BACKUP_NAME}_*.sql | grep -v '/$' | tail -n +11 | xargs -I {} rm -- {}
             echo "Old backups deleted at $(date)"
