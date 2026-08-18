@@ -14,7 +14,7 @@ spec:
     arguments:
       parameters:
         - name: secretName
-          value: postgres-secret-webservice
+          value: postgres-backup-webservice
     volumes:
       - name: backup-pvc
         persistentVolumeClaim:

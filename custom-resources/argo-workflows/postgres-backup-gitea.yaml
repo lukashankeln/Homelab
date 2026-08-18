@@ -14,7 +14,7 @@ spec:
     arguments:
       parameters:
         - name: secretName
-          value: postgres-secret-gitea
+          value: postgres-backup-gitea
     volumes:
       - name: backup-pvc
         persistentVolumeClaim:

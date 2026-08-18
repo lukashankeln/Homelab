@@ -20,7 +20,7 @@ spec:
   target:
     creationPolicy: Owner
     deletionPolicy: Merge
-    name: postgres-secret
+    name: postgres-backup-webservice
     template:
       mergePolicy: Merge
       data:
@@ -50,7 +50,7 @@ spec:
   target:
     creationPolicy: Owner
     deletionPolicy: Merge
-    name: postgres-secret
+    name: postgres-backup-gitea
     template:
       mergePolicy: Merge
       data:
