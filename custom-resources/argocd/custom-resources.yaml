@@ -24,11 +24,8 @@ spec:
         repoURL: https://github.com/lukashankeln/Homelab.git
         targetRevision: HEAD
         path: "{{.path.path}}"
-        plugin:
-          name: origin-annotate
-          env:
-            - name: SOURCE_SUBPATH
-              value: "{{.path.path}}"
+        directory:
+          recurse: true
       destination:
         name: in-cluster
         namespace: "custom-resources"
