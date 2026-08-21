@@ -24,7 +24,7 @@ spec:
         image:
           registry: ghcr.io
           repository: gethomepage/homepage
-          tag: v2.0.0 # datasource=docker depName=ghcr.io/gethomepage/homepage versioning=docker
+          tag: v2.1.0 # datasource=docker depName=ghcr.io/gethomepage/homepage versioning=docker
         application:
           port: 3000
           probe:
