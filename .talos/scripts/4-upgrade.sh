@@ -8,6 +8,10 @@
 # Requires CONTROL_PLANE_IP and WORKER_IPS env vars (source .envrc).
 # Upgrades the control plane first, waits for it to be ready, then upgrades
 # each worker in sequence.
+#
+# Runs with --drain=false: this cluster doesn't have enough nodes for
+# workloads to be evicted elsewhere, so draining just hangs/fails. Expect
+# pods on the node being upgraded to restart rather than migrate.
 
 set -euo pipefail
 
@@ -71,7 +75,7 @@ upgrade_node() {
     local image="$2"
 
     if [[ "$DRY_RUN" == true ]]; then
-        echo -e "${YELLOW}[dry-run] talosctl upgrade --nodes $node --image $image${NC}"
+        echo -e "${YELLOW}[dry-run] talosctl upgrade --nodes $node --image $image --drain=false${NC}"
         return
     fi
 
@@ -79,6 +83,7 @@ upgrade_node() {
         --talosconfig "$TALOSCONFIG" \
         --nodes "$node" \
         --image "$image" \
+        --drain=false \
         --wait
 }
 

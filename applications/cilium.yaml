@@ -70,6 +70,13 @@ spec:
             replicas: 1
           ui:
             enabled: true
+            httpRoute:
+              enabled: false
+              parentRefs:
+                - name: cilium-gateway
+                  namespace: cilium
+              hostnames:
+                - hubble.hankeln.work
             ingress:
               annotations:
                 cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
