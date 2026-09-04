@@ -1,15 +1,15 @@
 apiVersion: v1alpha1
 kind: KubeAPIServerConfig
-image: registry.k8s.io/kube-apiserver:v1.36.4 # renovate
+image: registry.k8s.io/kube-apiserver:v1.37.0 # renovate
 ---
 apiVersion: v1alpha1
 kind: KubeControllerManagerConfig
-image: registry.k8s.io/kube-controller-manager:v1.36.4 # renovate
+image: registry.k8s.io/kube-controller-manager:v1.37.0 # renovate
 ---
 apiVersion: v1alpha1
 kind: KubeProxyConfig
-image: registry.k8s.io/kube-proxy:v1.36.4 # renovate
+image: registry.k8s.io/kube-proxy:v1.37.0 # renovate
 ---
 apiVersion: v1alpha1
 kind: KubeSchedulerConfig
-image: registry.k8s.io/kube-scheduler:v1.36.4 # renovate
+image: registry.k8s.io/kube-scheduler:v1.37.0 # renovate
