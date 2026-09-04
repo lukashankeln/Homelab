@@ -1,16 +1,20 @@
-cluster:
-  apiServer:
-    resources:
-      requests:
-        cpu: 200m
-        memory: 4Gi
-  controllerManager:
-    resources:
-      requests:
-        cpu: 200m
-        memory: 512Mi
-  scheduler:
-    resources:
-      requests:
-        cpu: 200m
-        memory: 512Mi
+apiVersion: v1alpha1
+kind: KubeAPIServerConfig
+resources:
+  requests:
+    cpu: 200m
+    memory: 4Gi
+---
+apiVersion: v1alpha1
+kind: KubeControllerManagerConfig
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+---
+apiVersion: v1alpha1
+kind: KubeSchedulerConfig
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi

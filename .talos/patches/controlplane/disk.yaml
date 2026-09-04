@@ -1,4 +1,8 @@
-machine:
-  install:
-    disk: /dev/sda
-    image: factory.talos.dev/metal-installer/c664842b0b171e8776198faa110a9b77d09e1478979e077edb54caffdb0b841b:v1.13.10
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer/c664842b0b171e8776198faa110a9b77d09e1478979e077edb54caffdb0b841b:v1.14.0
+provisioning:
+  diskSelector:
+    match: disk.dev_path == "/dev/sda"
+  wipe: false

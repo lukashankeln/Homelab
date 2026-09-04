@@ -1,3 +1,3 @@
-machine:
-  kubelet:
-    image: ghcr.io/siderolabs/kubelet:v1.36.4 # renovate
+apiVersion: v1alpha1
+kind: KubeletConfig
+image: ghcr.io/siderolabs/kubelet:v1.36.4 # renovate
