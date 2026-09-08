@@ -93,13 +93,6 @@ spec:
               folderAnnotation: "grafana_folder"
               annotations:
                 grafana_folder: "Kubernetes Resources"
-              extraMounts:
-                - name: tmp
-                  mountPath: /tmp
-            datasources:
-              extraMounts:
-                - name: tmp
-                  mountPath: /tmp
             securityContext:
               runAsNonRoot: true
               readOnlyRootFilesystem: false
