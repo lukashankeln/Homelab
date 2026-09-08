@@ -93,6 +93,13 @@ spec:
               folderAnnotation: "grafana_folder"
               annotations:
                 grafana_folder: "Kubernetes Resources"
+              extraMounts:
+                - name: tmp
+                  mountPath: /tmp
+            datasources:
+              extraMounts:
+                - name: tmp
+                  mountPath: /tmp
             securityContext:
               runAsNonRoot: true
               readOnlyRootFilesystem: false
@@ -101,9 +108,6 @@ spec:
               requests:
                 cpu: 10m
                 memory: 180Mi
-          extraEmptyDirMounts:
-            - name: tmp
-              mountPath: /tmp
           admin:
             existingSecret: grafana-admin-credentials
             userKey: user
