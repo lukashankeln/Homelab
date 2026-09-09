@@ -6,6 +6,7 @@ spec:
   gitOps:
     argocd:
       enabled: false
+      project: mogenius
       chart:
         name: argocd
         namespace: argocd
