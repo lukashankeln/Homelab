@@ -1,0 +1,11 @@
+apiVersion: mogenius.com/v1alpha1
+kind: PlatformConfig
+metadata:
+  name: platform
+spec:
+  gitOps:
+    argocd:
+      enabled: false
+      chart:
+        name: argocd
+        namespace: argocd
