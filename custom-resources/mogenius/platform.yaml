@@ -3,6 +3,7 @@ kind: PlatformConfig
 metadata:
   name: platform
 spec:
+  platformVersion: v0.1.0
   gitOps:
     argocd:
       enabled: false
