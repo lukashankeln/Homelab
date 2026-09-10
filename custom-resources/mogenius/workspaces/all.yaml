@@ -60,6 +60,4 @@ spec:
     - id: argocd
       namespace: argocd
       type: helm
-    - id: system-upgrade
-      type: namespace
 status: {}
