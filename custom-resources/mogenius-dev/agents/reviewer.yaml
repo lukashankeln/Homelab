@@ -13,9 +13,6 @@ spec:
     If you find any issues, write a todo to the webservice mcp server.
     As and todo category please use HomelabAgent.
   modelRef: ollama
-  scope:
-    namespaces:
-      - "*"
   triggers:
     cron: 0 0 * * *
   tools:
