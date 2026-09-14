@@ -14,7 +14,7 @@ spec:
   schedule: "0 6-23 * * *"
   discoveryFilters:
     - "Hankeln/*"
-  image: renovate/renovate:44.86.0 # renovate
+  image: renovate/renovate:44.87.1 # renovate
   secretRef: "renovate-secrets"
   provider:
     name: gitea
