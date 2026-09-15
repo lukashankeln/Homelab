@@ -27,6 +27,7 @@ spec:
         syncOptions:
           # https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#respect-ignore-difference-configs
           - RespectIgnoreDifferences=true
+          - ServerSideApply=true
         automated:
           prune: true
           allowEmpty: true
