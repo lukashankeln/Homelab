@@ -38,6 +38,9 @@ spec:
     chart: mogenius-operator
     helm:
       valuesObject:
+        features:
+          autoUpgrade:
+            enabled: false
         fullnameOverride: mogenius-operator
         revisionHistoryLimit: 1
         global:
