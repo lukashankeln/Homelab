@@ -7,8 +7,10 @@ This document describes the manual process for configuring Talos Linux nodes. Fo
 1. **Create configuration files:**
    ```sh
    export CLUSTER_NAME="homelab"
-   export CONTROL_PLANE_IP="192.168.1.10"
-   export WORKER_IPS="192.168.1.11,192.168.1.12"
+   export CONTROL_PLANE_IPS="192.168.1.10"
+   export CONTROL_PLANE_HOSTNAMES="server-luha-1"
+   export WORKER_IPS="192.168.1.11,192.168.1.12"      # optional
+   export WORKER_HOSTNAMES="server-luha-2,server-luha-3"  # optional
 
    ./scripts/1-create-config.sh
    ```
@@ -20,6 +22,9 @@ This document describes the manual process for configuring Talos Linux nodes. Fo
 
    # For an existing cluster
    ./scripts/2-apply-config.sh existing
+
+   # Add new CP nodes to a running cluster (no bootstrap)
+   ./scripts/2-apply-config.sh join-controlplane
 
    # Preview changes without applying
    ./scripts/2-apply-config.sh existing --dry-run
@@ -34,9 +39,13 @@ The following environment variables must be set:
 
 ```sh
 export CLUSTER_NAME="<your-cluster-name>"
-export CONTROL_PLANE_IP="<your-master-node-ip>"
-export WORKER_IPS="<comma-separated-worker-ips>"  # e.g., "192.168.1.11,192.168.1.12"
+export CONTROL_PLANE_IPS="<comma-separated-cp-ips>"       # first IP is primary/bootstrap
+export CONTROL_PLANE_HOSTNAMES="<comma-separated-names>"  # zips with CONTROL_PLANE_IPS
+export WORKER_IPS="<comma-separated-worker-ips>"          # optional, omit for CP-only
+export WORKER_HOSTNAMES="<comma-separated-names>"         # optional, zips with WORKER_IPS
 ```
+
+Hostnames are applied as inline patches at apply time — no per-node patch files needed.
 
 **Secrets:**
 The `secrets.yaml` file must exist in this directory. For first-time setup, generate secrets:
