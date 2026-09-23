@@ -80,7 +80,7 @@ spec:
                     - ArgoCD:
                         href: https://argocd.hankeln.work
                         description: GitOps controller
-                        icon: argocd.png
+                        icon: si-argo
                     - Gitea:
                         href: https://git.hankeln.work
                         description: Self-hosted Git
@@ -92,7 +92,7 @@ spec:
                     - Argo Workflows:
                         href: https://argo-workflows.hankeln.work
                         description: Workflow engine
-                        icon: argo.png
+                        icon: si-argo
                 - Monitoring:
                     - Grafana:
                         href: https://grafana.hankeln.work
@@ -145,6 +145,7 @@ spec:
                     - NAS:
                         href: http://192.168.1.112:8000/portal/
                         description: Network Attached Storage
+                        icon: synology.png
                     - Home Assistant:
                         href: https://hassio.hankeln.work/
                         description: Home automation platform
@@ -152,6 +153,7 @@ spec:
                     - Freebox:
                         href: http://mafreebox.freebox.fr/
                         description: Freebox management interface
+                        icon: freebox.png
               widgets.yaml: |
                 - search:
                     provider: duckduckgo
