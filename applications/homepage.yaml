@@ -145,7 +145,7 @@ spec:
                     - NAS:
                         href: http://192.168.1.112:8000/portal/
                         description: Network Attached Storage
-                        icon: synology.png
+                        icon: mdi-nas
                     - Home Assistant:
                         href: https://hassio.hankeln.work/
                         description: Home automation platform
@@ -153,7 +153,7 @@ spec:
                     - Freebox:
                         href: http://mafreebox.freebox.fr/
                         description: Freebox management interface
-                        icon: freebox.png
+                        icon: mdi-router-network
               widgets.yaml: |
                 - search:
                     provider: duckduckgo
