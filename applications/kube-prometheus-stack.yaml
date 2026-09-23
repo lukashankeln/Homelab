@@ -206,6 +206,8 @@ spec:
           service:
             port: 10257
             targetPort: 10257
+            ipFamilyPolicy: SingleStack
+            ipFamilies: [IPv4]
           serviceMonitor:
             https: true
             insecureSkipVerify: true
@@ -213,6 +215,8 @@ spec:
           service:
             port: 10259
             targetPort: 10259
+            ipFamilyPolicy: SingleStack
+            ipFamilies: [IPv4]
           serviceMonitor:
             https: true
             insecureSkipVerify: true
