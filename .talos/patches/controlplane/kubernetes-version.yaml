@@ -1,6 +1,6 @@
 apiVersion: v1alpha1
 kind: KubeAPIServerConfig
-image: registry.k8s.io/kube-apiserver:v1.37.0 # renovate
+image: registry.k8s.io/kube-apiserver:v1.37.1 # renovate
 ---
 apiVersion: v1alpha1
 kind: KubeControllerManagerConfig
