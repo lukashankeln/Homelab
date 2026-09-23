@@ -60,42 +60,87 @@ spec:
                 theme: dark
                 iconStyle: colored
                 layout:
+                  Infrastructure:
+                  Monitoring:
+                  Applications:
                   Home Automation:
-                  Platform:
               bookmarks.yaml: |
                 - Developer:
-                    - Github:
-                        - abbr: GH
-                          href: https://github.com/
+                    - Gitea:
+                        - abbr: GIT
+                          href: https://git.hankeln.work/
                     - Stack Overflow:
                         - abbr: SO
                           href: https://stackoverflow.com/
-                    - GitLab:
-                        - abbr: GL
-                          href: https://gitlab.com/
                     - Docker Hub:
                         - abbr: DH
                           href: https://hub.docker.com/
               services.yaml: |
-                - Platform:
+                - Infrastructure:
+                    - ArgoCD:
+                        href: https://argocd.hankeln.work
+                        description: GitOps controller
+                        icon: argocd.png
+                    - Gitea:
+                        href: https://git.hankeln.work
+                        description: Self-hosted Git
+                        icon: gitea.png
+                    - Vault:
+                        href: https://vault.hankeln.work
+                        description: Secret management
+                        icon: vault.png
+                    - Argo Workflows:
+                        href: https://argo-workflows.hankeln.work
+                        description: Workflow engine
+                        icon: argo.png
+                - Monitoring:
+                    - Grafana:
+                        href: https://grafana.hankeln.work
+                        description: Metrics dashboards
+                        icon: grafana.png
+                    - Prometheus:
+                        href: https://prometheus.hankeln.work
+                        description: Metrics storage
+                        icon: prometheus.png
+                        widget:
+                          type: prometheus
+                          url: https://prometheus.hankeln.work
+                    - Alertmanager:
+                        href: https://alertmanager.hankeln.work
+                        description: Alert routing
+                        icon: alertmanager.png
                     - Gatus:
                         href: https://status.hankeln.work
-                        description: Status monitoring
+                        description: Uptime monitoring
                         icon: gatus.png
                         widget:
                           type: gatus
                           url: https://status.hankeln.work
-                    - Prometheus:
-                        href: http://prometheus.hankeln.work
-                        description: Metrics monitoring
-                        icon: prometheus.png
-                        widget:
-                          type: prometheus
-                          url: http://prometheus.hankeln.work
                     - Hubble:
                         href: https://hubble.hankeln.work
-                        description: Cilium, Hubble
+                        description: Cilium network flows
                         icon: cilium.png
+                - Applications:
+                    - Kanboard:
+                        href: https://board.hankeln.work
+                        description: Kanban project management
+                        icon: kanboard.png
+                    - Ntfy:
+                        href: https://ntfy.hankeln.work
+                        description: Push notifications
+                        icon: ntfy.png
+                    - Docker Registry:
+                        href: https://docker.hankeln.work
+                        description: Container image registry
+                        icon: docker.png
+                    - Movement Detector:
+                        href: https://motion.hankeln.work
+                        description: NVR / motion detection
+                        icon: motioneye.png
+                    - Homelab Agent:
+                        href: https://agent.hankeln.work
+                        description: AI coding agent
+                        icon: claude-ai.png
                 - Home Automation:
                     - NAS:
                         href: http://192.168.1.112:8000/portal/
@@ -103,7 +148,8 @@ spec:
                     - Home Assistant:
                         href: https://hassio.hankeln.work/
                         description: Home automation platform
-                    - Free Box:
+                        icon: home-assistant.png
+                    - Freebox:
                         href: http://mafreebox.freebox.fr/
                         description: Freebox management interface
               widgets.yaml: |
