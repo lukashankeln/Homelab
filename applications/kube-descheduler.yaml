@@ -59,6 +59,11 @@ spec:
                     ignorePvcPods: false
                     evictLocalStoragePods: true
                     nodeFit: true # https://github.com/kubernetes-sigs/descheduler/blob/release-1.31/README.md#node-fit-filtering
+                    namespaces:
+                      exclude:
+                        - kube-system
+                        - cilium
+                        - vault
                 - name: RemoveDuplicates
                 - name: RemovePodsHavingTooManyRestarts
                   args:
