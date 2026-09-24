@@ -12,10 +12,13 @@ This repository contains the applications and configurations for my private home
 > The version on GitHub is a push mirror. Any changes made there will be overwritten during the next sync.
 
 ## Infrastructure
-The infrastructure runs on a Talos Linux Kubernetes cluster composed of two nodes.
+The infrastructure runs on a Talos Linux Kubernetes cluster composed of three controlplane nodes. Workloads run on all nodes (no dedicated workers).
 
-- Controlplane: Intel N100 mini-PC with 8GB RAM
-- Worker: Intel N97 mini-PC with 16GB RAM
+| Hostname      | IP             | Hardware              | RAM  |
+|---------------|----------------|-----------------------|------|
+| server-luha-1 | 192.168.1.41   | Intel N100 mini-PC    | 16GB |
+| server-luha-2 | 192.168.1.55   | Mini PC Elegant P2    | 16GB |
+| server-luha-3 | 192.168.1.51   | Mini PC Elegant P2    | 16GB |
 
 Talos is an immutable, minimal Kubernetes OS designed for security and ease of management. Configuration is managed declaratively in the `.talos/` directory.
 

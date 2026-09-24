@@ -1,194 +1,156 @@
 # Talos Configuration
 
-This document describes the manual process for configuring Talos Linux nodes. For automated setup, use the scripts in `./scripts/`.
+This document describes the process for configuring Talos Linux nodes. For day-to-day operations, use the scripts in `./scripts/`.
+
+## Cluster Hardware
+
+3-node all-controlplane cluster (no dedicated workers). Workloads run on controlplane nodes via `allow-workloads` patch.
+
+| Hostname      | IP             | Hardware                          | RAM  |
+|---------------|----------------|-----------------------------------|------|
+| server-luha-1 | 192.168.1.41   | Intel N100                        | 16GB |
+| server-luha-2 | 192.168.1.55   | Mini PC Elegant P2 (Ryzen 3 4300U) | 16GB |
+| server-luha-3 | 192.168.1.51   | Mini PC Elegant P2 (Ryzen 3 4300U) | 16GB |
 
 ## Quick Start with Scripts
 
-1. **Create configuration files:**
-   ```sh
-   export CLUSTER_NAME="homelab"
-   export CONTROL_PLANE_IPS="192.168.1.10"
-   export CONTROL_PLANE_HOSTNAMES="server-luha-1"
-   export WORKER_IPS="192.168.1.11,192.168.1.12"      # optional
-   export WORKER_HOSTNAMES="server-luha-2,server-luha-3"  # optional
+### 1. Create configuration files
 
-   ./scripts/1-create-config.sh
-   ```
+Source `.envrc` or export manually:
 
-2. **Apply configuration:**
-   ```sh
-   # For a fresh cluster
-   ./scripts/2-apply-config.sh fresh
+```sh
+source .envrc
+./scripts/1-create-config.sh
+```
 
-   # For an existing cluster
-   ./scripts/2-apply-config.sh existing
+### 2. Apply configuration
 
-   # Add new CP nodes to a running cluster (no bootstrap)
-   ./scripts/2-apply-config.sh join-controlplane
+```sh
+# New cluster (insecure apply + bootstrap)
+./scripts/2-apply-config.sh fresh
 
-   # Preview changes without applying
-   ./scripts/2-apply-config.sh existing --dry-run
-   ```
+# Update existing cluster
+./scripts/2-apply-config.sh existing
+
+# Preview changes without applying
+./scripts/2-apply-config.sh existing --dry-run
+```
+
+### Joining new nodes to an existing cluster
+
+Set `JOIN_CONTROLPLANE_IPS` (and optionally `JOIN_CONTROLPLANE_HOSTNAMES`) in `.envrc`, then run `existing`. New nodes are applied insecurely since they haven't joined yet. Endpoints are updated automatically afterward.
+
+```sh
+export JOIN_CONTROLPLANE_IPS="192.168.1.99"
+export JOIN_CONTROLPLANE_HOSTNAMES="server-luha-4"
+./scripts/2-apply-config.sh existing
+# After done, clear the JOIN vars in .envrc
+```
+
+Same pattern applies for workers via `JOIN_WORKER_IPS` / `JOIN_WORKER_HOSTNAMES`.
+
+## Environment Variables
+
+| Variable                    | Required | Description                                              |
+|-----------------------------|----------|----------------------------------------------------------|
+| `CLUSTER_NAME`              | yes      | Cluster name used in generated config                    |
+| `CONTROL_PLANE_IPS`         | yes      | Comma-separated CP IPs; first is primary/bootstrap node  |
+| `CONTROL_PLANE_HOSTNAMES`   | no       | Comma-separated hostnames, zipped with IPs               |
+| `WORKER_IPS`                | no       | Comma-separated worker IPs; omit for CP-only cluster     |
+| `WORKER_HOSTNAMES`          | no       | Comma-separated hostnames, zipped with WORKER_IPS        |
+| `JOIN_CONTROLPLANE_IPS`     | no       | New CP nodes to join an existing cluster (insecure apply)|
+| `JOIN_CONTROLPLANE_HOSTNAMES` | no     | Hostnames for JOIN_CONTROLPLANE_IPS                      |
+| `JOIN_WORKER_IPS`           | no       | New worker nodes to join an existing cluster             |
+| `JOIN_WORKER_HOSTNAMES`     | no       | Hostnames for JOIN_WORKER_IPS                            |
+
+Hostnames are applied as inline patches at apply time — no per-node patch files needed.
+
+## Secrets
+
+`secrets.yaml` must exist in this directory. Generate once for a new cluster:
+
+```sh
+talosctl gen secrets -o secrets.yaml
+```
+
+> **Important:** Keep `secrets.yaml` out of version control.
 
 ## Manual Process
 
 ### Prerequisites
 
-**Environment Variables:**
-The following environment variables must be set:
+Boot nodes with a Talos Linux image from [talos.dev](https://www.talos.dev/). Verify disk and network before applying:
 
-```sh
-export CLUSTER_NAME="<your-cluster-name>"
-export CONTROL_PLANE_IPS="<comma-separated-cp-ips>"       # first IP is primary/bootstrap
-export CONTROL_PLANE_HOSTNAMES="<comma-separated-names>"  # zips with CONTROL_PLANE_IPS
-export WORKER_IPS="<comma-separated-worker-ips>"          # optional, omit for CP-only
-export WORKER_HOSTNAMES="<comma-separated-names>"         # optional, zips with WORKER_IPS
-```
-
-Hostnames are applied as inline patches at apply time — no per-node patch files needed.
-
-**Secrets:**
-The `secrets.yaml` file must exist in this directory. For first-time setup, generate secrets:
-```sh
-talosctl gen secrets -o secrets.yaml
-```
-
-> ⚠️ **Important:** Keep `secrets.yaml` secure and never commit it to version control.
-
-**Nodes:**
-Your nodes must be booted with a Talos Linux image. Download images from [talos.dev](https://www.talos.dev/).
-
-**Network and Disk Configuration:**
-Verify your nodes' network and disk configuration:
 ```sh
 talosctl get disks --insecure --nodes <node-ip>
 talosctl get links --insecure --nodes <node-ip>
 ```
 
-**Configuration:**
-Generate the base configuration:
+### Generate base config
+
 ```sh
-talosctl gen config --with-secrets secrets.yaml $CLUSTER_NAME https://$CONTROL_PLANE_IP:6443
+talosctl gen config --with-secrets secrets.yaml $CLUSTER_NAME https://$PRIMARY_CP_IP:6443
 ```
 
-This creates three files:
-- `controlplane.yaml` - Control plane node configuration
-- `worker.yaml` - Worker node configuration
-- `talosconfig` - CLI configuration for managing the cluster
+Creates `controlplane.yaml`, `worker.yaml`, and `talosconfig`.
 
-**Patches:**
-Apply machine-specific patches to customize the configuration:
+### Patch configs
 
 ```sh
-# Patch control plane configuration
+# Controlplane
 talosctl machineconfig patch controlplane.yaml \
-    --patch @patches/cni.yaml \
+    --patch @patches/no-flannel.yaml \
     --patch @patches/dns.yaml \
-    --patch @patches/controlplane/hostname.yaml \
+    --patch @patches/kubernetes-version.yaml \
     --patch @patches/controlplane/disk.yaml \
     --patch @patches/controlplane/allow-workloads.yaml \
+    --patch @patches/controlplane/proxy.yaml \
+    --patch @patches/controlplane/resources.yaml \
+    --patch @patches/controlplane/metrics-bind-address.yaml \
+    --patch @patches/controlplane/kubernetes-version.yaml \
     --output controlplane.yaml
 
-# Patch worker configuration
+# Worker (if applicable)
 talosctl machineconfig patch worker.yaml \
-    -resh Cluster Setup
-
-Apply configuration to the control plane:
-```sh
-talosctl apply-config --insecure \
-    --nodes $CONTROL_PLANE_IP \
-    --file controlplane.yaml
+    --patch @patches/no-flannel.yaml \
+    --patch @patches/dns.yaml \
+    --patch @patches/kubernetes-version.yaml \
+    --patch @patches/worker/disk.yaml \
+    --output worker.yaml
 ```
 
-Apply configuration to workers:
+### Fresh cluster setup
+
 ```sh
-# Convert comma-separated IPs to array
-IFS=',' read -ra WORKER_IP_ARRAY <<< "$WORKER_IPS"
+# Apply controlplane (insecure — node not yet in cluster)
+talosctl apply-config --insecure --nodes $PRIMARY_CP_IP --file controlplane.yaml
 
-for ip in "${WORKER_IP_ARRAY[@]}"; do
-  echo "=== Applying configuration to node $ip ==="
-  talosctl apply-config --insecure \
-    --nodes $ip \
-    --file worker.yaml
-  echo "Configuration applied to $ip"
-  echo ""
-done
-```
+# Configure endpoint and bootstrap
+talosctl config endpoint --talosconfig talosconfig $PRIMARY_CP_IP
+talosctl bootstrap --talosconfig talosconfig --nodes $PRIMARY_CP_IP
 
-Configure endpoints:
-```sh
-talosctl config endpoint --talosconfig talosconfig $CONTROL_PLANE_IP
-```
-
-Bootstrap the cluster:
-```sh
-talosctl bootstrap --talosconfig talosconfig --nodes $CONTROL_PLANE_IP
-```
-
-> ℹ️ Wait a few minutes for the cluster to initialize before proceeding.
-
-Retrieve kubeconfig:
-```sh
-talosctl kubeconfig alternative-kubeconfig --talosconfig talosconfig --nodes $CONTROL_PLANE_IP
+# Retrieve kubeconfig
+talosctl kubeconfig alternative-kubeconfig --talosconfig talosconfig --nodes $PRIMARY_CP_IP
 export KUBECONFIG=$(pwd)/alternative-kubeconfig
 kubectl get nodes
 ```
 
-### Existing Cluster Update
+### Existing cluster update
 
-Configure endpoints (in case they changed):
 ```sh
-talosctl config endpoint --talosconfig talosconfig $CONTROL_PLANE_IP
+talosctl config endpoint --talosconfig talosconfig $CONTROL_PLANE_IPS
+talosctl apply-config --talosconfig talosconfig --nodes $PRIMARY_CP_IP --file controlplane.yaml
 ```
-
-Apply configuration to the control plane:
-```sh
-talosctl apply-config --talosconfig talosconfig \
-    --nodes $CONTROL_PLANE_IP \
-    --file controlplane.yaml
-```
-
-Apply configuration to workers:
-```sh
-# Convert comma-separated IPs to array
-IFS=',' read -ra WORKER_IP_ARRAY <<< "$WORKER_IPS"
-
-for ip in "${WORKER_IP_ARRAY[@]}"; do
-  echo "=== Applying configuration to node $ip ==="
-  talosctl apply-config --talosconfig talosconfig \
-    --nodes $ip \
-    --file worker.yaml
-  echo "Configuration applied to $ip"
-  echo ""
-done
-```
-
-> ℹ️ Nodes will automatically reboot if necessary to apply the changes.
 
 ## Troubleshooting
 
-**Check node status:**
 ```sh
-talosctl --talosconfig talosconfig --nodes $CONTROL_PLANE_IP health
-talosctl --talosconfig talosconfig --nodes $CONTROL_PLANE_IP dmesg
-```
+# Node health and logs
+talosctl --talosconfig talosconfig --nodes 192.168.1.41 health
+talosctl --talosconfig talosconfig --nodes 192.168.1.41 dmesg
+talosctl --talosconfig talosconfig --nodes 192.168.1.41 logs kubelet
+talosctl --talosconfig talosconfig --nodes 192.168.1.41 logs etcd
 
-**View service logs:**
-```sh
-talosctl --talosconfig talosconfig --nodes $CONTROL_PLANE_IP logs kubelet
-talosctl --talosconfig talosconfig --nodes $CONTROL_PLANE_IP logs etcd
-```
-
-**Interactive dashboard:**
-```sh
-talosctl --talosconfig talosconfig --nodes $CONTROL_PLANE_IP dashboard
-```sh
-for ip in "${WORKER_IPS[@]}"; do
-  echo "=== Applying configuration to node $ip ==="
-  talosctl apply-config --talosconfig talosconfig \
-    --nodes $ip \
-    --file worker.yaml
-  echo "Configuration applied to $ip"
-  echo ""
-done
+# Interactive dashboard
+talosctl --talosconfig talosconfig --nodes 192.168.1.41 dashboard
 ```
