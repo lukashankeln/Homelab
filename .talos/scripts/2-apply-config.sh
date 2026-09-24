@@ -14,15 +14,14 @@ MODE="${1:-}"
 DRY_RUN=""
 [[ "${2:-}" == "--dry-run" ]] && DRY_RUN="--dry-run" && echo -e "${YELLOW}DRY RUN MODE${NC}\n"
 
-if [[ "$MODE" != "fresh" && "$MODE" != "existing" && "$MODE" != "join-controlplane" ]]; then
+if [[ "$MODE" != "fresh" && "$MODE" != "existing" ]]; then
     echo -e "${RED}Error: Invalid or missing mode${NC}"
     echo ""
-    echo "Usage: $0 [fresh|existing|join-controlplane] [--dry-run]"
+    echo "Usage: $0 [fresh|existing] [--dry-run]"
     echo ""
-    echo "  fresh             - New cluster: applies CP + workers insecurely, bootstraps"
-    echo "  existing          - Update existing cluster: applies CP + workers"
-    echo "  join-controlplane - Join additional CP nodes to a running cluster (no bootstrap)"
-    echo "  --dry-run         - Preview changes without applying"
+    echo "  fresh    - New cluster: applies CP + workers insecurely, bootstraps"
+    echo "  existing - Update existing cluster; also joins nodes in JOIN_CONTROLPLANE_IPS / JOIN_WORKER_IPS"
+    echo "  --dry-run - Preview changes without applying"
     echo ""
     exit 1
 fi
@@ -43,10 +42,26 @@ else
     WORKER_HOSTNAME_ARRAY=()
 fi
 
+JOIN_CP_IP_ARRAY=()
+JOIN_CP_HOSTNAME_ARRAY=()
+JOIN_WORKER_IP_ARRAY=()
+JOIN_WORKER_HOSTNAME_ARRAY=()
+
+if [[ -n "${JOIN_CONTROLPLANE_IPS:-}" ]]; then
+    IFS=',' read -ra JOIN_CP_IP_ARRAY <<< "$JOIN_CONTROLPLANE_IPS"
+    IFS=',' read -ra JOIN_CP_HOSTNAME_ARRAY <<< "${JOIN_CONTROLPLANE_HOSTNAMES:-}"
+fi
+if [[ -n "${JOIN_WORKER_IPS:-}" ]]; then
+    IFS=',' read -ra JOIN_WORKER_IP_ARRAY <<< "$JOIN_WORKER_IPS"
+    IFS=',' read -ra JOIN_WORKER_HOSTNAME_ARRAY <<< "${JOIN_WORKER_HOSTNAMES:-}"
+fi
+
 echo -e "${BLUE}Mode: $MODE${NC}"
-echo -e "${GREEN}Control Plane IPs:     $CONTROL_PLANE_IPS${NC}"
+echo -e "${GREEN}Control Plane IPs:       $CONTROL_PLANE_IPS${NC}"
 echo -e "${GREEN}Control Plane Hostnames: ${CONTROL_PLANE_HOSTNAMES:-(auto)}${NC}"
-[[ ${#WORKER_IP_ARRAY[@]} -gt 0 ]] && echo -e "${GREEN}Worker IPs: $WORKER_IPS${NC}"
+[[ ${#WORKER_IP_ARRAY[@]} -gt 0 ]] && echo -e "${GREEN}Worker IPs:              $WORKER_IPS${NC}"
+[[ ${#JOIN_CP_IP_ARRAY[@]} -gt 0 ]] && echo -e "${GREEN}Join CP IPs:             $JOIN_CONTROLPLANE_IPS${NC}"
+[[ ${#JOIN_WORKER_IP_ARRAY[@]} -gt 0 ]] && echo -e "${GREEN}Join Worker IPs:         $JOIN_WORKER_IPS${NC}"
 echo ""
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -56,7 +71,6 @@ cd "$TALOS_DIR"
 [[ ! -f "controlplane.yaml" ]] && echo -e "${RED}Error: controlplane.yaml not found — run 1-create-config.sh first${NC}" && exit 1
 [[ ${#WORKER_IP_ARRAY[@]} -gt 0 && ! -f "worker.yaml" ]] && echo -e "${RED}Error: worker.yaml not found — run 1-create-config.sh first${NC}" && exit 1
 [[ "$MODE" == "existing" && ! -f "talosconfig" ]] && echo -e "${RED}Error: talosconfig not found${NC}" && exit 1
-[[ "$MODE" == "join-controlplane" && ! -f "talosconfig" ]] && echo -e "${RED}Error: talosconfig not found${NC}" && exit 1
 
 # Build inline hostname patch for a given hostname
 hostname_patch() {
@@ -164,29 +178,28 @@ elif [[ "$MODE" == "existing" ]]; then
         echo ""
     fi
 
-    echo -e "${GREEN}=== Update complete — nodes will reboot if needed ===${NC}"
+    if [[ ${#JOIN_CP_IP_ARRAY[@]} -gt 0 ]]; then
+        echo -e "${YELLOW}=== Joining new controlplane nodes (insecure) ===${NC}"
+        for i in "${!JOIN_CP_IP_ARRAY[@]}"; do
+            apply_cp "${JOIN_CP_IP_ARRAY[$i]}" "${JOIN_CP_HOSTNAME_ARRAY[$i]:-}" "true"
+        done
+        echo ""
 
-elif [[ "$MODE" == "join-controlplane" ]]; then
-    # Apply controlplane config to all CP nodes except the primary (already bootstrapped)
-    # Useful when adding new CP nodes to an existing cluster
-    echo -e "${YELLOW}=== Joining additional controlplane nodes (insecure) ===${NC}"
-    echo -e "${BLUE}Skipping primary ($PRIMARY_CP_IP) — already in cluster${NC}\n"
-
-    if [[ ${#CP_IP_ARRAY[@]} -lt 2 ]]; then
-        echo -e "${RED}Error: join-controlplane requires at least 2 IPs in CONTROL_PLANE_IPS${NC}"
-        exit 1
+        echo -e "${YELLOW}=== Updating endpoints to include new CP nodes ===${NC}"
+        talosctl config endpoint --talosconfig talosconfig "${CP_IP_ARRAY[@]}" "${JOIN_CP_IP_ARRAY[@]}"
+        echo -e "${GREEN}✓ Endpoints updated${NC}\n"
     fi
 
-    for i in "${!CP_IP_ARRAY[@]}"; do
-        [[ "$i" -eq 0 ]] && continue  # skip primary
-        apply_cp "${CP_IP_ARRAY[$i]}" "${CP_HOSTNAME_ARRAY[$i]:-}" "true"
-    done
-    echo ""
+    if [[ ${#JOIN_WORKER_IP_ARRAY[@]} -gt 0 ]]; then
+        echo -e "${YELLOW}=== Joining new worker nodes (insecure) ===${NC}"
+        for i in "${!JOIN_WORKER_IP_ARRAY[@]}"; do
+            apply_worker "${JOIN_WORKER_IP_ARRAY[$i]}" "${JOIN_WORKER_HOSTNAME_ARRAY[$i]:-}" "true"
+        done
+        echo ""
+    fi
 
-    echo -e "${YELLOW}=== Updating endpoints to include all CP nodes ===${NC}"
-    talosctl config endpoint --talosconfig talosconfig "${CP_IP_ARRAY[@]}"
-    echo -e "${GREEN}✓ Endpoints updated${NC}\n"
-
-    echo -e "${GREEN}=== Done — new CP nodes are joining etcd automatically ===${NC}"
-    echo "  Monitor with: talosctl --talosconfig talosconfig --nodes $PRIMARY_CP_IP health"
+    echo -e "${GREEN}=== Update complete — nodes will reboot if needed ===${NC}"
+    if [[ ${#JOIN_CP_IP_ARRAY[@]} -gt 0 || ${#JOIN_WORKER_IP_ARRAY[@]} -gt 0 ]]; then
+        echo "  Monitor join with: talosctl --talosconfig talosconfig --nodes $PRIMARY_CP_IP health"
+    fi
 fi
