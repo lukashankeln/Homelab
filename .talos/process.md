@@ -6,11 +6,11 @@ This document describes the process for configuring Talos Linux nodes. For day-t
 
 3-node all-controlplane cluster (no dedicated workers). Workloads run on controlplane nodes via `allow-workloads` patch.
 
-| Hostname      | IP             | Hardware                          | RAM  |
-|---------------|----------------|-----------------------------------|------|
-| server-luha-1 | 192.168.1.41   | Intel N100                        | 16GB |
-| server-luha-2 | 192.168.1.55   | Mini PC Elegant P2 (Ryzen 3 4300U) | 16GB |
-| server-luha-3 | 192.168.1.51   | Mini PC Elegant P2 (Ryzen 3 4300U) | 16GB |
+| Hostname      | Hardware                          | RAM  |
+|---------------|-----------------------------------|------|
+| server-luha-1 | Intel N100                        | 16GB |
+| server-luha-2 | Mini PC Elegant P2 (Ryzen 3 4300U) | 16GB |
+| server-luha-3 | Mini PC Elegant P2 (Ryzen 3 4300U) | 16GB |
 
 ## Quick Start with Scripts
 
@@ -146,11 +146,11 @@ talosctl apply-config --talosconfig talosconfig --nodes $PRIMARY_CP_IP --file co
 
 ```sh
 # Node health and logs
-talosctl --talosconfig talosconfig --nodes 192.168.1.41 health
-talosctl --talosconfig talosconfig --nodes 192.168.1.41 dmesg
-talosctl --talosconfig talosconfig --nodes 192.168.1.41 logs kubelet
-talosctl --talosconfig talosconfig --nodes 192.168.1.41 logs etcd
+talosctl --talosconfig talosconfig --nodes $PRIMARY_CP_IP health
+talosctl --talosconfig talosconfig --nodes $PRIMARY_CP_IP dmesg
+talosctl --talosconfig talosconfig --nodes $PRIMARY_CP_IP logs kubelet
+talosctl --talosconfig talosconfig --nodes $PRIMARY_CP_IP logs etcd
 
 # Interactive dashboard
-talosctl --talosconfig talosconfig --nodes 192.168.1.41 dashboard
+talosctl --talosconfig talosconfig --nodes $PRIMARY_CP_IP dashboard
 ```
