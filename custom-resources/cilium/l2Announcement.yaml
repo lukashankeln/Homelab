@@ -7,3 +7,4 @@ spec:
   loadBalancerIPs: true
   interfaces:
     - ^enp[0-9]+s0$
+    - ^eno[0-9]+$
