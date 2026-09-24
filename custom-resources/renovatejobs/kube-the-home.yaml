@@ -29,7 +29,7 @@ spec:
         secretKeyRef:
           name: kube-the-home-github-app-977470a8
           key: RENOVATE_TOKEN
-  parallelism: 1
+  parallelism: 2
   resources:
     requests:
       cpu: "100m"

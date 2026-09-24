@@ -25,7 +25,7 @@ spec:
 
     - name: RENOVATE_DEPENDENCY_DASHBOARD_FOOTER
       value: "- [ ] <!-- manual job -->Check this box to trigger a request for Renovate to run again on this repository"
-  parallelism: 1
+  parallelism: 2
   resources:
     requests:
       cpu: "100m"

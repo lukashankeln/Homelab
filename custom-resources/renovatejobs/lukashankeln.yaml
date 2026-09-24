@@ -35,7 +35,7 @@ spec:
         secretKeyRef:
           name: lukashankeln-github-app-6d375865
           key: RENOVATE_TOKEN
-  parallelism: 1
+  parallelism: 2
   resources:
     requests:
       cpu: "100m"
