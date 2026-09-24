@@ -135,3 +135,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: homelab-agent
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-descheduler
