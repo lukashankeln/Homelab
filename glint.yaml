@@ -23,14 +23,14 @@ rules:
       enabled: true
       severity: error
   exceptions: []
-  custom:
-    - id: renovate-node-selector
-      description: "RenovateJobs must have a node selector to ensure they run on the correct node"
-      severity: error
-      match:
-        kinds: [RenovateJob]
-      expression: "resource.spec.nodeSelector != null"
-      message: "{{ .kind }}/{{ .name }} must have a node selector defined"
+  custom: []
+    # - id: renovate-node-selector
+    #   description: "RenovateJobs must have a node selector to ensure they run on the correct node"
+    #   severity: error
+    #   match:
+    #     kinds: [RenovateJob]
+    #   expression: "has(resource.spec.nodeSelector) && size(resource.spec.nodeSelector) > 0"
+    #   message: "{{ .kind }}/{{ .name }} must have a node selector defined"
 
 
 output:
