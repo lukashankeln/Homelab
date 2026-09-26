@@ -23,10 +23,6 @@ spec:
             value: "10"
           - name: registryUrl
             value: "https://docker-registry.hankeln.work"
-      metadata:
-        labels:
-          network-policy/egress-world: "true"
-          network-policy/egress-dns: "true"
       script:
         image: python:3.12-slim
         command: [python3]
@@ -45,50 +41,74 @@ spec:
               "application/vnd.docker.distribution.manifest.v2+json",
           ])
 
+          def log(msg): print(msg, flush=True)
+
           def api_get(url, accept=None):
               req = urllib.request.Request(url)
               if accept:
                   req.add_header("Accept", accept)
+              log(f"  GET {url}")
               with urllib.request.urlopen(req) as r:
                   return dict(r.headers), json.loads(r.read())
 
-          print(f"Fetching tags for {IMAGE}")
+          log("=" * 60)
+          log(f"Registry : {REGISTRY}")
+          log(f"Image    : {IMAGE}")
+          log(f"Retain   : {RETAIN} most recent tag(s)")
+          log("=" * 60)
+
+          log(f"\n[1/3] Listing tags for {IMAGE} ...")
           _, body = api_get(f"{REGISTRY}/v2/{IMAGE}/tags/list")
           tags = body.get("tags") or []
-          print(f"Found {len(tags)} tag(s): {', '.join(tags)}")
+          log(f"Found {len(tags)} tag(s): {', '.join(tags) if tags else '(none)'}")
 
-          if len(tags) <= RETAIN:
-              print(f"Only {len(tags)} tag(s) <= retain {RETAIN}, nothing to delete")
+          if not tags:
+              log("No tags found, nothing to do.")
               sys.exit(0)
 
+          if len(tags) <= RETAIN:
+              log(f"\n{len(tags)} tag(s) present, retain={RETAIN} — nothing to delete.")
+              sys.exit(0)
+
+          log(f"\n[2/3] Fetching creation timestamps for {len(tags)} tag(s) ...")
           entries = []
-          for tag in tags:
+          for i, tag in enumerate(tags, 1):
+              log(f"  [{i}/{len(tags)}] {tag}")
               headers, manifest = api_get(f"{REGISTRY}/v2/{IMAGE}/manifests/{tag}", ACCEPT)
               digest = headers.get("Docker-Content-Digest", "")
               if "config" not in manifest:
-                  print(f"  {tag}: manifest list or unsupported format, treating as oldest")
+                  log(f"    -> manifest list or unsupported format, will treat as oldest")
                   entries.append(("", tag, digest))
                   continue
               config_digest = manifest["config"]["digest"]
               _, config = api_get(f"{REGISTRY}/v2/{IMAGE}/blobs/{config_digest}")
-              created = config.get("created", "")
-              print(f"  {tag}: created={created}")
+              created = config.get("created", "(unknown)")
+              log(f"    -> created: {created}  digest: {digest[:32]}...")
               entries.append((created, tag, digest))
 
           entries.sort()
-          to_delete = entries[: max(0, len(entries) - RETAIN)]
-          print(f"\nDeleting {len(to_delete)} old tag(s), keeping {RETAIN} most recent")
+          log(f"\nSorted order (oldest first):")
+          for created, tag, digest in entries:
+              log(f"  {created or '(unknown)':35s}  {tag}")
 
-          for created, tag, digest in to_delete:
-              print(f"Deleting {IMAGE}:{tag} ({digest[:20]}...)")
+          to_keep   = entries[-RETAIN:]
+          to_delete = entries[: max(0, len(entries) - RETAIN)]
+          log(f"\nKeeping : {[t for _, t, _ in to_keep]}")
+          log(f"Deleting: {[t for _, t, _ in to_delete]}")
+
+          log(f"\n[3/3] Deleting {len(to_delete)} tag(s) ...")
+          for idx, (created, tag, digest) in enumerate(to_delete, 1):
+              log(f"  [{idx}/{len(to_delete)}] {IMAGE}:{tag}")
+              log(f"    digest : {digest}")
+              log(f"    created: {created or '(unknown)'}")
               req = urllib.request.Request(
                   f"{REGISTRY}/v2/{IMAGE}/manifests/{digest}", method="DELETE"
               )
               try:
                   urllib.request.urlopen(req)
-                  print("  Deleted.")
+                  log(f"    -> Deleted.")
               except urllib.error.HTTPError as e:
-                  print(f"  Error: HTTP {e.code} {e.reason}")
+                  log(f"    -> Error: HTTP {e.code} {e.reason}")
                   sys.exit(1)
 
-          print("\nDone.")
+          log(f"\nDone. Deleted {len(to_delete)} tag(s), kept {len(to_keep)} most recent.")
