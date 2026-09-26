@@ -23,6 +23,11 @@ spec:
             value: "10"
           - name: registryUrl
             value: "https://docker-registry.hankeln.work"
+      metadata:
+        labels:
+          network-policy/egress-dns: "true"
+          network-policy/egress-world: "true"
+          network-policy/egress-ingress-controller: "true"
       script:
         image: python:3.12-slim
         command: [python3]
