@@ -29,7 +29,7 @@ spec:
           network-policy/egress-world: "true"
           network-policy/egress-ingress-controller: "true"
       script:
-        image: python:3.12-slim # renovate
+        image: python:3.14-slim # renovate
         command: [python3]
         source: |
           import json
