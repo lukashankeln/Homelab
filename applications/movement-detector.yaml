@@ -57,6 +57,8 @@ spec:
             data:
               config.yaml: |
                 global:
+                  ollama_url: "http://ollama.hankeln.work:11434"
+                  ollama_model: "moondream2"
                   output_dir: /data
                   default_fps: 15.0
                   motion_threshold: 1500
