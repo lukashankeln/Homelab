@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: docker-registry-cleanup-manual
+  namespace: argo-workflows
+spec:
+  entrypoint: main
+  serviceAccountName: argo-workflow-executor
+  arguments:
+    parameters:
+      - name: image
+        value: ""
+      - name: retain
+        value: "10"
+      - name: registryUrl
+        value: "https://docker-registry.hankeln.work"
+  templates:
+    - name: main
+      steps:
+        - - name: cleanup
+            templateRef:
+              name: docker-registry-base
+              template: cleanup
+            arguments:
+              parameters:
+                - name: image
+                  value: "{{workflow.parameters.image}}"
+                - name: retain
+                  value: "{{workflow.parameters.retain}}"
+                - name: registryUrl
+                  value: "{{workflow.parameters.registryUrl}}"

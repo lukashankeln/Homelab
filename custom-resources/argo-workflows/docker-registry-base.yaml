@@ -1,0 +1,94 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: docker-registry-base
+  namespace: argo-workflows
+spec:
+  entrypoint: cleanup
+  serviceAccountName: argo-workflow-executor
+  arguments:
+    parameters:
+      - name: image
+        value: ""
+      - name: retain
+        value: "10"
+      - name: registryUrl
+        value: "https://docker-registry.hankeln.work"
+  templates:
+    - name: cleanup
+      inputs:
+        parameters:
+          - name: image
+          - name: retain
+            value: "10"
+          - name: registryUrl
+            value: "https://docker-registry.hankeln.work"
+      metadata:
+        labels:
+          network-policy/egress-world: "true"
+          network-policy/egress-dns: "true"
+      script:
+        image: python:3.12-slim
+        command: [python3]
+        source: |
+          import json
+          import sys
+          import urllib.request
+          import urllib.error
+
+          REGISTRY = "{{inputs.parameters.registryUrl}}"
+          IMAGE = "{{inputs.parameters.image}}"
+          RETAIN = int("{{inputs.parameters.retain}}")
+
+          ACCEPT = ", ".join([
+              "application/vnd.oci.image.manifest.v1+json",
+              "application/vnd.docker.distribution.manifest.v2+json",
+          ])
+
+          def api_get(url, accept=None):
+              req = urllib.request.Request(url)
+              if accept:
+                  req.add_header("Accept", accept)
+              with urllib.request.urlopen(req) as r:
+                  return dict(r.headers), json.loads(r.read())
+
+          print(f"Fetching tags for {IMAGE}")
+          _, body = api_get(f"{REGISTRY}/v2/{IMAGE}/tags/list")
+          tags = body.get("tags") or []
+          print(f"Found {len(tags)} tag(s): {', '.join(tags)}")
+
+          if len(tags) <= RETAIN:
+              print(f"Only {len(tags)} tag(s) <= retain {RETAIN}, nothing to delete")
+              sys.exit(0)
+
+          entries = []
+          for tag in tags:
+              headers, manifest = api_get(f"{REGISTRY}/v2/{IMAGE}/manifests/{tag}", ACCEPT)
+              digest = headers.get("Docker-Content-Digest", "")
+              if "config" not in manifest:
+                  print(f"  {tag}: manifest list or unsupported format, treating as oldest")
+                  entries.append(("", tag, digest))
+                  continue
+              config_digest = manifest["config"]["digest"]
+              _, config = api_get(f"{REGISTRY}/v2/{IMAGE}/blobs/{config_digest}")
+              created = config.get("created", "")
+              print(f"  {tag}: created={created}")
+              entries.append((created, tag, digest))
+
+          entries.sort()
+          to_delete = entries[: max(0, len(entries) - RETAIN)]
+          print(f"\nDeleting {len(to_delete)} old tag(s), keeping {RETAIN} most recent")
+
+          for created, tag, digest in to_delete:
+              print(f"Deleting {IMAGE}:{tag} ({digest[:20]}...)")
+              req = urllib.request.Request(
+                  f"{REGISTRY}/v2/{IMAGE}/manifests/{digest}", method="DELETE"
+              )
+              try:
+                  urllib.request.urlopen(req)
+                  print("  Deleted.")
+              except urllib.error.HTTPError as e:
+                  print(f"  Error: HTTP {e.code} {e.reason}")
+                  sys.exit(1)
+
+          print("\nDone.")
