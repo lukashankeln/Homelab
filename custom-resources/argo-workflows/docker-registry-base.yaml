@@ -54,7 +54,11 @@ spec:
                   req.add_header("Accept", accept)
               log(f"  GET {url}")
               with urllib.request.urlopen(req) as r:
-                  return dict(r.headers), json.loads(r.read())
+                  # Read digest from HTTPMessage directly — it's case-insensitive,
+                  # dict(r.headers) is not and will miss the header.
+                  digest = r.headers.get("Docker-Content-Digest", "")
+                  body = json.loads(r.read())
+              return digest, body
 
           log("=" * 60)
           log(f"Registry : {REGISTRY}")
@@ -79,8 +83,8 @@ spec:
           entries = []
           for i, tag in enumerate(tags, 1):
               log(f"  [{i}/{len(tags)}] {tag}")
-              headers, manifest = api_get(f"{REGISTRY}/v2/{IMAGE}/manifests/{tag}", ACCEPT)
-              digest = headers.get("Docker-Content-Digest", "")
+              digest, manifest = api_get(f"{REGISTRY}/v2/{IMAGE}/manifests/{tag}", ACCEPT)
+              log(f"    -> digest: {digest[:32]}..." if digest else "    -> digest: (empty!)")
               if "config" not in manifest:
                   log(f"    -> manifest list or unsupported format, will treat as oldest")
                   entries.append(("", tag, digest))
@@ -88,7 +92,7 @@ spec:
               config_digest = manifest["config"]["digest"]
               _, config = api_get(f"{REGISTRY}/v2/{IMAGE}/blobs/{config_digest}")
               created = config.get("created", "(unknown)")
-              log(f"    -> created: {created}  digest: {digest[:32]}...")
+              log(f"    -> created: {created}")
               entries.append((created, tag, digest))
 
           entries.sort()
@@ -106,6 +110,9 @@ spec:
               log(f"  [{idx}/{len(to_delete)}] {IMAGE}:{tag}")
               log(f"    digest : {digest}")
               log(f"    created: {created or '(unknown)'}")
+              if not digest:
+                  log("    -> Error: digest is empty, cannot delete. Aborting.")
+                  sys.exit(1)
               req = urllib.request.Request(
                   f"{REGISTRY}/v2/{IMAGE}/manifests/{digest}", method="DELETE"
               )
