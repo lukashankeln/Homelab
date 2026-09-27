@@ -24,6 +24,14 @@ spec:
         k8sServiceHost: localhost
         k8sServicePort: 7445
         kubeProxyReplacement: true
+        envoy:
+          enabled: false
+        socketLB:
+          hostNamespaceOnly: true
+        egressGateway:
+          enabled: false
+        bpf:
+          masquerade: true
         ipam:
           mode: kubernetes
         securityContext:
