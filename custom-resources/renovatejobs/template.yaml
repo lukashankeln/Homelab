@@ -8,8 +8,8 @@ spec:
   parallelism: 2
   resources:
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "250m"
+      memory: "1Gi"
     limits:
       cpu: "500m"
   webhook:
