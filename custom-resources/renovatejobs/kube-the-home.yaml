@@ -4,16 +4,11 @@ metadata:
   name: kube-the-home
   namespace: renovate-operator
 spec:
-  metadata:
-    labels:
-      network-policy/egress-ingress-controller: "true"
-      network-policy/egress-cluster-port-6379: "true"
-      network-policy/egress-world: "true"
-      network-policy/egress-dns: "true"
+  templateRef:
+    name: default
   schedule: "0,30 1-3 * * *"
   discoveryFilters:
     - "kube-the-home/*"
-  image: renovate/renovate:44.115.13 # renovate
   provider:
     name: github
   githubAppReference:
@@ -29,12 +24,3 @@ spec:
         secretKeyRef:
           name: kube-the-home-github-app-977470a8
           key: RENOVATE_TOKEN
-  parallelism: 2
-  resources:
-    requests:
-      cpu: "100m"
-      memory: "128Mi"
-    limits:
-      cpu: "500m"
-  webhook:
-    enabled: true

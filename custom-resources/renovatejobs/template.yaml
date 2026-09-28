@@ -1,0 +1,22 @@
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJobTemplate
+metadata:
+  name: default
+  namespace: renovate-operator
+spec:
+  image: renovate/renovate:44.115.13 # renovate
+  parallelism: 2
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+  webhook:
+    enabled: true
+  metadata:
+    labels:
+      network-policy/egress-ingress-controller: "true"
+      network-policy/egress-cluster-port-6379: "true"
+      network-policy/egress-world: "true"
+      network-policy/egress-dns: "true"

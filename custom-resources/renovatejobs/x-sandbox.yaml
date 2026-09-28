@@ -4,16 +4,11 @@ metadata:
   name: renovate-x-sandbox
   namespace: renovate-operator
 spec:
-  metadata:
-    labels:
-      network-policy/egress-ingress-controller: "true"
-      network-policy/egress-cluster-port-6379: "true"
-      network-policy/egress-world: "true"
-      network-policy/egress-dns: "true"
+  templateRef:
+    name: default
   schedule: "0 0 1 * *"
   discoveryFilters:
     - "Sandbox/*"
-  image: renovate/renovate:44.115.13 # renovate
   secretRef: "renovate-secrets"
   provider:
     name: gitea
@@ -21,15 +16,5 @@ spec:
   extraEnv:
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
-
     - name: RENOVATE_DEPENDENCY_DASHBOARD_FOOTER
       value: "- [ ] <!-- manual job -->Check this box to trigger a request for Renovate to run again on this repository"
-  parallelism: 2
-  resources:
-    requests:
-      cpu: "100m"
-      memory: "128Mi"
-    limits:
-      cpu: "500m"
-  webhook:
-    enabled: true

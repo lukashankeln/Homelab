@@ -4,19 +4,14 @@ metadata:
   name: lukashankeln
   namespace: renovate-operator
 spec:
-  metadata:
-    labels:
-      network-policy/egress-ingress-controller: "true"
-      network-policy/egress-cluster-port-6379: "true"
-      network-policy/egress-world: "true"
-      network-policy/egress-dns: "true"
+  templateRef:
+    name: default
   schedule: "30 3,4 * * *"
   discoveryFilters:
     - lukashankeln/Commandline.Runner
     - lukashankeln/dotfiles
     - lukashankeln/glint
     - lukashankeln/mogenius-argocd
-  image: renovate/renovate:44.115.13 # renovate
   provider:
     name: github
   skipForks: true
@@ -35,12 +30,3 @@ spec:
         secretKeyRef:
           name: lukashankeln-github-app-6d375865
           key: RENOVATE_TOKEN
-  parallelism: 2
-  resources:
-    requests:
-      cpu: "100m"
-      memory: "128Mi"
-    limits:
-      cpu: "500m"
-  webhook:
-    enabled: true
