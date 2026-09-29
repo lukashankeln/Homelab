@@ -1,0 +1,154 @@
+apiVersion: mogenius.com/v1alpha1
+kind: UIConfig
+metadata:
+  name: renovatejob.renovate-operator.mogenius.com
+spec:
+  displayName: Renovate Job
+  isCustomized: true
+  reference:
+    apiVersion: renovate-operator.mogenius.com/v1alpha1
+    kind: RenovateJob
+  schema:
+    sections:
+      - label: Metadata
+        fields:
+          - key: metadata.name
+            label: Name
+            type: string
+            required: true
+          - key: metadata.namespace
+            label: Namespace
+            type: string
+            required: true
+            default: renovate-operator
+
+      - label: Job Configuration
+        description: Core settings for this Renovate job
+        fields:
+          - key: spec.templateRef.name
+            label: Template
+            type: string
+            required: true
+            default: default
+            description: Name of the RenovateJobTemplate to use
+          - key: spec.schedule
+            label: Schedule
+            type: string
+            required: true
+            description: "Cron expression for when to run (e.g. \"0 6-23 * * *\")"
+          - key: spec.discoveryFilters
+            label: Discovery Filters
+            type: array
+            description: "Repository patterns to scan (e.g. \"Hankeln/*\" or \"org/repo\")"
+          - key: spec.skipForks
+            label: Skip Forks
+            type: boolean
+            default: false
+            description: Exclude forked repositories from discovery
+
+      - label: Provider
+        description: Git provider connection settings
+        fields:
+          - key: spec.provider.name
+            label: Provider
+            type: string
+            required: true
+            enum:
+              - gitea
+              - github
+          - key: spec.provider.endpoint
+            label: Endpoint URL
+            type: string
+            description: "API base URL for self-hosted providers (e.g. https://git.hankeln.work)"
+          - key: spec.secretRef
+            label: Secret Reference
+            type: string
+            description: Kubernetes secret holding provider credentials (token-based auth)
+
+      - label: GitHub App Authentication
+        description: GitHub App credentials (alternative to secretRef for GitHub)
+        fields:
+          - key: spec.githubAppReference.secretName
+            label: Secret Name
+            type: string
+          - key: spec.githubAppReference.appIdSecretKey
+            label: App ID Key
+            type: string
+            default: APP_ID
+          - key: spec.githubAppReference.installationIdSecretKey
+            label: Installation ID Key
+            type: string
+            default: INSTALL_ID
+          - key: spec.githubAppReference.pemSecretKey
+            label: PEM Key
+            type: string
+            default: PEM
+
+      - label: Image
+        description: Override the Renovate container image from the template
+        fields:
+          - key: spec.image
+            label: Image
+            type: string
+            description: "Full image reference including tag (e.g. renovate/renovate:44.115.13)"
+
+      - label: Scaling
+        fields:
+          - key: spec.parallelism
+            label: Parallelism
+            type: integer
+            description: Override the maximum number of concurrent jobs from the template
+
+      - label: Resources
+        description: Override CPU and memory requests/limits from the template
+        fields:
+          - key: spec.resources.requests.cpu
+            label: CPU Request
+            type: string
+          - key: spec.resources.requests.memory
+            label: Memory Request
+            type: string
+          - key: spec.resources.limits.cpu
+            label: CPU Limit
+            type: string
+          - key: spec.resources.limits.memory
+            label: Memory Limit
+            type: string
+
+      - label: Webhook
+        fields:
+          - key: spec.webhook.enabled
+            label: Enabled
+            type: boolean
+          - key: spec.webhook.sync.enabled
+            label: Sync Enabled
+            type: boolean
+            description: Keep webhook events in sync with job runs
+
+      - label: Environment Variables
+        description: Extra environment variables injected into the Renovate container
+        fields:
+          - key: spec.extraEnv
+            label: Extra Env
+            type: objectArray
+            fields:
+              - key: name
+                label: Name
+                type: string
+                required: true
+              - key: value
+                label: Value
+                type: string
+              - key: valueFrom.secretKeyRef.name
+                label: Secret Name
+                type: string
+              - key: valueFrom.secretKeyRef.key
+                label: Secret Key
+                type: string
+
+      - label: Pod Labels
+        description: Labels applied to the pods spawned by this job
+        fields:
+          - key: spec.metadata.labels
+            label: Labels
+            type: map
