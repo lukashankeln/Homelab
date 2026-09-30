@@ -1,0 +1,115 @@
+apiVersion: mogenius.com/v1alpha1
+kind: UIConfig
+metadata:
+  name: application.argoproj.io
+spec:
+  displayName: ArgoCD Application
+  isCustomized: true
+  reference:
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+  schema:
+    sections:
+      - label: Metadata
+        fields:
+          - key: metadata.name
+            label: Name
+            type: string
+            required: true
+          - key: metadata.namespace
+            label: Namespace
+            type: string
+            required: true
+            default: argocd
+          - key: metadata.finalizers
+            label: Finalizers
+            type: array
+            default:
+              - resources-finalizers.argocd.argoproj.io
+
+      - label: Project
+        fields:
+          - key: spec.project
+            label: Project
+            type: string
+            required: true
+            default: hankeln
+          - key: spec.revisionHistoryLimit
+            label: Revision History Limit
+            type: integer
+            default: 1
+
+      - label: Destination
+        fields:
+          - key: spec.destination.name
+            label: Cluster
+            type: string
+            required: true
+            default: in-cluster
+          - key: spec.destination.namespace
+            label: Namespace
+            type: string
+            required: true
+
+      - label: Source
+        fields:
+          - key: spec.source.repoURL
+            label: Repository URL
+            type: string
+            required: true
+            description: Helm repo URL, OCI reference, or Git repository URL
+          - key: spec.source.targetRevision
+            label: Target Revision
+            type: string
+            required: true
+            description: Chart version (Helm) or branch/tag/commit (Git)
+          - key: spec.source.chart
+            label: Chart
+            type: string
+            description: Helm chart name (leave empty for Git sources)
+          - key: spec.source.path
+            label: Path
+            type: string
+            description: Path within the Git repository (leave empty for Helm sources)
+          - key: spec.source.helm.releaseName
+            label: Release Name
+            type: string
+            description: Helm release name override (defaults to the Application name)
+
+      - label: Helm Values
+        description: Helm values passed as a structured object (spec.source.helm.valuesObject)
+        fields:
+          - key: spec.source.helm.valuesObject
+            label: Values
+            type: yaml
+
+      - label: Sync Policy
+        fields:
+          - key: spec.syncPolicy.automated.prune
+            label: Prune
+            type: boolean
+            default: true
+            description: Delete resources that are no longer in Git
+          - key: spec.syncPolicy.automated.allowEmpty
+            label: Allow Empty
+            type: boolean
+            default: true
+            description: Allow pruning all resources from a namespace
+          - key: spec.syncPolicy.automated.selfHeal
+            label: Self Heal
+            type: boolean
+            description: Revert out-of-band changes to match Git
+          - key: spec.syncPolicy.syncOptions
+            label: Sync Options
+            type: array
+            options:
+              - label: Server-Side Apply
+                value: "ServerSideApply=true"
+              - label: Create Namespace
+                value: "CreateNamespace=true"
+              - label: Apply Out-Of-Sync Only
+                value: "ApplyOutOfSyncOnly=true"
+              - label: Respect Ignore Differences
+                value: "RespectIgnoreDifferences=true"
+              - label: Prune Last
+                value: "PruneLast=true"
