@@ -102,18 +102,9 @@ spec:
       - label: Resources
         description: Override CPU and memory requests/limits from the template
         fields:
-          - key: spec.resources.requests.cpu
-            label: CPU Request
-            type: string
-          - key: spec.resources.requests.memory
-            label: Memory Request
-            type: string
-          - key: spec.resources.limits.cpu
-            label: CPU Limit
-            type: string
-          - key: spec.resources.limits.memory
-            label: Memory Limit
-            type: string
+          - key: spec.resources
+            label: Resources
+            type: resources
 
       - label: Webhook
         fields:
@@ -132,19 +123,7 @@ spec:
             label: Extra Env
             type: objectArray
             fields:
-              - key: name
-                label: Name
-                type: string
-                required: true
-              - key: value
-                label: Value
-                type: string
-              - key: valueFrom.secretKeyRef.name
-                label: Secret Name
-                type: string
-              - key: valueFrom.secretKeyRef.key
-                label: Secret Key
-                type: string
+              - type: envVar
 
       - label: Pod Labels
         description: Labels applied to the pods spawned by this job

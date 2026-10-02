@@ -113,20 +113,9 @@ spec:
       - label: Resources
         description: CPU and memory requests/limits for PostgreSQL pods
         fields:
-          - key: spec.resources.requests.cpu
-            label: CPU Request
-            type: string
-            required: true
-          - key: spec.resources.requests.memory
-            label: Memory Request
-            type: string
-            required: true
-          - key: spec.resources.limits.cpu
-            label: CPU Limit
-            type: string
-          - key: spec.resources.limits.memory
-            label: Memory Limit
-            type: string
+          - key: spec.resources
+            label: Resources
+            type: resources
 
       - label: Storage
         fields:
