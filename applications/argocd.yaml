@@ -60,7 +60,7 @@ spec:
               cpu: 70m
               memory: 120Mi
             limits:
-              cpu: 100m
+              cpu: 250m
         controller:
           resources:
             requests:
