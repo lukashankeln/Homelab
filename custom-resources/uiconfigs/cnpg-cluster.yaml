@@ -114,7 +114,7 @@ spec:
         description: CPU and memory requests/limits for PostgreSQL pods
         fields:
           - key: spec.resources
-            label: Resources
+            label: Requests & Limits
             type: resources
 
       - label: Storage

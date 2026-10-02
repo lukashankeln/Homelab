@@ -44,7 +44,7 @@ spec:
         description: CPU and memory requests/limits for Renovate pods
         fields:
           - key: spec.resources
-            label: Resources
+            label: Requests & Limits
             type: resources
 
       - label: Webhook

@@ -103,7 +103,7 @@ spec:
         description: Override CPU and memory requests/limits from the template
         fields:
           - key: spec.resources
-            label: Resources
+            label: Requests & Limits
             type: resources
 
       - label: Webhook
