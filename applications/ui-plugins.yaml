@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mogenius-ui-plugins
+  namespace: argocd
+  finalizers:
+    - resources-finalizers.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 0
+  destination:
+    name: in-cluster
+    namespace: mogenius
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+  sources:
+    - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-ui-kubernetes
+      targetRevision: 0.2.1 # datasource=docker depName=ghcr.io/mogenius/helm-charts/mogenius-ui-kubernetes
+      path: .
+    - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-argocd
+      targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-argocd
+      path: .
+    - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-renovate-operator
+      targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-renovate-operator
+      path: .
+    - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-cnpg
+      targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-cnpg
+      path: .
+    - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-external-secrets
+      targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-external-secrets
+      path: .
