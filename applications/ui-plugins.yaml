@@ -29,5 +29,5 @@ spec:
       targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-cnpg
       path: .
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-external-secrets
-      targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-external-secrets
+      targetRevision: 0.3.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-external-secrets
       path: .
