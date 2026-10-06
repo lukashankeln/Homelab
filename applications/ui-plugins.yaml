@@ -20,7 +20,7 @@ spec:
       targetRevision: 0.3.0 # datasource=docker depName=ghcr.io/mogenius/helm-charts/mogenius-ui-kubernetes
       path: .
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-argocd
-      targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-argocd
+      targetRevision: 0.3.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-argocd
       path: .
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-renovate-operator
       targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-renovate-operator
