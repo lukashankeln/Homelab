@@ -17,17 +17,17 @@ spec:
       allowEmpty: true
   sources:
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-ui-kubernetes
-      targetRevision: 0.3.0 # datasource=docker depName=ghcr.io/mogenius/helm-charts/mogenius-ui-kubernetes
+      targetRevision: 0.3.0
       path: .
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-argocd
-      targetRevision: 0.3.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-argocd
+      targetRevision: 0.3.0
       path: .
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-renovate-operator
-      targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-renovate-operator
+      targetRevision: 0.2.0
       path: .
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-cnpg
-      targetRevision: 0.3.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-cnpg
+      targetRevision: 0.3.0
       path: .
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-external-secrets
-      targetRevision: 0.3.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-external-secrets
+      targetRevision: 0.3.0
       path: .
