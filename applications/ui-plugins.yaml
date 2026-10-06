@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   sources:
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-ui-kubernetes
-      targetRevision: 0.2.1 # datasource=docker depName=ghcr.io/mogenius/helm-charts/mogenius-ui-kubernetes
+      targetRevision: 0.3.0 # datasource=docker depName=ghcr.io/mogenius/helm-charts/mogenius-ui-kubernetes
       path: .
     - repoURL: oci://ghcr.io/mogenius/helm-charts/mogenius-integration-argocd
       targetRevision: 0.2.0 # datasource=docker depName=ghcr.io/mogenius/helm-chartsmogenius-integration-argocd
