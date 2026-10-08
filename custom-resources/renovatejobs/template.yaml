@@ -4,7 +4,7 @@ metadata:
   name: default
   namespace: renovate-operator
 spec:
-  image: renovate/renovate:44.148.2 # renovate
+  image: renovate/renovate:44.148.3 # renovate
   parallelism: 2
   resources:
     requests:
