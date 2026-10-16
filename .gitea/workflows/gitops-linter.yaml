@@ -5,7 +5,7 @@ on:
 
 jobs:
   yamllint:
-    uses: https://git.hankeln.work/Hankeln/github-actions/.github/workflows/yamllint.yaml@e8367b3772a87e7f52b22cd22d3ae68857e1ac74 # v1.4.15
+    uses: https://git.hankeln.work/Hankeln/github-actions/.github/workflows/yamllint.yaml@3e1819e280ef4eefa50be68425cbca79b274ca6a # v1.4.16
 
   gitops-linter:
-    uses: https://git.hankeln.work/Hankeln/github-actions/.github/workflows/gitops-linter.yaml@e8367b3772a87e7f52b22cd22d3ae68857e1ac74 # v1.4.15
+    uses: https://git.hankeln.work/Hankeln/github-actions/.github/workflows/gitops-linter.yaml@3e1819e280ef4eefa50be68425cbca79b274ca6a # v1.4.16
