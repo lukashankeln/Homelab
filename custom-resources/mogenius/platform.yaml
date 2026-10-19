@@ -11,5 +11,5 @@ spec:
       chart:
         name: argocd
         namespace: argocd
-    agentSandboxes:
-      enabled: true
+  agentSandboxes:
+    enabled: true
