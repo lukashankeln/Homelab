@@ -20,3 +20,11 @@ repos:
       - id: conventional-pre-commit
         stages: [commit-msg]
         args: []
+
+  - repo: https://github.com/lukashankeln/glint
+    rev: v0.2.7
+    hooks:
+      - id: glint
+        args:
+          - --config
+          - ./glint.yaml
