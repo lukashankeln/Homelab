@@ -1,0 +1,79 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: uzi
+  namespace: argocd
+  finalizers:
+    - resources-finalizers.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: uzi
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - ServerSideApply=true
+  source:
+    repoURL: oci://ghcr.io/vtmocanu/uzi/uzi
+    targetRevision: 0.86.0-rc.19
+    path: .
+    helm:
+      valuesObject:
+        secrets:
+          mode: existing
+
+        api:
+          config:
+            FRONTEND_ORIGIN: https://uzi.hankeln.work
+            # The web pods' own pod-CIDR (Talos default, .talos/controlplane.yaml):
+            # web nginx is the only reverse proxy in front of the api, so this is all
+            # that must be trusted for X-Forwarded-For.
+            TRUSTED_PROXIES: "10.244.0.0/16"
+          # Off: this is a single-tenant homelab cluster (every workload is mine), not
+          # a shared multi-tenant cluster where another pod could spoof X-Forwarded-For
+          # by hitting the api Service directly. Enabling it correctly also needs the
+          # Talos node InternalIP CIDR in probeCIDRs (cluster-dependent, unconfirmed
+          # here for Cilium's probe-traffic exemption) or the api can fail kubelet
+          # startup probes.
+          networkPolicy:
+            enabled: false
+          # Required at boot; optional one-time admin + Claude OAuth seed. All four
+          # keys come from custom-resources/external-secrets/uzi.yaml (vault key /uzi).
+          secretEnv:
+            JWT_SECRET: JWT_SECRET
+            UZI_SECRET_KEY: UZI_SECRET_KEY
+            UZI_SEED_EMAIL: UZI_SEED_EMAIL
+            UZI_SEED_PASSWORD: UZI_SEED_PASSWORD
+            UZI_SEED_NAME: UZI_SEED_NAME
+            UZI_SEED_ANTHROPIC_TOKEN: UZI_SEED_ANTHROPIC_TOKEN
+
+        web:
+          ingress:
+            enabled: false
+          httpRoute:
+            enabled: true
+            hostnames:
+              - uzi.hankeln.work
+            parentRefs:
+              - name: cilium-gateway
+                namespace: cilium
+
+        # CloudNativePG, bundled as a subchart dependency of this chart (single
+        # replica, dev-cluster-style sizing — this is a homelab, not an HA deploy).
+        database:
+          mode: cnpg
+        postgres:
+          enabled: true
+          cluster:
+            instances: 1
+            # This cluster's CNPG ClusterImageCatalog (custom-resources/postgres-operator)
+            # pins the same image for major 16; kept explicit here since the chart's own
+            # default is empty.
+            imageName: ghcr.io/cloudnative-pg/postgresql:16.15
+          # No S3 target configured for this homelab yet.
+          backups:
+            enabled: false

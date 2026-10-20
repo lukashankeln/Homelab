@@ -173,3 +173,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: uzi
+      protocol: HTTPS
+      port: 443
+      hostname: uzi.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: uzi-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All

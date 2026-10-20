@@ -1,0 +1,50 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: uzi-secrets
+  namespace: uzi
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    # Required at boot (api/internal/config): JWT session signing + the
+    # secretbox master key for sealed forge/model credentials.
+    #   JWT_SECRET: openssl rand -hex 64
+    #   UZI_SECRET_KEY: openssl rand -base64 32   (must stay valid base64)
+    - remoteRef:
+        key: /uzi
+        property: JWT_SECRET
+      secretKey: JWT_SECRET
+    - remoteRef:
+        key: /uzi
+        property: UZI_SECRET_KEY
+      secretKey: UZI_SECRET_KEY
+    # Optional one-time seed admin (api/internal/config), created on first boot
+    # only. UZI_SEED_ANTHROPIC_TOKEN requires UZI_SEED_EMAIL to be set too.
+    - remoteRef:
+        key: /uzi
+        property: UZI_SEED_EMAIL
+      secretKey: UZI_SEED_EMAIL
+    - remoteRef:
+        key: /uzi
+        property: UZI_SEED_PASSWORD
+      secretKey: UZI_SEED_PASSWORD
+    - remoteRef:
+        key: /uzi
+        property: UZI_SEED_NAME
+      secretKey: UZI_SEED_NAME
+    # The seed admin's Claude credential: an OAuth token from `claude setup-token`
+    # (docs/anthropic-token.md), not a console API key requirement — either works,
+    # but this is what "use Claude via OAuth" seeds. Create-only at boot.
+    - remoteRef:
+        key: /uzi
+        property: UZI_SEED_ANTHROPIC_TOKEN
+      secretKey: UZI_SEED_ANTHROPIC_TOKEN
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    # MUST equal the chart's infisical.app.managedSecretName / the Secret the api
+    # reads via secretEnv under secrets.mode: existing (deploy/chart/values.yaml).
+    name: uzi-secrets
