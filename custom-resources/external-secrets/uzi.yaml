@@ -42,6 +42,21 @@ spec:
         key: /uzi
         property: UZI_SEED_ANTHROPIC_TOKEN
       secretKey: UZI_SEED_ANTHROPIC_TOKEN
+    # The hosted-worker controller's bearer credential pair (workers.controller.*
+    # in deploy/chart/values.yaml). BOTH values, generated together and never
+    # independently rotated (a mismatch fails the controller's polls closed):
+    #   TOKEN=$(openssl rand -base64 32)
+    #   printf '%s' "$TOKEN" | shasum -a 256
+    # UZI_CONTROLLER_TOKEN is the plaintext (mounted as a file into the controller);
+    # WORKER_HOSTING_CONTROLLER_TOKEN_SHA256 is its hex sha256 (read by the api).
+    - remoteRef:
+        key: /uzi
+        property: UZI_CONTROLLER_TOKEN
+      secretKey: UZI_CONTROLLER_TOKEN
+    - remoteRef:
+        key: /uzi
+        property: WORKER_HOSTING_CONTROLLER_TOKEN_SHA256
+      secretKey: WORKER_HOSTING_CONTROLLER_TOKEN_SHA256
   target:
     creationPolicy: Owner
     deletionPolicy: Merge

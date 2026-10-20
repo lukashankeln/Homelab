@@ -27,6 +27,13 @@ spec:
           mode: existing
 
         api:
+          # Required for hosted k8s workers below: without it they'd be admitted to
+          # the api's plaintext port, which the chart refuses outright. No internal
+          # CA exists here (the only ClusterIssuer is the public ACME one, which
+          # can't issue for a cluster-internal name), so this is left to the chart's
+          # own self-signed chain (api.tls.certManager.issuerRef empty, the default).
+          tls:
+            enabled: true
           config:
             FRONTEND_ORIGIN: https://uzi.hankeln.work
             # The web pods' own pod-CIDR (Talos default, .talos/controlplane.yaml):
@@ -77,3 +84,32 @@ spec:
           # No S3 target configured for this homelab yet.
           backups:
             enabled: false
+
+        # Hosted k8s workers: the controller (the only uzi component holding a kube
+        # credential) provisions worker pods in a dedicated uzi-workers namespace on
+        # demand, instead of running `docker compose --profile agent` on a laptop.
+        workers:
+          enabled: true
+          # This cluster's CNI is Cilium, not Antrea/OVN — the only two providers the
+          # chart's FQDN egress allowlist (worker-fqdn-egress.yaml) supports. Without
+          # that mechanism, the chart's own CNI-independent default-deny floor would
+          # leave workers able to reach only DNS + the api — no Anthropic, no git
+          # remote, nothing. Turning the floor off gives workers the same
+          # unrestricted egress every other workload in this single-tenant cluster
+          # already has (nothing else here is fenced either); fqdnEgress stays off
+          # too since it would render nothing useful on this CNI anyway.
+          networkPolicy:
+            enabled: false
+          # This is a 3-node homelab (16GB RAM each), not dev-cluster: the chart's
+          # default quota (20 CPU / 280Gi mem, sized for 20 largest-preset `l`
+          # workers) would vastly oversubscribe it. Sized here for 2 worst-case `l`
+          # workers (14Gi mem / 50Gi data + 20Gi nix each) — enough headroom for a
+          # roll without blocking it — not a reservation, just the admission ceiling.
+          # In practice, request size `s` or `m` workers given the hardware.
+          quota:
+            enabled: true
+            requestsCPU: "2"
+            requestsMemory: 8Gi
+            requestsStorage: 10Gi
+            persistentVolumeClaims: "2"
+            deployments: "2"
