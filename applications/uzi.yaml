@@ -110,6 +110,6 @@ spec:
             enabled: true
             requestsCPU: "2"
             requestsMemory: 8Gi
-            requestsStorage: 10Gi
+            requestsStorage: 50Gi
             persistentVolumeClaims: "2"
             deployments: "2"
