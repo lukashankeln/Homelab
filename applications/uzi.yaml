@@ -19,7 +19,7 @@ spec:
       - ServerSideApply=true
   source:
     repoURL: oci://ghcr.io/vtmocanu/uzi/uzi
-    targetRevision: 0.86.0-rc.19
+    targetRevision: 0.85.2
     path: .
     helm:
       valuesObject:
