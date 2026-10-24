@@ -17,7 +17,7 @@ spec:
       allowEmpty: true
   source:
     repoURL: oci://ghcr.io/tibuntu/charts/homeassistant-kubernetes-rbac
-    targetRevision: 1.13.5
+    targetRevision: 1.13.6
     path: .
     helm:
       valuesObject: {}
