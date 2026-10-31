@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "local>bot/renovate",
+    "local>bot/renovate//presets/components/pre-commit.json",
     "github>mogenius/renovate-config//presets/platform-config.json#main"
   ],
   "customManagers": [
