@@ -137,9 +137,9 @@ spec:
                         href: https://motion.hankeln.work
                         description: NVR / motion detection
                         icon: motioneye.png
-                    - Homelab Agent:
-                        href: https://agent.hankeln.work
-                        description: AI coding agent
+                    - UZI:
+                        href: https://uzi.hankeln.work
+                        description: AI dark factory
                         icon: claude-ai.png
                 - Home Automation:
                     - NAS:
