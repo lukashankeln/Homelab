@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-path-provisioner
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: local-path-provisioner
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    repoURL: https://github.com/rancher/local-path-provisioner
+    targetRevision: v0.0.37
+    path: deploy/chart/local-path-provisioner
+    helm:
+      valuesObject:
+        storageClass:
+          # nfs-provisioner's "nfs-client" is already the cluster default; this class
+          # exists only for workloads that explicitly ask for local-disk semantics
+          # (e.g. uzi workers: applications/uzi.yaml sets workers.storageClass).
+          defaultClass: false
+        # Talos' root filesystem is a read-only overlay; the chart's own default
+        # (/opt/local-path-provisioner) isn't writable or persistent there. /var is
+        # the EPHEMERAL partition, which does survive reboots, so volumes live under it.
+        # Single-disk nodes (no spare NVMe for a dedicated Talos UserVolumeConfig), so
+        # this is a plain subdirectory rather than a dedicated volume/partition.
+        nodePathMap:
+          - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
+            paths:
+              - /var/local-path-provisioner

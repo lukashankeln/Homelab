@@ -90,6 +90,11 @@ spec:
         # demand, instead of running `docker compose --profile agent` on a laptop.
         workers:
           enabled: true
+          # Workers' own "authority storage" refuses to start on NFS (requires a local
+          # ext4/XFS filesystem) - the cluster default StorageClass is nfs-client, so
+          # this must be pinned to the local-path-provisioner class instead
+          # (applications/local-path-provisioner.yaml).
+          storageClass: local-path
           # This cluster's CNI is Cilium, not Antrea/OVN — the only two providers the
           # chart's FQDN egress allowlist (worker-fqdn-egress.yaml) supports. Without
           # that mechanism, the chart's own CNI-independent default-deny floor would
