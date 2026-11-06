@@ -22,7 +22,7 @@ repos:
         args: []
 
   - repo: https://github.com/lukashankeln/glint
-    rev: v0.3.0
+    rev: v0.3.1
     hooks:
       - id: glint
         args:
