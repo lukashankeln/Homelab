@@ -7,11 +7,12 @@ spec:
   templateRef:
     name: default
   schedule: "30 3,4 * * *"
-  discoverTopics:
-    - renovate-enabled
   discoveryFilters:
     - lukashankeln/Commandline.Runner
+    - lukashankeln/shardfall
+    - lukashankeln/dotfiles
     - lukashankeln/glint
+    - lukashankeln/mogenius-argocd
   provider:
     name: github
   skipForks: true
