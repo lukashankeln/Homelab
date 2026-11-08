@@ -12,6 +12,10 @@ render:
   subprocess_fallback: false
 
 rules:
+  catalogs:
+    cis:
+      enabled: true
+      severity: warning
   built_in:
     no_latest_tag:
       enabled: true

@@ -4,8 +4,9 @@
     "local>bot/renovate",
     "local>bot/renovate//presets/components/pre-commit.json",
     "local>bot/renovate//presets/components/pre-commit.json",
-    "github>mogenius/renovate-config//presets/features/automerge-minor.json#main",
-    "github>mogenius/renovate-config//presets/features/automerge-patch.json#main"
+    "local>bot/renovate//presets/features/automerge-minor.json#main",
+    "local>bot/renovate//presets/features/automerge-patch.json#main",
+    "github>mogenius/renovate-config//presets/platform-config.json#main"
   ],
   "customManagers": [
     {
