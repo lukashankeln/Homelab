@@ -15,7 +15,6 @@ rules:
   catalogs:
     cis:
       enabled: true
-      severity: warning
   built_in:
     no_latest_tag:
       enabled: true
@@ -26,7 +25,63 @@ rules:
     deprecated_apis:
       enabled: true
       severity: error
-  exceptions: []
+  exceptions:
+    - rule: cis-5.2.12-hostpath-volumes
+      resources:
+        - kind: DaemonSet
+          namespace: cilium
+          name: cilium
+          reason: "Cilium CNI requires hostPath access to manage node networking"
+        - kind: DaemonSet
+          namespace: cilium
+          name: cilium-envoy
+          reason: "Cilium Envoy requires hostPath access to manage node networking"
+        - kind: DaemonSet
+          namespace: kube-prometheus-stack
+          name: kube-prometheus-stack-prometheus-node-exporter
+          reason: "node-exporter requires hostPath access to read host metrics"
+        - kind: DaemonSet
+          namespace: mogenius
+          name: mogenius-operator-node-metrics
+          reason: "mogenius node-metrics requires hostPath access to read host metrics"
+    - rule: cis-5.2.2-privileged-containers
+      resources:
+        - kind: DaemonSet
+          namespace: cilium
+          name: cilium
+          reason: "Cilium CNI requires privileged access to configure node networking"
+        - kind: StatefulSet
+          namespace: gitea
+          name: gitea-actions-runner
+          reason: "Gitea Actions runner requires privileged access to run CI jobs"
+    - rule: cis-5.2.5-host-network
+      resources:
+        - kind: DaemonSet
+          namespace: cilium
+          name: cilium
+          reason: "Cilium CNI requires host network access to manage node networking"
+        - kind: DaemonSet
+          namespace: cilium
+          name: cilium-envoy
+          reason: "Cilium Envoy requires host network access to manage node networking"
+        - kind: Deployment
+          namespace: cilium
+          name: cilium-operator
+          reason: "Cilium operator requires host network access to manage node networking"
+        - kind: DaemonSet
+          namespace: kube-prometheus-stack
+          name: kube-prometheus-stack-prometheus-node-exporter
+          reason: "node-exporter requires host network access to read host metrics"
+        - kind: DaemonSet
+          namespace: mogenius
+          name: mogenius-operator-node-metrics
+          reason: "mogenius node-metrics requires host network access to read host metrics"
+    - rule: cis-5.2.3-host-pid
+      resources:
+        - kind: DaemonSet
+          namespace: kube-prometheus-stack
+          name: kube-prometheus-stack-prometheus-node-exporter
+          reason: "node-exporter requires host PID namespace to read host process metrics"
   custom: []
     # - id: renovate-node-selector
     #   description: "RenovateJobs must have a node selector to ensure they run on the correct node"
