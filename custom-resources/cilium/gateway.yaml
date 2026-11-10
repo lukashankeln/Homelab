@@ -162,3 +162,36 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: alertmanager
+      protocol: HTTPS
+      port: 443
+      hostname: alertmanager.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: alertmanager-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: grafana
+      protocol: HTTPS
+      port: 443
+      hostname: grafana.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: grafana-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: prometheus
+      protocol: HTTPS
+      port: 443
+      hostname: prometheus.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: prometheus-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All

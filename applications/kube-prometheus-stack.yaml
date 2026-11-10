@@ -36,15 +36,13 @@ spec:
       releaseName: kube-prometheus-stack
       valuesObject:
         alertmanager:
-          ingress:
-            enabled: true
-            ingressClassName: nginx
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-            hosts: [alertmanager.hankeln.work]
-            tls:
-              - secretName: alertmanager-cert
-                hosts: [alertmanager.hankeln.work]
+          route:
+            main:
+              enabled: true
+              parentRefs:
+                - name: cilium-gateway
+                  namespace: cilium
+              hostnames: [alertmanager.hankeln.work]
           alertmanagerSpec:
             configSecret: alertmanager
             logFormat: json
@@ -113,15 +111,13 @@ spec:
             userKey: user
             passwordKey: password
           defaultDashboardsTimezone: cet
-          ingress:
-            enabled: true
-            ingressClassName: nginx
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-            hosts: [grafana.hankeln.work]
-            tls:
-              - secretName: grafana-cert
-                hosts: [grafana.hankeln.work]
+          route:
+            main:
+              enabled: true
+              parentRefs:
+                - name: cilium-gateway
+                  namespace: cilium
+              hostnames: [grafana.hankeln.work]
           grafana.ini:
             server:
               root_url: https://grafana.hankeln.work
@@ -133,15 +129,13 @@ spec:
               format: json
               level: warn
         prometheus:
-          ingress:
-            enabled: true
-            ingressClassName: nginx
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-            hosts: [prometheus.hankeln.work]
-            tls:
-              - secretName: prometheus-cert
-                hosts: [prometheus.hankeln.work]
+          route:
+            main:
+              enabled: true
+              parentRefs:
+                - name: cilium-gateway
+                  namespace: cilium
+              hostnames: [prometheus.hankeln.work]
           prometheusSpec:
             resources:
               requests:
