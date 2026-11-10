@@ -16,15 +16,19 @@ spec:
       prune: true
       allowEmpty: true
   source:
-    repoURL: https://kube-the-home.github.io/too-restful-api/
-    targetRevision: 1.0.7
-    chart: too-restful-api
+    repoURL: https://kube-the-home.github.io/generic-helm/
+    targetRevision: 2.7.0
+    chart: generic
     helm:
       valuesObject:
+        image:
+          registry: docker.io
+          repository: nginx/nginx-unprivileged
+          tag: 1.31.8
         application:
-          labels:
-            network-policy/ingress-cluster-port-8080: "true"
-            network-policy/ingress-port: "8080"
+          port: 8080
+          probe:
+            path: /alive
         route:
           enabled: true
           parentRefs:
@@ -32,6 +36,43 @@ spec:
               namespace: cilium
           hostnames:
             - json.hankeln.work
+        configMaps:
+          - name: html
+            mountPath: /usr/share/nginx/html
+            data:
+              dotnet-version.json: |
+                {
+                  "releases": [
+                    {
+                      "version" : "8.0"
+                    },
+                    {
+                      "version" : "9.0"
+                    },
+                    {
+                      "version" : "10.0"
+                    }
+                  ]
+                }
+          - name: nginx-conf
+            mountPath: /etc/nginx/conf.d
+            data:
+              default.conf: |
+                server {
+                    listen 8080;
+                    server_name _;
+
+                    root /usr/share/nginx/html;
+
+                    location /alive {
+                        default_type text/plain;
+                        return 200 "alive";
+                    }
+
+                    location / {
+                        try_files $uri $uri/ =404;
+                    }
+                }
         resources:
           requests:
             memory: "25Mi"
@@ -39,5 +80,23 @@ spec:
           limits:
             memory: "50Mi"
             cpu: "20m"
-        additionalItems:
-          - dev-api-configmap
+        securityContext:
+          pod:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          container:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+        volumeMounts:
+          - name: tmp
+            mountPath: /tmp
+        volumes:
+          - name: tmp
+            emptyDir: {}
