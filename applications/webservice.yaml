@@ -24,7 +24,7 @@ spec:
         image:
           registry: docker-registry.hankeln.work
           repository: webservice/server
-          tag: 4.1.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
+          tag: 4.1.1 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
         persistence:
           enabled: true
           mountPath: /pdf
@@ -90,6 +90,13 @@ spec:
                 name: postgres-connection
                 key: PostgresConnectionString
         securityContext:
+          pod:
+            runAsNonRoot: true
+            runAsUser: 1654
+            runAsGroup: 1654
+            fsGroup: 1654
+            seccompProfile:
+              type: RuntimeDefault
           container:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
@@ -97,8 +104,6 @@ spec:
             capabilities:
               drop:
                 - ALL
-            seccompProfile:
-              type: RuntimeDefault
         volumeMounts:
           - name: obsidian
             mountPath: /vault
@@ -111,7 +116,7 @@ spec:
             emptyDir: {}
         initContainers:
           - name: migrations
-            image: docker-registry.hankeln.work/webservice/migrations:4.1.0 # renovate
+            image: docker-registry.hankeln.work/webservice/migrations:4.1.1 # renovate
             env:
               # OTEL
               - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES
