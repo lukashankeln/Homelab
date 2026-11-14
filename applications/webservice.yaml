@@ -69,7 +69,7 @@ spec:
 
           # Obsidian
           - name: WebService__ApplicationOptions__ObsidianPath
-            value: /vault
+            value: /vault/notes
           - name: WebService__ApplicationOptions__ObsidianGitToken
             valueFrom:
               secretKeyRef:
