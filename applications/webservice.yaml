@@ -24,7 +24,7 @@ spec:
         image:
           registry: docker-registry.hankeln.work
           repository: webservice/server
-          tag: 4.0.4 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
+          tag: 4.1.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
         persistence:
           enabled: true
           mountPath: /pdf
@@ -66,20 +66,21 @@ spec:
             value: "Information"
           - name: Logging__LogLevel__Microsoft.AspNetCore
             value: "Warning"
-          # OTEL
-          - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES
-            value: "true"
-          - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES
-            value: "true"
-          - name: OTEL_EXPORTER_OTLP_ENDPOINT
-            value: "http://aspire-dashboard-otlp.aspire-dashboard.svc.cluster.local:8080"
-          - name: OTEL_SERVICE_NAME
-            value: "prod:WebService.Server"
-          - name: OTEL_EXPORTER_OTLP_HEADERS
-            value: "x-otlp-api-key=aspire"
+
           # Obsidian
-          - name: OBSIDIAN_PATH
-            value: /vault  # can be overridden
+          - name: WebService__ApplicationOptions__ObsidianPath
+            value: /vault
+          - name: WebService__ApplicationOptions__ObsidianGitToken
+            valueFrom:
+              secretKeyRef:
+                name: git-credentials
+                key: GIT_TOKEN
+          - name: WebService__ApplicationOptions__ObsidianGitRepositoryUrl
+            valueFrom:
+              secretKeyRef:
+                name: git-credentials
+                key: GIT_URL
+          # pdf storage
           - name: PDF_STORAGE_PATH
             value: /pdf
           # Postgres
@@ -110,7 +111,7 @@ spec:
             emptyDir: {}
         initContainers:
           - name: migrations
-            image: docker-registry.hankeln.work/webservice/migrations:4.0.4 # renovate
+            image: docker-registry.hankeln.work/webservice/migrations:4.1.0 # renovate
             env:
               # OTEL
               - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES
@@ -129,50 +130,3 @@ spec:
                   secretKeyRef:
                     name: postgres-connection
                     key: PostgresConnectionString
-          - name: obsidian-sync
-            image: alpine/git:v2.54.0 # renovate
-            restartPolicy: Always
-            env:
-              - name: GIT_URL
-                valueFrom:
-                  secretKeyRef:
-                    name: git-credentials
-                    key: GIT_URL
-              - name: GIT_USER
-                valueFrom:
-                  secretKeyRef:
-                    name: git-credentials
-                    key: GIT_USER
-              - name: GIT_TOKEN
-                valueFrom:
-                  secretKeyRef:
-                    name: git-credentials
-                    key: GIT_TOKEN
-              - name: OBSIDIAN_PATH
-                value: /vault  # can be overridden
-              - name: PULL_INTERVAL
-                value: "900"  # seconds, 900 = 15 minutes
-            volumeMounts:
-              - name: obsidian
-                mountPath: /vault
-            command:
-              - /bin/sh
-              - -c
-              - |
-                set -eux
-
-                if [ -z "$(ls -A ${OBSIDIAN_PATH})" ]; then
-                  echo "[INFO] Directory is empty. Cloning repository..."
-                  git clone https://${GIT_USER}:${GIT_TOKEN}@${GIT_URL} ${OBSIDIAN_PATH}
-                  echo "[INFO] Clone completed."
-                else
-                  echo "[WARN] Directory not empty. Skipping clone."
-                fi
-
-                cd ${OBSIDIAN_PATH}
-                while true; do
-                  echo "[INFO] Pulling changes from remote repository..."
-                  git pull
-                  echo "[INFO] Pull completed. Sleeping for ${PULL_INTERVAL} seconds..."
-                  sleep ${PULL_INTERVAL}
-                done
