@@ -17,5 +17,3 @@ spec:
   extraEnv:
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
-    - name: RENOVATE_DEPENDENCY_DASHBOARD_FOOTER
-      value: "- [ ] <!-- manual job -->Check this box to trigger a request for Renovate to run again on this repository"

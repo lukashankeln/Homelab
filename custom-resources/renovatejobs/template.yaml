@@ -14,6 +14,20 @@ spec:
       cpu: "500m"
   webhook:
     enabled: true
+  extraEnv:
+    - name: RENOVATE_DEPENDENCY_DASHBOARD
+      value: |
+        {
+          "enabled": true,
+          "autoclose": false,
+          "title": "Dependency Dashboard",
+          "header": "This issue lists Renovate updates and detected dependencies. Read the [Dependency Dashboard](https://docs.renovatebot.com/key-concepts/dashboard/) docs to learn more.",
+          "footer": "- [ ] <!-- manual job -->Check this box to trigger a request for Renovate to run again on this repository",
+          "osvVulnerabilitySummary": "all",
+          "reportAbandonment": true,
+          "pinned": true,
+          "customize": {}
+        }
   metadata:
     labels:
       network-policy/egress-ingress-controller: "true"
