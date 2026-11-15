@@ -66,6 +66,8 @@ spec:
             value: "Information"
           - name: Logging__LogLevel__Microsoft.AspNetCore
             value: "Warning"
+          - name: Logging__LogLevel__Microsoft.EntityFrameworkCore.Database.Command
+            value: "Warning"
 
           # Obsidian
           - name: WebService__ApplicationOptions__ObsidianPath
