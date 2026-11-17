@@ -23,10 +23,21 @@ spec:
   extraEnv:
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
-    - name: RENOVATE_REPORT_TYPE
-      value: "logging"
     - name: RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS
       value: '["^\\.talos/scripts/3-get-image\\.sh$"]'
+    - name: RENOVATE_DEPENDENCY_DASHBOARD
+      value: |
+        {
+          "enabled": true,
+          "autoclose": false,
+          "title": "Dependency Dashboard",
+          "header": "This issue lists Renovate updates and detected dependencies.",
+          "footer": "- [ ] <!-- manual job -->Check this box to trigger a request for Renovate to run again on this repository",
+          "osvVulnerabilitySummary": "all",
+          "reportAbandonment": true,
+          "pinned": true,
+          "customize": {}
+        }
   webhook:
     enabled: true
     sync:

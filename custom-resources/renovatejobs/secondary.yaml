@@ -14,6 +14,3 @@ spec:
   provider:
     name: gitea
     endpoint: "https://git.hankeln.work"
-  extraEnv:
-    - name: RENOVATE_ALLOW_PLUGINS
-      value: "true"

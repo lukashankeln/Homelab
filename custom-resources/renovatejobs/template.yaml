@@ -15,19 +15,8 @@ spec:
   webhook:
     enabled: true
   extraEnv:
-    - name: RENOVATE_DEPENDENCY_DASHBOARD
-      value: |
-        {
-          "enabled": true,
-          "autoclose": false,
-          "title": "Dependency Dashboard",
-          "header": "This issue lists Renovate updates and detected dependencies.",
-          "footer": "- [ ] <!-- manual job -->Check this box to trigger a request for Renovate to run again on this repository",
-          "osvVulnerabilitySummary": "all",
-          "reportAbandonment": true,
-          "pinned": true,
-          "customize": {}
-        }
+    - name: RENOVATE_ALLOW_PLUGINS
+      value: "true"
   metadata:
     labels:
       network-policy/egress-ingress-controller: "true"
