@@ -4,7 +4,7 @@ metadata:
   name: renovate-operator
   namespace: argocd
   finalizers:
-    - resources-finalizers.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: hankeln
   revisionHistoryLimit: 1
