@@ -27,6 +27,9 @@ spec:
           tag: 1.31.8
         application:
           port: 8080
+          additionalLabels:
+            network-policy/ingress-port: "8080"
+            network-policy/ingress-cluster-port-8080: "true"
           probe:
             path: /alive
         route:
