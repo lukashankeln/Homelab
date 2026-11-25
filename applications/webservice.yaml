@@ -37,6 +37,7 @@ spec:
             network-policy/egress-otel: "true"
             network-policy/egress-postgres: "true"
             network-policy/egress-ingress-controller: "true"
+            network-policy/egress-cluster-port-8080: "true"
             network-policy/ingress-port: "5090"
             network-policy/ingress-cluster-port-5090: "true"
         resources:
@@ -82,6 +83,14 @@ spec:
               secretKeyRef:
                 name: git-credentials
                 key: GIT_URL
+          # ntfy
+          - name: WebService__ApplicationOptions__NtfyUrl
+            value: https://ntfy.hankeln.work/webservice
+          - name: WebService__ApplicationOptions__NtfyToken
+            valueFrom:
+              secretKeyRef:
+                name: ntfy-credentials
+                key: NTFY_TOKEN
           # pdf storage
           - name: PDF_STORAGE_PATH
             value: /pdf

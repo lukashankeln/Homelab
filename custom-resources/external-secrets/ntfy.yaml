@@ -47,3 +47,23 @@ spec:
     creationPolicy: Owner
     deletionPolicy: Merge
     name: ntfy-credentials
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: ntfy-credentials
+  namespace: webservice
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /notifications/ntfy
+        property: NTFY_TOKEN
+      secretKey: NTFY_TOKEN
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: ntfy-credentials
