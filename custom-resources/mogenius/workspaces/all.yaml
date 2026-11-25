@@ -33,8 +33,6 @@ spec:
       type: namespace
     - id: argocd
       type: namespace
-    - id: kanboard
-      type: namespace
     - id: mogenius-dev
       type: namespace
     - id: cert-manager

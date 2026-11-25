@@ -56,11 +56,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: kanboard
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: mogenius
   labels:
     pod-security.kubernetes.io/enforce: privileged

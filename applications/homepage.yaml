@@ -121,10 +121,6 @@ spec:
                         description: Cilium network flows
                         icon: cilium.png
                 - Applications:
-                    - Kanboard:
-                        href: https://board.hankeln.work
-                        description: Kanban project management
-                        icon: kanboard.png
                     - Ntfy:
                         href: https://ntfy.hankeln.work
                         description: Push notifications

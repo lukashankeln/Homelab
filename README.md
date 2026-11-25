@@ -72,7 +72,6 @@ Cilium is the CNI provider, handles LoadBalancer services (LB-IPAM with L2 annou
 ### Applications
 - **[Homepage](/applications/homepage.yaml)**: Unified dashboard for all services.
 - **[Docker UI](/applications/docker-ui.yaml)**: Docker registry with a management UI.
-- **[Kanboard](/applications/kanboard.yaml)**: Project management (Kanban board).
 - **[Ntfy](/applications/ntfy.yaml)**: Self-hosted push notification service.
 - **[Mogenius Operator](/applications/mogenius.yaml)**: Cluster management operator.
 - **[Too Restful API](/applications/too-restful-api.yaml)**: REST API service.
