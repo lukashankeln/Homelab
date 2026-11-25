@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: hankeln
+  revisionHistoryLimit: 1
   destination:
     name: in-cluster
     namespace: ntfy
@@ -13,32 +14,81 @@ spec:
       prune: true
       allowEmpty: true
   source:
-    repoURL: https://charts.sarabsingh.com
-    targetRevision: 0.1.7
-    chart: ntfy
+    repoURL: https://kube-the-home.github.io/generic-helm/
+    targetRevision: 2.7.0
+    chart: generic
     helm:
       valuesObject:
         image:
+          registry: docker.io
+          repository: binwiederhier/ntfy
           tag: v2.38.2 # datasource=docker depName=docker.io/binwiederhier/ntfy versioning=docker
-        ingress:
+        application:
+          port: 8080
+          args: ["serve"]
+          probe:
+            path: /v1/health
+            startup:
+              initialDelaySeconds: 0
+        resources:
+          requests:
+            memory: "30Mi"
+            cpu: "10m"
+          limits:
+            memory: "128Mi"
+        route:
           enabled: true
-          className: nginx
-          annotations:
-            kubernetes.io/ingress.class: nginx
-            cert-manager.io/cluster-issuer: letsencrypt-dns01-issuer
-          hosts:
-            - host: ntfy.hankeln.work
-              paths:
-                - path: /
-                  pathType: ImplementationSpecific
-          tls:
-            - secretName: ntfy-tls
-              hosts:
-                - ntfy.hankeln.work
-        config:
-          enabled: true
-          data:
-            base-url: "https://ntfy.hankeln.work"
-            upstream-base-url: "https://ntfy.sh"
-            auth-default-access: "read-write"
-            behind-proxy: true
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            - ntfy.hankeln.work
+        env:
+          - name: NTFY_LISTEN_HTTP
+            value: ":8080"
+          - name: NTFY_BASE_URL
+            value: "https://ntfy.hankeln.work"
+          - name: NTFY_UPSTREAM_BASE_URL
+            value: "https://ntfy.sh"
+          - name: NTFY_BEHIND_PROXY
+            value: "true"
+          - name: NTFY_CACHE_FILE
+            value: /var/cache/ntfy/cache.db
+          - name: NTFY_ATTACHMENT_CACHE_DIR
+            value: /var/cache/ntfy/attachments
+          # auth: users/tokens are provisioned declaratively on every start from Vault (notifications/ntfy)
+          - name: NTFY_AUTH_FILE
+            value: /var/cache/ntfy/user.db
+          - name: NTFY_AUTH_DEFAULT_ACCESS
+            value: "deny-all"
+          - name: NTFY_AUTH_USERS
+            valueFrom:
+              secretKeyRef:
+                name: ntfy-auth
+                key: NTFY_AUTH_USERS
+          - name: NTFY_AUTH_TOKENS
+            valueFrom:
+              secretKeyRef:
+                name: ntfy-auth
+                key: NTFY_AUTH_TOKENS
+        securityContext:
+          pod:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          container:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+        volumeMounts:
+          - name: cache
+            mountPath: /var/cache/ntfy
+        volumes:
+          - name: cache
+            emptyDir: {}

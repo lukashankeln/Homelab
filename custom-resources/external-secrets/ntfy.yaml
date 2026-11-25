@@ -1,0 +1,49 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: ntfy-auth
+  namespace: ntfy
+spec:
+  # bcrypt uses a random salt, so every refresh rewrites the secret; ntfy only reads it on startup
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /notifications/ntfy
+        property: NTFY_USER
+      secretKey: NTFY_USER
+    - remoteRef:
+        key: /notifications/ntfy
+        property: NTFY_TOKEN
+      secretKey: NTFY_TOKEN
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: ntfy-auth
+    template:
+      data:
+        # ntfy requires a password hash for provisioned users; the token doubles as the password
+        NTFY_AUTH_USERS: "{{ .NTFY_USER }}:{{ .NTFY_TOKEN | bcrypt }}:admin"
+        NTFY_AUTH_TOKENS: "{{ .NTFY_USER }}:{{ .NTFY_TOKEN }}:homelab"
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: ntfy-credentials
+  namespace: gatus
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /notifications/ntfy
+        property: NTFY_TOKEN
+      secretKey: NTFY_TOKEN
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: ntfy-credentials

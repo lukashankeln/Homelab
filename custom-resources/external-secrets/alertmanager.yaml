@@ -10,9 +10,9 @@ spec:
     kind: ClusterSecretStore
   data:
     - remoteRef:
-        key: /kube-prometheus-stack/alertmanager
-        property: discord_url
-      secretKey: webhook_url
+        key: /notifications/ntfy
+        property: NTFY_TOKEN
+      secretKey: ntfy_token
   target:
     creationPolicy: Owner
     deletionPolicy: Merge
@@ -34,12 +34,17 @@ spec:
                 matchers:
                   - alertname="Watchdog"
                 continue: false
-              - receiver: discord
+              - receiver: ntfy
                 matchers:
                   - severity =~ "warning|critical"
                 continue: false
           receivers:
             - name: "null"
-            - name: discord
-              discord_configs:
-                - webhook_url: "{{ .webhook_url }}"
+            - name: ntfy
+              webhook_configs:
+                - url: "http://ntfy.ntfy.svc.cluster.local:8080/alerts?template=alertmanager"
+                  send_resolved: true
+                  http_config:
+                    authorization:
+                      type: Bearer
+                      credentials: "{{ .ntfy_token }}"

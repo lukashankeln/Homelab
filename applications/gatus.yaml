@@ -43,6 +43,9 @@ spec:
               - status.hankeln.work
         persistence:
           enabled: true
+        envFrom:
+          - secretRef:
+              name: ntfy-credentials
         config:
           storage:
             type: sqlite
@@ -121,6 +124,7 @@ spec:
               topic: "alerts"
               priority: 2
               url: https://ntfy.hankeln.work
+              token: ${NTFY_TOKEN}
               click: https://status.hankeln.work/
               default-alert:
                 enabled: true

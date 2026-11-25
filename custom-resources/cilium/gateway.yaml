@@ -195,3 +195,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: ntfy
+      protocol: HTTPS
+      port: 443
+      hostname: ntfy.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: ntfy-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
