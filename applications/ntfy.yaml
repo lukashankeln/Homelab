@@ -26,6 +26,9 @@ spec:
         application:
           port: 8080
           args: ["serve"]
+          additionalLabels:
+            network-policy/ingress-port: "8080"
+            network-policy/ingress-cluster-port-8080: "true"
           probe:
             path: /v1/health
             startup:
