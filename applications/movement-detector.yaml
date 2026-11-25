@@ -49,6 +49,7 @@ spec:
             network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
             network-policy/egress-world: "true"
+            network-policy/egress-ingress-controller: "true"
             network-policy/ingress-port: "8080"
           probe:
             path: /healthz
@@ -70,6 +71,13 @@ spec:
                   max_videos: 100
                   stale_days: 30
 
+                notifications:
+                  - type: ntfy
+                    url: https://ntfy.hankeln.work
+                    topic: cameras
+                    token: ${NTFY_TOKEN}
+                    web_url: https://motion.hankeln.work
+
                 cameras:
                   - name: webcam
                     url: http://192.168.1.121:1984/api/stream.mjpeg?src=webcam
@@ -81,6 +89,11 @@ spec:
             value: "1"
           - name: PYTHONUNBUFFERED
             value: "1"
+          - name: NTFY_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: ntfy-credentials
+                key: NTFY_TOKEN
         volumeMounts:
           - name: deps
             mountPath: /deps
