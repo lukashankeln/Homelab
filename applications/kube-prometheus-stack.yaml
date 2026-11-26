@@ -166,7 +166,8 @@ spec:
             storageSpec:
               volumeClaimTemplate:
                 spec:
-                  storageClassName: nfs-client
+                  # TSDB on NFS is unsupported upstream and saturated the node's NFS client
+                  storageClassName: local-path
                   accessModes: [ReadWriteOnce]
                   resources:
                     requests:
