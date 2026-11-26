@@ -164,6 +164,9 @@ spec:
             podMonitorSelectorNilUsesHelmValues: false
             ruleSelectorNilUsesHelmValues: false
             storageSpec:
+              # Talos kubelet has no extraMount for /var/local-path-provisioner, so subPath
+              # dirs get created inside the kubelet container (root-owned, not on host).
+              disableMountSubPath: true
               volumeClaimTemplate:
                 spec:
                   # TSDB on NFS is unsupported upstream and saturated the node's NFS client
