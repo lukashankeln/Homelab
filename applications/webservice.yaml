@@ -24,7 +24,7 @@ spec:
         image:
           registry: docker-registry.hankeln.work
           repository: webservice/server
-          tag: 5.1.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
+          tag: 5.2.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
         persistence:
           enabled: true
           mountPath: /pdf
@@ -83,6 +83,8 @@ spec:
               secretKeyRef:
                 name: git-credentials
                 key: GIT_URL
+          - name: WebService__ApplicationOptions__TodoSyncEnabled
+            value: "true"
           # ntfy
           - name: WebService__ApplicationOptions__NtfyUrl
             value: https://ntfy.hankeln.work/webservice
