@@ -217,6 +217,13 @@ spec:
         defaultRules:
           rules:
             kubeProxy: false
+            # These SLO rules scan apiserver_request_* over the full retention every
+            # evaluation (~4min/round on NFS), saturating the node's NFS client and
+            # slowing co-located workloads (Gitea, CNPG primary).
+            kubeApiserverAvailability: false
+            kubeApiserverBurnrate: false
+            # KubeAPIErrorBudgetBurn alerts depend on the burnrate recording rules above
+            kubeApiserverSlos: false
           disabled:
             # TODO: reactivate once a third node is added to the cluster
             KubeMemoryOvercommit: true
