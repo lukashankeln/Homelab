@@ -28,6 +28,8 @@ spec:
             network-policy/egress-world: "true"
             network-policy/egress-postgres: "true"
             network-policy/egress-cluster-port-8082: "true"
+            # Pocket ID (OIDC) via the gateway: Cilium checks this pod's egress to the backend pod
+            network-policy/egress-cluster-port-8080: "true"
             network-policy/egress-ingress-controller: "true"
             network-policy/metrics-port-3000: "true"
         strategy:

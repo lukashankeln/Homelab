@@ -33,6 +33,9 @@ spec:
             network-policy/egress-dns: "true"
             network-policy/egress-postgres: "true"
             network-policy/ingress-port: "8080"
+            # OIDC clients in the cluster call id.hankeln.work through the gateway; Cilium then checks
+            # client egress -> this pod, so clients need network-policy/egress-cluster-port-8080
+            network-policy/ingress-cluster-port-8080: "true"
           probe:
             path: /healthz
         resources:
