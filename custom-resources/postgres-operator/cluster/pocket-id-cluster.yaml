@@ -1,0 +1,37 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pocket-id-postgresql
+  namespace: pocket-id
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=confirm
+spec:
+  instances: 1
+  logLevel: warning
+  primaryUpdateStrategy: unsupervised
+  enableSuperuserAccess: false
+  bootstrap:
+    initdb:
+      database: pocketid
+      owner: pocketid
+      # basic-auth secret from Vault (/PocketID), see custom-resources/external-secrets/pocket-id.yaml
+      secret:
+        name: pocket-id-db
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql
+    major: 17
+  monitoring:
+    enablePodMonitor: true
+  resources:
+    requests:
+      cpu: 20m
+      memory: 96Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
+  storage:
+    size: 1Gi
+  walStorage:
+    size: 1Gi

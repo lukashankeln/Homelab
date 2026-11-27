@@ -1,0 +1,65 @@
+# Vault /PocketID:
+#   POSTGRES_USER      pocketid
+#   POSTGRES_PASSWORD  URL-safe (e.g. openssl rand -hex 24), it is embedded in the connection string
+#   ENCRYPTION_KEY     openssl rand -base64 32; encrypts the token signing keys, keep an offline copy
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: pocket-id-db
+  namespace: pocket-id
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /PocketID
+        property: POSTGRES_USER
+      secretKey: POSTGRES_USER
+    - remoteRef:
+        key: /PocketID
+        property: POSTGRES_PASSWORD
+      secretKey: POSTGRES_PASSWORD
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: pocket-id-db
+    template:
+      # CNPG initdb expects a basic-auth secret
+      type: kubernetes.io/basic-auth
+      data:
+        username: "{{ .POSTGRES_USER }}"
+        password: "{{ .POSTGRES_PASSWORD }}"
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: pocket-id
+  namespace: pocket-id
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /PocketID
+        property: POSTGRES_USER
+      secretKey: POSTGRES_USER
+    - remoteRef:
+        key: /PocketID
+        property: POSTGRES_PASSWORD
+      secretKey: POSTGRES_PASSWORD
+    - remoteRef:
+        key: /PocketID
+        property: ENCRYPTION_KEY
+      secretKey: ENCRYPTION_KEY
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: pocket-id
+    template:
+      data:
+        ENCRYPTION_KEY: "{{ .ENCRYPTION_KEY }}"
+        DB_CONNECTION_STRING: "postgres://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASSWORD }}@pocket-id-postgresql-rw.pocket-id.svc.cluster.local:5432/pocketid?sslmode=require"

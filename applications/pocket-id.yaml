@@ -1,0 +1,106 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pocket-id
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: hankeln
+  revisionHistoryLimit: 1
+  destination:
+    name: in-cluster
+    namespace: pocket-id
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+  source:
+    # Pocket ID: passkey-only OIDC provider (https://pocket-id.org)
+    repoURL: https://kube-the-home.github.io/generic-helm/
+    targetRevision: 2.7.0
+    chart: generic
+    helm:
+      valuesObject:
+        image:
+          registry: ghcr.io
+          repository: pocket-id/pocket-id
+          tag: v2.19.3-distroless # datasource=docker depName=ghcr.io/pocket-id/pocket-id versioning=docker
+        application:
+          port: 8080
+          additionalLabels:
+            network-policy/deny-all: "true"
+            network-policy/egress-dns: "true"
+            network-policy/egress-postgres: "true"
+            network-policy/ingress-port: "8080"
+          probe:
+            path: /healthz
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "10m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        route:
+          enabled: true
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+          hostnames:
+            # Passkeys are bound to this domain: changing it invalidates every registered passkey
+            - id.hankeln.work
+        env:
+          - name: APP_URL
+            value: https://id.hankeln.work
+          - name: PORT
+            value: "8080"
+          # behind the Cilium gateway (Envoy): take the client IP from X-Forwarded-For
+          - name: TRUST_PROXY
+            value: "true"
+          - name: ALLOW_INSECURE_CALLBACK_URLS
+            value: "false"
+          # uploads (logos, profile pictures) live in Postgres, so the database backup covers everything
+          - name: FILE_BACKEND
+            value: database
+          - name: ANALYTICS_DISABLED
+            value: "true"
+          - name: VERSION_CHECK_DISABLED
+            value: "true"
+          - name: LOG_JSON
+            value: "true"
+          - name: ENCRYPTION_KEY
+            valueFrom:
+              secretKeyRef:
+                name: pocket-id
+                key: ENCRYPTION_KEY
+          - name: DB_CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                name: pocket-id
+                key: DB_CONNECTION_STRING
+        securityContext:
+          pod:
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
+            fsGroup: 65532
+            seccompProfile:
+              type: RuntimeDefault
+          container:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+        volumeMounts:
+          - name: data
+            mountPath: /app/data
+          - name: tmp
+            mountPath: /tmp
+        volumes:
+          - name: data
+            emptyDir: {}
+          - name: tmp
+            emptyDir: {}

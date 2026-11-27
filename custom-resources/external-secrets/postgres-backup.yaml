@@ -57,3 +57,34 @@ spec:
         POSTGRES_DB: gitea
         POSTGRES_HOST: gitea-postgresql-rw.gitea.svc.cluster.local
         BACKUP_NAME: gitea
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: postgres-backup-pocket-id
+  namespace: argo-workflows
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    # same credentials as the app (Vault /PocketID), so there is only one password to maintain
+    - remoteRef:
+        key: /PocketID
+        property: POSTGRES_USER
+      secretKey: POSTGRES_USER
+    - remoteRef:
+        key: /PocketID
+        property: POSTGRES_PASSWORD
+      secretKey: POSTGRES_PASSWORD
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: postgres-backup-pocket-id
+    template:
+      mergePolicy: Merge
+      data:
+        POSTGRES_DB: pocketid
+        POSTGRES_HOST: pocket-id-postgresql-rw.pocket-id.svc.cluster.local
+        BACKUP_NAME: pocket-id
