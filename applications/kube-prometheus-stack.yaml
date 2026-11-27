@@ -118,11 +118,32 @@ spec:
                 - name: cilium-gateway
                   namespace: cilium
               hostnames: [grafana.hankeln.work]
+          # Pocket ID client ID/secret as GF_AUTH_GENERIC_OAUTH_CLIENT_ID/_SECRET (custom-resources/external-secrets/grafana-oauth.yaml)
+          envFromSecrets:
+            - name: grafana-oauth
           grafana.ini:
             server:
               root_url: https://grafana.hankeln.work
             users:
               auto_assign_org_role: Admin
+            # SSO via Pocket ID; only homelab_admins get in (as Grafana server admin), everyone else is rejected
+            auth.generic_oauth:
+              enabled: true
+              name: Pocket ID
+              allow_sign_up: true
+              use_pkce: true
+              scopes: openid profile email groups
+              auth_url: https://id.hankeln.work/authorize
+              token_url: https://id.hankeln.work/api/oidc/token
+              api_url: https://id.hankeln.work/api/oidc/userinfo
+              signout_redirect_url: https://id.hankeln.work/api/oidc/end-session
+              login_attribute_path: preferred_username
+              name_attribute_path: name
+              email_attribute_path: email
+              groups_attribute_path: groups
+              role_attribute_path: contains(groups[*], 'homelab_admins') && 'GrafanaAdmin'
+              role_attribute_strict: true
+              allow_assign_grafana_admin: true
             log:
               mode: console
             log.console:

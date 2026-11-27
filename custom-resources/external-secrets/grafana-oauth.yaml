@@ -1,0 +1,27 @@
+# Vault /kube-prometheus-stack/grafana:
+#   OIDC_CLIENT_ID      client ID of the "Grafana" OIDC client in Pocket ID
+#   OIDC_CLIENT_SECRET  its client secret
+# Grafana reads them as env vars (envFromSecrets in applications/kube-prometheus-stack.yaml).
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: grafana-oauth
+  namespace: kube-prometheus-stack
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /kube-prometheus-stack/grafana
+        property: OIDC_CLIENT_ID
+      secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+    - remoteRef:
+        key: /kube-prometheus-stack/grafana
+        property: OIDC_CLIENT_SECRET
+      secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: grafana-oauth
