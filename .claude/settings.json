@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "hankeln": {
+      "source": {
+        "source": "git",
+        "url": "https://git.hankeln.work/Hankeln/agent-skills.git"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "agent-skills@hankeln": true
+  }
+}
