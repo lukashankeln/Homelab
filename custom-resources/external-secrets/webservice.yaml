@@ -8,15 +8,24 @@ spec:
   secretStoreRef:
     name: vault-backend
     kind: ClusterSecretStore
+  # same credentials as the nightly backup (Vault /postgres-backup/webservice), so there is only one password;
+  # the connection string is built here
   data:
     - remoteRef:
-        key: /WebService
-        property: PostgresConnectionString
-      secretKey: PostgresConnectionString
+        key: /postgres-backup/webservice
+        property: POSTGRES_USER
+      secretKey: POSTGRES_USER
+    - remoteRef:
+        key: /postgres-backup/webservice
+        property: POSTGRES_PASSWORD
+      secretKey: POSTGRES_PASSWORD
   target:
     creationPolicy: Owner
     deletionPolicy: Merge
     name: postgres-connection
+    template:
+      data:
+        PostgresConnectionString: "Host=webservice-postgresql-rw.webservice.svc.cluster.local:5432;Username={{ .POSTGRES_USER }};Password={{ .POSTGRES_PASSWORD }};Database=webservice"
 ---
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
