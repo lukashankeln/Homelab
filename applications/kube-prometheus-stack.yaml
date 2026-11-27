@@ -186,8 +186,6 @@ spec:
               cpu: 5m
               memory: 60Mi
           extraArgs:
-            - --collector.filesystem.mount-points-exclude=^/(home|tmp|var/tmp|boot|dev/shm/|run|sys/.+|dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
-            - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
             - --log.level=warn
             - --log.format=json
           securityContext:
