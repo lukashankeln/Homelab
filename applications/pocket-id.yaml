@@ -28,6 +28,8 @@ spec:
           tag: v2.19.3-distroless # datasource=docker depName=ghcr.io/pocket-id/pocket-id versioning=docker
         application:
           port: 8080
+          # Pocket ID refuses to start while another instance holds its DB lock, so a rolling update deadlocks
+          strategy: Recreate
           additionalLabels:
             network-policy/deny-all: "true"
             network-policy/egress-dns: "true"
