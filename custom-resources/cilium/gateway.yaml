@@ -206,3 +206,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: pocket-id
+      protocol: HTTPS
+      port: 443
+      hostname: id.hankeln.work
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: id-hankeln-tls
+      allowedRoutes:
+        namespaces:
+          from: All
