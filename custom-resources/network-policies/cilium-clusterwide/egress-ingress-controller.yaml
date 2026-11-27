@@ -13,3 +13,7 @@ spec:
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: cilium
+    # Cilium Gateway API: in-cluster calls to *.hankeln.work go through the gateway Envoy, which
+    # enforces the caller's egress policy against the reserved "ingress" entity (403 "Access denied" otherwise)
+    - toEntities:
+        - ingress
