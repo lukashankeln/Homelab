@@ -80,7 +80,11 @@ spec:
           cm:
             exec.enabled: "true"
             url: https://argocd.hankeln.work
-            # SSO via Pocket ID; the local admin account stays enabled as break-glass login.
+            # Local admin disabled, login only via Pocket ID.
+            # Break-glass if Pocket ID is down: kubectl -n argocd patch cm argocd-cm -p '{"data":{"admin.enabled":"true"}}'
+            # (no selfHeal on this app, so the patch stays until the next sync of a git change)
+            admin.enabled: "false"
+            # SSO via Pocket ID
             # $argocd-oidc:<key> reads from the secret created by custom-resources/external-secrets/argocd.yaml
             oidc.config: |
               name: Pocket ID
