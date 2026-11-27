@@ -24,7 +24,7 @@ spec:
         image:
           registry: docker-registry.hankeln.work
           repository: webservice/server
-          tag: 5.4.2 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
+          tag: 6.0.0 # datasource=docker depName=docker-registry.hankeln.work/webservice/server versioning=docker
         persistence:
           enabled: true
           mountPath: /pdf
@@ -93,6 +93,19 @@ spec:
               secretKeyRef:
                 name: ntfy-credentials
                 key: NTFY_TOKEN
+          # OIDC login via Pocket ID (ADR-012); the server refuses to start if one is missing
+          - name: WebService__Oidc__Authority
+            value: https://id.hankeln.work
+          - name: WebService__Oidc__ClientId
+            valueFrom:
+              secretKeyRef:
+                name: webservice-oidc
+                key: OIDC_CLIENT_ID
+          - name: WebService__Oidc__ClientSecret
+            valueFrom:
+              secretKeyRef:
+                name: webservice-oidc
+                key: OIDC_CLIENT_SECRET
           # pdf storage
           - name: PDF_STORAGE_PATH
             value: /pdf
@@ -129,7 +142,7 @@ spec:
             emptyDir: {}
         initContainers:
           - name: migrations
-            image: docker-registry.hankeln.work/webservice/migrations:5.4.2 # renovate
+            image: docker-registry.hankeln.work/webservice/migrations:6.0.0 # renovate
             env:
               # postgres
               - name: ConnectionStrings__WebService

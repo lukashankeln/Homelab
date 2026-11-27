@@ -54,3 +54,29 @@ spec:
     creationPolicy: Owner
     deletionPolicy: Merge
     name: git-credentials
+---
+# Vault /WebService: OIDC_CLIENT_ID / OIDC_CLIENT_SECRET of the "WebService" client in Pocket ID
+# (callback https://web.hankeln.work/signin-oidc unless the app sets another CallbackPath)
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: webservice-oidc
+  namespace: webservice
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /WebService
+        property: OIDC_CLIENT_ID
+      secretKey: OIDC_CLIENT_ID
+    - remoteRef:
+        key: /WebService
+        property: OIDC_CLIENT_SECRET
+      secretKey: OIDC_CLIENT_SECRET
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: webservice-oidc
