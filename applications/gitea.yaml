@@ -65,9 +65,23 @@ spec:
             valkey:
               password: changemeplease
         gitea:
+          # SSO via Pocket ID. The init container creates/updates the auth source on every start.
+          # Callback URL in Pocket ID: https://git.hankeln.work/user/oauth2/PocketID/callback
+          oauth:
+            - name: PocketID
+              provider: openidConnect
+              existingSecret: gitea-oauth-pocket-id
+              autoDiscoverUrl: https://id.hankeln.work/.well-known/openid-configuration
+              scopes: profile,email,groups
+              groupClaimName: groups
+              adminGroup: homelab_admins
           config:
             security:
               ALLOWED_HOST_LIST: renovate-webhooks.hankeln.work
+            oauth2_client:
+              # no new accounts from SSO: the first Pocket ID login links to the existing user (password once)
+              ENABLE_AUTO_REGISTRATION: false
+              ACCOUNT_LINKING: login
           metrics:
             enabled: true
             serviceMonitor:
