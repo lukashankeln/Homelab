@@ -79,5 +79,21 @@ spec:
         configs:
           cm:
             exec.enabled: "true"
+            url: https://argocd.hankeln.work
+            # SSO via Pocket ID; the local admin account stays enabled as break-glass login.
+            # $argocd-oidc:<key> reads from the secret created by custom-resources/external-secrets/argocd.yaml
+            oidc.config: |
+              name: Pocket ID
+              issuer: https://id.hankeln.work
+              clientID: $argocd-oidc:clientID
+              clientSecret: $argocd-oidc:clientSecret
+              requestedScopes: ["openid", "profile", "email", "groups"]
+              enablePKCEAuthentication: true
+          rbac:
+            # users without a mapped group get no access at all
+            policy.default: ""
+            policy.csv: |
+              g, homelab_admins, role:admin
+            scopes: "[groups]"
           params:
             controller.diff.server.side: "true"

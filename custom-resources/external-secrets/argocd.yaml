@@ -1,0 +1,31 @@
+# Vault /ArgoCD:
+#   OIDC_CLIENT_ID      client ID of the "ArgoCD" OIDC client in Pocket ID
+#   OIDC_CLIENT_SECRET  its client secret
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: argocd-oidc
+  namespace: argocd
+spec:
+  refreshInterval: 10s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+    - remoteRef:
+        key: /ArgoCD
+        property: OIDC_CLIENT_ID
+      secretKey: clientID
+    - remoteRef:
+        key: /ArgoCD
+        property: OIDC_CLIENT_SECRET
+      secretKey: clientSecret
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Merge
+    name: argocd-oidc
+    template:
+      metadata:
+        labels:
+          # ArgoCD only resolves $<secret>:<key> references from secrets with this label
+          app.kubernetes.io/part-of: argocd
