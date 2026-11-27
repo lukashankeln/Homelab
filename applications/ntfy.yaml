@@ -22,7 +22,7 @@ spec:
         image:
           registry: docker.io
           repository: binwiederhier/ntfy
-          tag: v2.38.2 # datasource=docker depName=docker.io/binwiederhier/ntfy versioning=docker
+          tag: v2.38.3 # datasource=docker depName=docker.io/binwiederhier/ntfy versioning=docker
         application:
           port: 8080
           args: ["serve"]
